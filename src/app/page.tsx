@@ -3,6 +3,7 @@ import { Hero } from "@/components/home/Hero";
 import { ProfilePreview } from "@/components/home/ProfilePreview";
 import { Opportunities } from "@/components/home/Opportunities";
 import { FAQ } from "@/components/home/FAQ";
+import { CTA } from "@/components/home/CTA";
 
 export default function Home() {
   return (
@@ -21,6 +22,8 @@ export default function Home() {
       <Opportunities />
 
       <FAQ />
+
+      <CTA />
     </div>
   );
 }
