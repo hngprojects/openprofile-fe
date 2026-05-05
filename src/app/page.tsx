@@ -2,6 +2,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Hero } from "@/components/home/Hero";
 import { ProfilePreview } from "@/components/home/ProfilePreview";
 import { Opportunities } from "@/components/home/Opportunities";
+import { FAQ } from "@/components/home/FAQ";
 
 export default function Home() {
   return (
@@ -18,6 +19,8 @@ export default function Home() {
       </section>
 
       <Opportunities />
+
+      <FAQ />
     </div>
   );
 }
