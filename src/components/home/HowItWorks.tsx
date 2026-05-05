@@ -49,7 +49,7 @@ const steps = [
     textColor: "text-[#050505]",
     lightBg: "bg-emerald-50",
     discover: true,
-    imgUrl: "discover.svg",
+    imgUrl: "/discover.svg",
   },
 ];
 
@@ -182,7 +182,7 @@ export default function HowItWorks() {
                               <button
                                 key={i}
                                 className={cn(
-                                  "px-3 py-1.5 text-xs font-medium bg-teal-50 text-teal-700 rounded-full hover:bg-teal-100 transition shadow-gray-800",
+                                  "px-3 py-1.5 text-xs font-medium bg-teal-50 text-teal-700 rounded-full hover:bg-teal-100 transition shadow-sm",
                                   i === 2
                                     ? "bg-white text-[#145B33]"
                                     : "bg-[#DBEFF2] text-[#087583]",
@@ -246,6 +246,7 @@ export default function HowItWorks() {
                             type="text"
                             placeholder="Search for Sarah Charles..."
                             className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-gray-200 text-sm bg-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                            aria-label="Search for a value"
                           />
                         </div>
 
