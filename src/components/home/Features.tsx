@@ -171,13 +171,13 @@ function FeatureSection({
   description: string;
   features: { title: string; description: string }[];
   card: React.ReactElement;
-  reverse?: Boolean;
+  reverse?: boolean;
 }) {
   return (
     <div
       className={cn(
         "mx-auto flex flex-wrap items-center gap-12 pb-16 mt-10",
-        reverse && "flex-row-reverse",
+        reverse ? "flex-row-reverse" : "",
       )}
     >
       <div className="flex-1 min-w-65 space-y-5">
@@ -210,8 +210,8 @@ function FeatureSection({
               </svg>
 
               <div>
-                <p className="text-sm font-semibold text-gray-200">{title}</p>
-                <p className="text-xs text-gray-500">{description}</p>
+                <p className="text-sm font-semibold text-gray-200">{f.title}</p>
+                <p className="text-xs text-gray-500">{f.description}</p>
               </div>
             </div>
           ))}
@@ -261,10 +261,6 @@ function SearchCard() {
             <div className="flex-1 min-w-0">
               <p className="flex items-center gap-1.5 font-semibold text-gray-900 text-sm truncate">
                 {p.name}
-
-                <span className="bg-gray-50 inline-block h-2 w-2 rounded-full0">
-                  {p.online}
-                </span>
               </p>
 
               <p className="text-xs text-gray-500">{p.role}</p>
@@ -292,7 +288,7 @@ function VerificationCard() {
   return (
     <div className="rounded-2xl bg-white p-7 shadow-[0_8px_40px_rgba(0,0,0,0.18)] w-full">
       <div className="mb-5 flex flex-col items-center gap-2 text-center">
-        <Avatar initials="SC" bg="#f97316" size="lg" />
+        <Avatar initials="SC" bg="#FEA360" size="lg" />
         <div className="flex items-center gap-1.5 font-bold text-gray-900">
           Sarah Charles
         </div>
