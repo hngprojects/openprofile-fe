@@ -3,6 +3,7 @@ import { Hero } from "@/components/home/Hero";
 import { ProfilePreview } from "@/components/home/ProfilePreview";
 import { Opportunities } from "@/components/home/Opportunities";
 import { FAQ } from "@/components/home/FAQ";
+import HowItWorks from "@/components/home/HowItWorks";
 import { CTA } from "@/components/home/CTA";
 import Footer from "@/components/layout/Footer";
 
@@ -21,6 +22,8 @@ export default function Home() {
       </section>
 
       <Opportunities />
+
+      <HowItWorks />
 
       <FAQ />
 

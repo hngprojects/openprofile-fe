@@ -1,0 +1,41 @@
+<svg width="76" height="76" viewBox="0 0 76 76" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g filter="url(#filter0_d_1401_44415)">
+<rect x="10.4941" width="66" height="60" rx="9" transform="rotate(10 10.4941 0)" fill="#F1F1F1"/>
+<rect x="10.7983" y="0.434421" width="65.25" height="59.25" rx="8.625" transform="rotate(10 10.7983 0.434421)" stroke="white" stroke-width="0.75"/>
+<path d="M44.1569 45.9178L39.2329 45.0496" stroke="#087583" stroke-width="1.125" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M41.2607 47.9459L42.1289 43.0219" stroke="#087583" stroke-width="1.125" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M38.2252 33.9182C38.1042 33.8841 37.9565 33.8581 37.8189 33.8465C34.9065 33.2314 33.0031 30.4207 33.5241 27.4663C34.0436 24.4482 36.9252 22.4304 39.9412 22.9622C42.9572 23.494 44.9749 26.3757 44.4431 29.3916C43.9222 32.346 41.16 34.3341 38.2252 33.9182Z" stroke="#087583" stroke-width="1.125" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M35.6417 47.3482C33.4013 46.9532 31.273 45.994 29.7739 44.5619C27.1465 42.0424 27.7195 38.7926 31.048 37.3359C34.8327 35.6678 40.3845 36.6467 43.3704 39.5087" stroke="#087583" stroke-width="1.125" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g filter="url(#filter1_d_1401_44415)">
+<rect x="54.123" y="54.9106" width="18" height="18" rx="9" transform="rotate(10 54.123 54.9106)" fill="#31E47F"/>
+<rect x="54.3258" y="55.2003" width="17.5" height="17.5" rx="8.75" transform="rotate(10 54.3258 55.2003)" stroke="#8850EE" stroke-width="0.5"/>
+<g clip-path="url(#clip0_1401_44415)">
+<path d="M63.929 64.8056C64.0174 64.7414 64.077 64.645 64.095 64.5372C64.1131 64.4295 64.0881 64.319 64.0254 64.2295C63.9627 64.14 63.8674 64.0787 63.76 64.0588C63.6526 64.0389 63.5416 64.0619 63.4511 64.123L60.8928 65.9144L59.7775 64.3215C59.7132 64.2331 59.6169 64.1734 59.5091 64.1554C59.4014 64.1374 59.2909 64.1624 59.2014 64.2251C59.1119 64.2877 59.0506 64.383 59.0307 64.4904C59.0107 64.5979 59.0338 64.7088 59.0949 64.7994L60.4469 66.7301C60.5102 66.8206 60.607 66.8823 60.7158 66.9014C60.8246 66.9206 60.9366 66.8958 61.0271 66.8325L63.9232 64.8046L63.929 64.8056Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M66.3475 66.2049C65.8685 68.9213 63.2717 70.7396 60.5552 70.2607C57.8388 69.7817 56.0205 67.1848 56.4994 64.4684C56.9784 61.752 59.5753 59.9336 62.2917 60.4126C65.0081 60.8916 66.8265 63.4884 66.3475 66.2049ZM65.5268 66.0602C65.1274 68.3252 62.965 69.8394 60.6999 69.44C58.4349 69.0406 56.9207 66.8781 57.3201 64.6131C57.7195 62.348 59.8819 60.8339 62.147 61.2333C64.4121 61.6326 65.9262 63.7951 65.5268 66.0602Z" fill="white"/>
+</g>
+</g>
+<defs>
+<filter id="filter0_d_1401_44415" x="-1.4248" y="-0.75" width="78.416" height="73.5492" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="0.75"/>
+<feGaussianBlur stdDeviation="0.75"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1401_44415"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_1401_44415" result="shape"/>
+</filter>
+<filter id="filter1_d_1401_44415" x="49.9976" y="54.4106" width="22.8521" height="22.8522" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="0.5"/>
+<feGaussianBlur stdDeviation="0.5"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1401_44415"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_1401_44415" result="shape"/>
+</filter>
+<clipPath id="clip0_1401_44415">
+<rect width="10" height="10" fill="white" transform="translate(57.3677 59.5443) rotate(10)"/>
+</clipPath>
+</defs>
+</svg>
