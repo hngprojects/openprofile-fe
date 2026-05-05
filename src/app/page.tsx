@@ -4,6 +4,7 @@ import { ProfilePreview } from "@/components/home/ProfilePreview";
 import { Opportunities } from "@/components/home/Opportunities";
 import { FAQ } from "@/components/home/FAQ";
 import { CTA } from "@/components/home/CTA";
+import Footer from "@/components/layout/Footer";
 
 export default function Home() {
   return (
@@ -24,6 +25,7 @@ export default function Home() {
       <FAQ />
 
       <CTA />
+      <Footer />
     </div>
   );
 }
