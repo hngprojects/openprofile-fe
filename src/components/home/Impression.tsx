@@ -42,7 +42,7 @@ const socials = [
 
 export default function Impression() {
   return (
-    <div className="font-afacad text-primary flex items-center justify-between w-full gap-20">
+    <div className="font-afacad text-primary flex items-center justify-between w-full gap-20 max-w-7xl">
       {/* left visual */}
       <motion.div
         variants={fadeIn}

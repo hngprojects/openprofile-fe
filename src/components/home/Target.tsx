@@ -52,7 +52,7 @@ const fadeUp = {
 
 export default function Target() {
   return (
-    <div className="text-primary font-sfpror">
+    <div className="text-primary font-sfpror max-w-7xl">
       {/* header */}
       <motion.div
         variants={fadeUp}
