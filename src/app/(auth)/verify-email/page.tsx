@@ -35,11 +35,16 @@ export default function VerifyEmailPage() {
   }
 
   function handlePaste(e: React.ClipboardEvent) {
-    const pasted = e.clipboardData.getData("text").replace(/\D/g, "").slice(0, CODE_LENGTH);
+    const pasted = e.clipboardData
+      .getData("text")
+      .replace(/\D/g, "")
+      .slice(0, CODE_LENGTH);
     if (!pasted) return;
     e.preventDefault();
     const next = [...code];
-    pasted.split("").forEach((c, i) => { next[i] = c; });
+    pasted.split("").forEach((c, i) => {
+      next[i] = c;
+    });
     setCode(next);
     inputs.current[Math.min(pasted.length, CODE_LENGTH - 1)]?.focus();
   }
@@ -57,7 +62,9 @@ export default function VerifyEmailPage() {
   return (
     <AuthLayout>
       <div className="text-center mb-2">
-        <h1 className="text-2xl font-bold text-[#050505]">Email Verification</h1>
+        <h1 className="text-2xl font-bold text-[#050505]">
+          Email Verification
+        </h1>
         <p className="text-sm text-gray-500 mt-1">
           We sent a temporary code to lu******@gmail.com
         </p>
@@ -69,7 +76,9 @@ export default function VerifyEmailPage() {
           {code.map((val, i) => (
             <input
               key={i}
-              ref={(el) => { inputs.current[i] = el; }}
+              ref={(el) => {
+                inputs.current[i] = el;
+              }}
               type="text"
               inputMode="numeric"
               maxLength={1}
@@ -94,8 +103,10 @@ export default function VerifyEmailPage() {
         Didn&apos;t get a code?{" "}
         {seconds > 0 ? (
           <>
-            <span className="text-[#087583] font-medium">Resend Code</span>
-            {" "}in <span className="font-medium">{mm}:{ss}</span>
+            <span className="text-[#087583] font-medium">Resend Code</span> in{" "}
+            <span className="font-medium">
+              {mm}:{ss}
+            </span>
           </>
         ) : (
           <button

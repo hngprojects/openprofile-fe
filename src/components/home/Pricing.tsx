@@ -82,7 +82,7 @@ export function Pricing() {
   };
 
   return (
-    <section className="w-full bg-[#FAFAFA] py-20 md:py-32">
+    <section className="w-full bg-[#FAFAFA] py-16">
       <motion.div
         initial="hidden"
         whileInView="visible"
@@ -92,7 +92,7 @@ export function Pricing() {
       >
         <motion.h2
           variants={itemVariants}
-          className="text-[28px] md:text-[40px] font-semibold text-center text-[#050505] mb-16"
+          className="text-[28px] md:text-[40px] font-semibold text-center text-[#050505] mb-10"
         >
           Choose the plan that fits your needs.
         </motion.h2>
@@ -114,13 +114,13 @@ export function Pricing() {
               <div className="mb-8">
                 <p
                   className={`text-[16px] font-medium mb-4 ${
-                    plan.highlighted ? "text-white/90" : "text-[#525252]"
+                    plan.highlighted ? "text-white" : "text-[#525252]"
                   }`}
                 >
                   {plan.name}
                 </p>
                 <div
-                  className={`flex items-baseline gap-1 border-b pb-8 ${
+                  className={`flex items-baseline gap-1 border-b ${
                     plan.highlighted ? "border-white/20" : "border-[#E5E5E5]"
                   }`}
                 >
@@ -145,7 +145,10 @@ export function Pricing() {
                 </p>
                 <ul className="space-y-4 mb-10">
                   {plan.features.map((feature, fIndex) => (
-                    <li key={fIndex} className="flex items-start gap-3 text-[14px]">
+                    <li
+                      key={fIndex}
+                      className="flex items-start gap-3 text-[14px]"
+                    >
                       <Check
                         className={`w-4 h-4 shrink-0 mt-0.5 ${
                           plan.highlighted ? "text-white" : "text-[#087583]"
@@ -153,7 +156,7 @@ export function Pricing() {
                       />
                       <span
                         className={
-                          plan.highlighted ? "text-white/90" : "text-[#525252]"
+                          plan.highlighted ? "text-white" : "text-[#525252]"
                         }
                       >
                         {feature}

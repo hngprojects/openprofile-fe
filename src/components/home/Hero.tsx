@@ -1,11 +1,9 @@
 import { BsLightningChargeFill, BsCheckLg } from "react-icons/bs";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 
 export function Hero() {
   return (
     <section className="flex flex-col items-center w-full bg-[#FEFEFE]">
-      <div className="pt-16 pb-20 text-center relative px-4 md:px-8 max-w-7xl mx-auto w-full flex flex-col items-center">
+      <div className="pt-16 pb-16 text-center relative px-4 md:px-8 max-w-7xl mx-auto w-full flex flex-col items-center">
         {/* Top Badge */}
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#F2FDFE] text-[#087583] text-sm font-bold mb-8 shadow-sm">
           <BsLightningChargeFill className="w-3.5 h-3.5" />
@@ -18,8 +16,8 @@ export function Hero() {
         </h1>
 
         <p className="text-[15px] md:text-[17px] text-[#050505] max-w-[680px] mx-auto leading-relaxed mb-16">
-          Whether you're freelancing, creating content, or building products,
-          Open
+          Whether you&apos;re freelancing, creating content, or building
+          products, Open
           <br className="hidden md:block" /> Profile helps you stand out.
         </p>
 

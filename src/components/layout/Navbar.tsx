@@ -35,7 +35,7 @@ export function Navbar() {
             </Button>
             <Button className="bg-[#087583] text-white hover:bg-[#065E69]/90 font-semibold rounded-[8px] px-6 h-10 flex items-center gap-2 shadow-none border border-[#087583]">
               Button CTA
-              <div className="w-4 h-4 rounded-full border-2 border-white"></div>
+              <div className="w-4 h-4 rounded-full border-2 border-white" />
             </Button>
           </div>
         </div>

@@ -7,12 +7,10 @@ const SECURITY_HEADERS: Record<string, string> = {
   "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
 };
 
-const PUBLIC_ROUTES = ["/", "/login", "/signup", "/auth/callback", "/verify-email", "/verify-email/success", "/forgot-password"];
 const PROTECTED_PREFIX = ["/dashboard", "/profile", "/settings"];
 
 export const proxy: NextProxy = async (request) => {
-  const requestId =
-    request.headers.get("x-request-id") ?? crypto.randomUUID();
+  const requestId = request.headers.get("x-request-id") ?? crypto.randomUUID();
 
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set("x-request-id", requestId);
