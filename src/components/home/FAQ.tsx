@@ -60,7 +60,7 @@ export function FAQ() {
   };
 
   return (
-    <section className="w-full bg-[#FEFEFE] py-20 md:py-32">
+    <section className="w-full bg-[#FEFEFE] py-16">
       <motion.div
         initial="hidden"
         whileInView="visible"
@@ -68,10 +68,10 @@ export function FAQ() {
         variants={containerVariants}
         className="max-w-7xl mx-auto px-4 md:px-8"
       >
-        <div className="text-center mb-16">
+        <div className="text-center mb-10">
           <motion.h2
             variants={itemVariants}
-            className="text-[32px] md:text-[44px] font-bold tracking-tight text-[#050505]"
+            className="text-[32px] md:text-[40px] font-semibold tracking-tight text-[#050505]"
           >
             Frequently asked questions
           </motion.h2>

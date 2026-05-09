@@ -24,3 +24,8 @@ export async function getSessionToken() {
   const store = await cookies();
   return store.get(COOKIE_NAME)?.value ?? null;
 }
+
+export function decrypt(token: string) {
+  // TODO: implement actual decryption/verification
+  return { userId: token };
+}

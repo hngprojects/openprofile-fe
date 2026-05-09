@@ -1,7 +1,6 @@
 "use server";
 import { redirect } from "next/navigation";
-import { createSession, deleteSession } from "@/lib/session";
-import { env } from "@/env/server";
+import { deleteSession } from "@/lib/session";
 
 export type AuthState = { error?: string } | undefined;
 
@@ -13,7 +12,8 @@ export async function emailSignup(
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
 
-  if (!name || !email || !password) return { error: "All fields are required." };
+  if (!name || !email || !password)
+    return { error: "All fields are required." };
 
   // TODO: call backend when ready
   // const res = await fetch(`${env.API_BASE_URL}/auth/signup`, {

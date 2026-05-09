@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { Accordion as AccordionPrimitive } from "radix-ui"
+import * as React from "react";
+import { Accordion as AccordionPrimitive } from "radix-ui";
 
-import { cn } from "@/lib/utils"
-import { Plus, Minus } from "lucide-react"
+import { cn } from "@/lib/utils";
+import { Plus, Minus } from "lucide-react";
 
 function Accordion({
   className,
@@ -16,7 +16,7 @@ function Accordion({
       className={cn("flex w-full flex-col", className)}
       {...props}
     />
-  )
+  );
 }
 
 function AccordionItem({
@@ -29,7 +29,7 @@ function AccordionItem({
       className={cn("border-b border-[#E5E5E5] last:border-0", className)}
       {...props}
     />
-  )
+  );
 }
 
 function AccordionTrigger({
@@ -49,18 +49,18 @@ function AccordionTrigger({
       >
         {children}
         <div className="flex items-center justify-center text-[#050505]">
-          <Plus 
+          <Plus
             size={20}
-            className="group-aria-expanded/accordion-trigger:hidden" 
+            className="group-aria-expanded/accordion-trigger:hidden"
           />
-          <Minus 
+          <Minus
             size={20}
-            className="hidden group-aria-expanded/accordion-trigger:inline" 
+            className="hidden group-aria-expanded/accordion-trigger:inline"
           />
         </div>
       </AccordionPrimitive.Trigger>
     </AccordionPrimitive.Header>
-  )
+  );
 }
 
 function AccordionContent({
@@ -76,7 +76,7 @@ function AccordionContent({
     >
       <div className={cn("pt-0 pb-4", className)}>{children}</div>
     </AccordionPrimitive.Content>
-  )
+  );
 }
 
-export { Accordion, AccordionItem, AccordionTrigger, AccordionContent }
+export { Accordion, AccordionItem, AccordionTrigger, AccordionContent };
