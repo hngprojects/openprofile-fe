@@ -1,4 +1,5 @@
 import { NextResponse, type NextProxy } from "next/server";
+import { decrypt } from "@/lib/session";
 
 const SECURITY_HEADERS: Record<string, string> = {
   "X-Frame-Options": "DENY",
@@ -7,12 +8,38 @@ const SECURITY_HEADERS: Record<string, string> = {
   "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
 };
 
-export const proxy: NextProxy = (request) => {
+const PUBLIC_ROUTES = ["/", "/login", "/signup", "/auth/callback", "/verify-email", "/verify-email/success", "/forgot-password"];
+const PROTECTED_PREFIX = ["/dashboard", "/profile", "/settings"];
+
+export const proxy: NextProxy = async (request) => {
   const requestId =
     request.headers.get("x-request-id") ?? crypto.randomUUID();
 
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set("x-request-id", requestId);
+
+  const { pathname } = request.nextUrl;
+
+  const isProtected = PROTECTED_PREFIX.some((p) => pathname.startsWith(p));
+  const isPublic = PUBLIC_ROUTES.some((p) => pathname === p || pathname.startsWith(p));
+
+  if (isProtected) {
+    const token = request.cookies.get("session")?.value;
+    const session = token ? await decrypt(token) : null;
+
+    if (!session?.userId) {
+      return NextResponse.redirect(new URL("/login", request.url));
+    }
+  }
+
+  // Redirect authenticated users away from login/signup
+  if (pathname === "/login" || pathname === "/signup") {
+    const token = request.cookies.get("session")?.value;
+    const session = token ? await decrypt(token) : null;
+    if (session?.userId) {
+      return NextResponse.redirect(new URL("/dashboard", request.url));
+    }
+  }
 
   const response = NextResponse.next({
     request: { headers: requestHeaders },
