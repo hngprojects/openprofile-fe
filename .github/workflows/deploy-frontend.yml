@@ -2,13 +2,21 @@ name: Frontend CI/CD
 
 on:
   push:
-    branches: [feature/ci-cd, dev, staging, main]
+    branches:
+      - feature/ci-cd
+      - dev
+      - staging
+      - main
   pull_request:
-    branches: [feature/ci-cd, dev, staging, main]
+    branches:
+      - feature/ci-cd
+      - dev
+      - staging
+      - main
 
 jobs:
   ci:
-    name: CI — Build, Lint & Test
+    name: CI — Lint, Typecheck & Build
     runs-on: ubuntu-latest
 
     steps:
@@ -40,31 +48,6 @@ jobs:
         env:
           NODE_ENV: production
 
-  #deploy-dev:
-   # name: Deploy — Dev
-    #needs: ci
-    #runs-on: ubuntu-latest
-    #if: github.ref == 'refs/heads/dev' && github.event_name == 'push'
-    #environment: dev
-
-    #steps:
-     # - name: Checkout code
-      #  uses: actions/checkout@v4
-
-     # - name: Deploy to dev server
-      #  uses: appleboy/ssh-action@v1.0.3
-       # with:
-        #  host: ${{ secrets.EC2_HOST }}
-         # username: ${{ secrets.EC2_USER }}
-          #password: ${{ secrets.EC2_PASSWORD }}
-          #script: |
-           # cd /home/ubuntu/openprofile-fe
-            #git pull origin dev
-            #pnpm install --frozen-lockfile
-            #pnpm build
-            #pm2 restart openprofile-dev-fe || pm2 start pnpm --name "openprofile-dev-fe" -- start
-            #pm2 save
-
   deploy-staging:
     name: Deploy — Staging
     needs: ci
@@ -76,22 +59,49 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Deploy to staging server
+      - name: Copy files to server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          password: ${{ secrets.EC2_PASSWORD }}
+          source: "./"
+          target: /var/www/openprofile-fe/staging
+          exclude: "node_modules,.git,.next"
+
+      - name: Copy env file
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           password: ${{ secrets.EC2_PASSWORD }}
           script: |
-            cd /home/ubuntu/openprofile-fe
-            git pull origin staging
-            pnpm install --frozen-lockfile
+            cp /var/www/openprofile-fe/envfile/.env.staging /var/www/openprofile-fe/staging/.env
+
+      - name: Install dependencies and build
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          password: ${{ secrets.EC2_PASSWORD }}
+          script: |
+            cd /var/www/openprofile-fe/staging
+            pnpm install --no-frozen-lockfile
             pnpm build
-            pm2 restart openprofile-staging-fe || pm2 start pnpm --name "openprofile-staging-fe" -- start
+
+      - name: Start app with PM2
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          password: ${{ secrets.EC2_PASSWORD }}
+          script: |
+            cd /var/www/openprofile-fe/staging
+            pm2 restart openprofile-staging-fe || PORT=3001 pm2 start "pnpm start" --name openprofile-staging-fe
             pm2 save
 
   deploy-main:
-    name: Deploy — main
+    name: Deploy — Main
     needs: ci
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
@@ -101,18 +111,43 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Deploy to main server
+      - name: Copy files to server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          password: ${{ secrets.EC2_PASSWORD }}
+          source: "./"
+          target: /var/www/openprofile-fe/main
+          exclude: "node_modules,.git,.next"
+
+      - name: Copy env file
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           password: ${{ secrets.EC2_PASSWORD }}
           script: |
-            cd /home/ubuntu/openprofile-fe
-            git pull origin main
-            pnpm install --frozen-lockfile
-            pnpm build
-            pm2 restart openprofile-prod-fe || pm2 start pnpm --name "openprofile-prod-fe" -- start
-            pm2 save
+            cp /var/www/openprofile-fe/envfile/.env.prod /var/www/openprofile-fe/main/.env
 
-        
+      - name: Install dependencies and build
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          password: ${{ secrets.EC2_PASSWORD }}
+          script: |
+            cd /var/www/openprofile-fe/main
+            pnpm install --no-frozen-lockfile
+            pnpm build
+
+      - name: Start app with PM2
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          password: ${{ secrets.EC2_PASSWORD }}
+          script: |
+            cd /var/www/openprofile-fe/main
+            pm2 restart openprofile-main-fe || PORT=3000 pm2 start "pnpm start" --name openprofile-main-fe
+            pm2 save
