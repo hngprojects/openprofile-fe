@@ -1,0 +1,45 @@
+name: Deploy Frontend to EC2
+
+on:
+  push:
+    branches:
+      - frontend-testing
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build
+        run: pnpm build
+        env:
+          NODE_ENV: production
+
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@master
+        with:
+           host: ${{ secrets.EC2_HOST }}
+           username: ${{ secrets.EC2_USER }}
+           password: ${{ secrets.EC2_PASSWORD }}
+           script: |
+            cd /home/ubuntu/your-frontend-app
+            git pull origin ${{ github.ref_name }}
+            pnpm install
+            pnpm build
+            pm2 restart frontend-app
