@@ -1,45 +1,157 @@
-name: Deploy Frontend to EC2
+name: Frontend CI/CD
 
 on:
   push:
     branches:
       - frontend-testing
+  pull_request:
+    branches:
+      - frontend-testing
+
+env:
+  NODE_VERSION: '20'
+  PNPM_VERSION: '8'
 
 jobs:
-  deploy:
+  test:
+    name: Test & Lint
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: ${{ env.NODE_VERSION }}
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v3
         with:
-          version: 8
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Get pnpm store path
+        id: pnpm-cache
+        run: echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - name: Cache pnpm store
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: ${{ runner.os }}-pnpm-
 
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Lint
+        run: pnpm lint
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    needs: test
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Get pnpm store path
+        id: pnpm-cache
+        run: echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - name: Cache pnpm store
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: ${{ runner.os }}-pnpm-
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
       - name: Build
         run: pnpm build
         env:
           NODE_ENV: production
 
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-build-${{ github.sha }}
+          path: .next/
+          retention-days: 1
+
+  deploy:
+    name: Deploy to Testing
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.ref == 'refs/heads/frontend-testing'
+    environment: testing
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: frontend-build-${{ github.sha }}
+          path: .next/
+
+      - name: Copy build to EC2
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          password: ${{ secrets.EC2_PASSWORD }}
+          source: ".next/"
+          target: "/home/ubuntu/frontend-testing"
+
       - name: Deploy to EC2
         uses: appleboy/ssh-action@master
         with:
-           host: ${{ secrets.EC2_HOST }}
-           username: ${{ secrets.EC2_USER }}
-           password: ${{ secrets.EC2_PASSWORD }}
-           script: |
-            cd /home/ubuntu/your-frontend-app
-            git pull origin ${{ github.ref_name }}
-            pnpm install
-            pnpm build
-            pm2 restart frontend-app
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          password: ${{ secrets.EC2_PASSWORD }}
+          script: |
+            set -e
+            cd /home/ubuntu/frontend-testing
+            git pull origin frontend-testing
+            pnpm install --frozen-lockfile
+            pm2 restart frontend-testing || pm2 start pnpm --name "frontend-testing" -- start
+            pm2 save
+
+      - name: Health check
+        run: |
+          sleep 15
+          curl --fail --retry 3 --retry-delay 5 http://${{ secrets.EC2_HOST }}:3000 || exit 1
+
+  notify:
+    name: Notify
+    runs-on: ubuntu-latest
+    needs: deploy
+    if: always()
+
+    steps:
+      - name: Notify success
+        if: success()
+        run: echo "✅ Deployment to frontend-testing successful"
+
+      - name: Notify failure
+        if: failure()
+        run: echo "❌ Deployment to frontend-testing failed"
