@@ -127,7 +127,7 @@ export default function Target() {
                 ))}
               </div>
             </motion.div>
-          ),
+          )
         )}
       </div>
     </div>

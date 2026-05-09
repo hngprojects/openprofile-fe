@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 
 export function CTA() {
   return (
-    <section className="bg-[#FAFAFA] py-24 md:py-26 px-4">
+    <section className="bg-[#FAFAFA] py-24 md:py-26 px-4 md:px-8">
       <div className="max-w-5xl mx-auto">
         <div className="relative bg-[#087583] rounded-[24px] md:rounded-[32px] overflow-hidden flex items-center w-full justify-between px-8 lg:px-16 py-9 lg:py-18">
           <div className="relative z-10 max-w-105 space-y-4">
@@ -27,7 +27,7 @@ export function CTA() {
           </div>
 
           <div className="hidden md:block absolute right-0 md:w-[320px] md:h-65 lg:w-100 lg:h-82.5">
-            <Image src="/cta/cta.png" className="object-cover" alt="" fill />
+            <Image src="/cta/cta.svg" className="object-cover" alt="" fill />
           </div>
         </div>
       </div>
