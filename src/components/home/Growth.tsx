@@ -67,11 +67,11 @@ export function Growth() {
               { title: "Organic growth", desc: "95% of invites convert to profiles" },
             ].map((item, i) => (
               <motion.div key={i} variants={itemVariants} className="flex gap-4 items-start">
-                <div className="flex-shrink-0 w-6 h-6 rounded-full border border-gray-300 flex items-center justify-center mt-0.5">
-                  <Check className="w-4 h-4 text-[#050505]" />
+                <div className="flex-shrink-0 w-6 h-6 rounded-full border-2 border-black flex items-center justify-center mt-0.5">
+                  <Check className="w-4 h-4 text-black" strokeWidth={3} />
                 </div>
                 <div>
-                  <h3 className="font-bold text-[#050505] text-[17px]">{item.title}</h3>
+                  <h3 className="font-semibold text-[#050505] text-[17px]">{item.title}</h3>
                   <p className="text-[#4B5563] text-[15px] font-medium">{item.desc}</p>
                 </div>
               </motion.div>
@@ -87,35 +87,35 @@ export function Growth() {
           transition={{ duration: 0.7, delay: 0.4, ease: "easeOut" }}
           className="relative"
         >
-          <div className="bg-white rounded-[32px] border border-[#E5E7EB] shadow-[0_20px_50px_rgba(0,0,0,0.04)] p-8 md:p-12 relative overflow-hidden">
+          <div className="bg-white rounded-[16px] border border-[#E5E7EB] p-6 px-2 relative overflow-hidden">
             {/* Subtle background decoration */}
             <div className="absolute top-0 right-0 w-32 h-32 bg-[#DBEFF2]/30 blur-3xl rounded-full -mr-16 -mt-16"></div>
             <div className="absolute bottom-0 left-0 w-32 h-32 bg-[#F3E8FF]/30 blur-3xl rounded-full -ml-16 -mb-16"></div>
             
-            <div className="flex flex-col items-center text-center space-y-8 relative z-10">
-              <div className="px-4 py-1.5 rounded-full border border-[#FECACA] text-[#EF4444] text-[13px] font-semibold bg-white shadow-sm">
+            <div className="flex flex-col items-center text-center space-y-6 relative z-10 py-4">
+              <div className="px-4 py-1.5 rounded-full border border-[#FECACA] text-[#EF4444] text-[12px] font-medium bg-white">
                 Profile not found
               </div>
               
-              <h3 className="text-xl md:text-2xl font-bold text-[#050505] tracking-tight">
+              <h3 className="text-[20px] font-medium text-[#050505] tracking-tight">
                 Can't find who you're looking for?
               </h3>
 
-              <div className="w-full max-w-sm space-y-5">
+              <div className="w-full space-y-6 px-4">
                 <div className="relative">
                    <Input 
                     placeholder="Enter their email address" 
-                    className="bg-[#FAFAFA] border-[#E5E7EB] h-14 rounded-2xl px-6 focus:ring-[#087583]/10 focus:border-[#087583] transition-all text-base placeholder:text-gray-400"
+                    className="bg-white border-[#E5E7EB] h-10 rounded-[12px] px-4 focus:ring-[#087583]/10 focus:border-[#087583] transition-all text-sm placeholder:text-[#4D4A4A]"
                   />
                 </div>
                 <Button 
                   variant="outline"
-                  className="w-full h-14 bg-white hover:bg-[#F9FAFB] text-[#087583] border-[#087583] border-2 rounded-2xl flex items-center justify-center gap-2.5 font-bold text-base transition-all active:scale-[0.98]"
+                  className="w-full h-10 bg-[#FAFAFA] hover:bg-[#E5E7EB] text-[#087583] border-[#087583] border-[1.2px] rounded-[12px] flex items-center justify-center gap-2 font-medium text-sm transition-all active:scale-[0.98]"
                 >
-                  <Mail className="w-5 h-5" />
+                  <Mail className="w-5 h-5" strokeWidth={1.5} />
                   Send Invite
                 </Button>
-                <p className="text-[12px] text-[#6B7280] leading-relaxed font-medium px-4">
+                <p className="text-[11px] text-[#6B7280] leading-relaxed font-normal px-8 opacity-80">
                   They'll receive an email to claim their profile. You'll be notified when they join!
                 </p>
               </div>
