@@ -23,7 +23,7 @@ export default function Home() {
         <Impression />
       </section>
 
-      {/* impression */}
+      {/* target */}
       <section className="w-full mx-auto flex justify-center px-18 py-16 bg-[#FEFEFE]">
         <Target />
       </section>

@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 const audiences = [
   {
@@ -42,10 +45,22 @@ const audiences = [
   },
 ];
 
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  show: { opacity: 1, y: 0 },
+};
+
 export default function Target() {
   return (
     <div className="text-primary font-sfpror">
-      <div>
+      {/* header */}
+      <motion.div
+        variants={fadeUp}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+      >
         <div className="rounded-[24px] bg-[#F2FDFE] pl-3.5 pr-5.5 w-fit flex items-center gap-1 mx-auto h-7.5">
           <Image
             src="/target_assets/icon-flash.svg"
@@ -59,41 +74,61 @@ export default function Target() {
         <p className="font-afacad font-semibold text-[48px] leading-14 mt-2 text-center">
           Built for people who need to be discovered early
         </p>
-      </div>
+      </motion.div>
 
+      {/* cards grid */}
       <div className="mt-10 grid gap-6 grid-cols-[repeat(auto-fit,minmax(340px,1fr))] items-center justify-center">
-        {audiences.map(({ bg, icon, checkIcon, title, description, items }) => (
-          <div
-            key={title}
-            style={{ backgroundColor: bg }}
-            className="px-6 pt-20 pb-6 space-y-4 rounded-[16px] relative h-full flex flex-col"
-          >
-            <div className="absolute top-0 right-0">
-              <Image
-                src={icon}
-                alt={title}
-                width={100}
-                height={75}
-                className="w-25 h-[75px]"
-              />
-            </div>
+        {audiences.map(
+          ({ bg, icon, checkIcon, title, description, items }, i) => (
+            <motion.div
+              key={title}
+              style={{ backgroundColor: bg }}
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.15 }}
+              className="px-6 pt-20 pb-6 space-y-4 rounded-[16px] relative h-full flex flex-col"
+            >
+              {/* top icon */}
+              <div className="absolute top-0 right-0">
+                <Image
+                  src={icon}
+                  alt={title}
+                  width={100}
+                  height={75}
+                  className="w-25 h-[75px]"
+                />
+              </div>
 
-            <p className="font-afacad font-semibold text-[24px] leading-8 tracking-[-0.5px]">
-              {title}
-            </p>
+              {/* title */}
+              <p className="font-afacad font-semibold text-[24px] leading-8 tracking-[-0.5px]">
+                {title}
+              </p>
 
-            <p className="font-afacad text-[#454545]">{description}</p>
+              {/* description */}
+              <p className="font-afacad text-[#454545]">{description}</p>
 
-            <div className="space-y-2 mt-auto">
-              {items.map((item) => (
-                <div key={item} className="flex items-center gap-2">
-                  <Image src={checkIcon} alt="check" width={16} height={16} />
-                  <p className="font-afacad text-[#454545]">{item}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
+              {/* checklist — pushed to bottom */}
+              <div className="space-y-2 mt-auto">
+                {items.map((item, j) => (
+                  <motion.div
+                    key={item}
+                    variants={fadeUp}
+                    initial="hidden"
+                    whileInView="show"
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: i * 0.15 + j * 0.1 }}
+                    className="flex items-center gap-2"
+                  >
+                    <Image src={checkIcon} alt="check" width={16} height={16} />
+                    <p className="font-afacad text-[#454545]">{item}</p>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          ),
+        )}
       </div>
     </div>
   );
