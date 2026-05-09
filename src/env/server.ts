@@ -8,7 +8,6 @@ export const env = createEnv({
       .default("development"),
     API_BASE_URL: z.url().optional(),
     API_SECRET: z.string().min(1).optional(),
-    SESSION_SECRET: z.string().min(32),
   },
   experimental__runtimeEnv: {},
   skipValidation: !!process.env.SKIP_ENV_VALIDATION,

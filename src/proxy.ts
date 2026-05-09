@@ -1,5 +1,4 @@
 import { NextResponse, type NextProxy } from "next/server";
-import { decrypt } from "@/lib/session";
 
 const SECURITY_HEADERS: Record<string, string> = {
   "X-Frame-Options": "DENY",
@@ -21,24 +20,15 @@ export const proxy: NextProxy = async (request) => {
   const { pathname } = request.nextUrl;
 
   const isProtected = PROTECTED_PREFIX.some((p) => pathname.startsWith(p));
-  const isPublic = PUBLIC_ROUTES.some((p) => pathname === p || pathname.startsWith(p));
+  const token = request.cookies.get("session")?.value;
 
-  if (isProtected) {
-    const token = request.cookies.get("session")?.value;
-    const session = token ? await decrypt(token) : null;
-
-    if (!session?.userId) {
-      return NextResponse.redirect(new URL("/login", request.url));
-    }
+  if (isProtected && !token) {
+    return NextResponse.redirect(new URL("/login", request.url));
   }
 
   // Redirect authenticated users away from login/signup
-  if (pathname === "/login" || pathname === "/signup") {
-    const token = request.cookies.get("session")?.value;
-    const session = token ? await decrypt(token) : null;
-    if (session?.userId) {
-      return NextResponse.redirect(new URL("/dashboard", request.url));
-    }
+  if ((pathname === "/login" || pathname === "/signup") && token) {
+    return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 
   const response = NextResponse.next({
