@@ -43,7 +43,7 @@ export function Hero() {
       <div className="max-w-[1440px] mx-auto px-6 md:px-[125px] pt-[80px] pb-[60px] flex flex-col lg:flex-row items-start lg:items-start gap-10 lg:gap-4 relative min-h-[685px]">
 
         {/* ───────────────── LEFT COLUMN ───────────────── */}
-        <div className="flex flex-col gap-6 w-full lg:max-w-[500px] shrink-0 z-10">
+        <div className="flex flex-col gap-4 w-full lg:max-w-[500px] shrink-0 z-10">
 
           {/* Heading */}
           <motion.h1
@@ -113,15 +113,15 @@ export function Hero() {
             {/* Mini avatars */}
             <div
               className="flex items-center relative"
-              style={{ height: "42px", width: "76px" }}
+              style={{ height: "35px", width: "69px" }}
             >
               {miniAvatars.map((src, i) => (
                 <div
                   key={i}
                   className="absolute rounded-full overflow-hidden border-[2.52px] border-white"
                   style={{
-                    width: "42px",
-                    height: "42px",
+                    width: "35px",
+                    height: "35px",
                     left: `${i * 17}px`,
                     zIndex: i + 1,
                   }}
@@ -142,22 +142,38 @@ export function Hero() {
               style={{ fontFamily: "'Afacad', sans-serif" }}
             >
               Join over{" "}
-              <span className="font-semibold text-[#050505]">
+              {/* <span className="font-semibold text-[#050505]">
                 2000+
-              </span>{" "}
+              </span>{" "} */}
               Creators and freelancers that trusts us all over the world.
             </p>
           </motion.div>
         </div>
 
-        {/* ───────────────── RIGHT COLUMN ───────────────── */}
-        <div className="relative flex-1 w-full overflow-hidden">
+{/* ───────────────── RIGHT COLUMN ───────────────── */}
+        <div className="relative flex-1 w-full overflow-visible -ml-[35px]">
 
-          {/* Left fade */}
-          <div className="absolute left-0 top-0 h-full w-[70px] bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+          {/* Left white blur — fades card 1's left edge (Rectangle 201) */}
+          <div
+            className="absolute top-0 h-full z-10 pointer-events-none"
+            style={{
+              left: 0,
+              width: "115px",
+              background: "#FFFFFF",
+              filter: "blur(45.85px)",
+            }}
+          />
 
-          {/* Right fade */}
-          <div className="absolute right-0 top-0 h-full w-[70px] bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+          {/* Right white blur — fades card 3's right edge (Rectangle 202) */}
+          <div
+            className="absolute top-0 h-full z-10 pointer-events-none"
+            style={{
+              right: "-20px",
+              width: "115px",
+              background: "#FFFFFF",
+              filter: "blur(45.85px)",
+            }}
+          />
 
           {/* Cards */}
           <motion.div
@@ -168,9 +184,8 @@ export function Hero() {
               delay: 0.25,
               ease: "easeOut",
             }}
-            className="flex gap-4 items-start justify-center w-full"
+            className="flex gap-4 items-start justify-center w-full translate-x-[45px]"
           >
-
             {profiles.map((p, i) => (
               <motion.div
                 key={p.name}
@@ -182,18 +197,19 @@ export function Hero() {
                 }}
                 className="relative flex flex-col justify-end shrink-0 rounded-[9px] overflow-hidden"
                 style={{
-                  width: "246px",
-                  height: "400px",
+                  width: "210px",
+                  height: "365px",
                 }}
               >
-
-                {/* Image */}
                 <Image
                   src={p.img}
                   alt={p.name}
                   fill
+                  priority
+                  quality={100}
+                  unoptimized
                   sizes="246px"
-                  className="object-cover object-top"
+                  className="object-cover object-center"
                 />
 
                 {/* Gradient overlay */}
@@ -205,26 +221,44 @@ export function Hero() {
                   }}
                 />
 
+                {/* Left blur for first image */}
+                {i === 0 && (
+                  <div
+                    className="absolute left-0 top-0 h-full z-[5] pointer-events-none"
+                    style={{
+                      width: "100px",
+                      background: "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.8) 60%, rgba(255,255,255,0) 100%)",
+                      filter: "blur(50px)",
+                    }}
+                  />
+                )}
+
+                {/* Right blur for third image */}
+                {i === 2 && (
+                  <div
+                    className="absolute right-0 top-0 h-full z-[5] pointer-events-none"
+                    style={{
+                      width: "100px",
+                      background: "linear-gradient(270deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.8) 60%, rgba(255,255,255,0) 100%)",
+                      filter: "blur(50px)",
+                    }}
+                  />
+                )}
+
                 {/* Content */}
                 <div className="relative z-10 p-[15px_18px] flex flex-col gap-1">
-
-                  {/* Name */}
                   <div className="flex items-center gap-1">
-
                     <span
                       className="font-bold text-[20px] leading-[26px] text-[#FEFEFE]"
                       style={{ fontFamily: "'Afacad', sans-serif" }}
                     >
                       {p.name}
                     </span>
-
                     <CircleCheck
                       className="w-5 h-5 shrink-0"
                       style={{ color: "#98FAC3" }}
                     />
                   </div>
-
-                  {/* Role */}
                   <span
                     className="font-medium text-[14px] leading-[24px] text-[#E6E6E6]"
                     style={{ fontFamily: "'Afacad', sans-serif" }}
