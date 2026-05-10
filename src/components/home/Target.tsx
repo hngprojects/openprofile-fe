@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 const audiences = [
   {
     bg: "#EFF6F8",
-    right: "right-[-7]",
+    right: "right-[-7px]",
     icon: "/target_assets/icon-code.svg",
     checkIcon: "/target_assets/icon-check.svg",
     title: "Freelancers",

@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -28,24 +29,44 @@ const OFFSET_X = (OUTER_W - SVG_W) / 2; // 82.5
 const OFFSET_Y = (OUTER_H - SVG_H) / 2; // 73
 
 const socials = [
-  { label: "GitHub",   sub: "Projects",   bg: "#171717", icon: "/impression/icon-github.svg" },
-  { label: "Behance",  sub: "Portfolio",  bg: "#548BF1", icon: "/impression/icon-behance.svg" },
-  { label: "LinkedIn", sub: "Experience", bg: "#548BF1", icon: "/impression/icon-linkedin.svg" },
-  { label: "X",        sub: "Thoughts",   bg: "#171717", icon: "/impression/icon-twitter.svg" },
+  {
+    label: "GitHub",
+    sub: "Projects",
+    bg: "#171717",
+    icon: "/impression/icon-github.svg",
+  },
+  {
+    label: "Behance",
+    sub: "Portfolio",
+    bg: "#548BF1",
+    icon: "/impression/icon-behance.svg",
+  },
+  {
+    label: "LinkedIn",
+    sub: "Experience",
+    bg: "#548BF1",
+    icon: "/impression/icon-linkedin.svg",
+  },
+  {
+    label: "X",
+    sub: "Thoughts",
+    bg: "#171717",
+    icon: "/impression/icon-twitter.svg",
+  },
 ];
 
 // card center positions in outer container space → converted to SVG coordinate space
 const lines = [
   // top-left card (pl-[19px] offset)
   {
-    x1: (19 + CARD_W / 2) - OFFSET_X,
+    x1: 19 + CARD_W / 2 - OFFSET_X,
     y1: CARD_H / 2 - OFFSET_Y,
     x2: SVG_W / 2,
     y2: SVG_H / 2,
   },
   // top-right card
   {
-    x1: (OUTER_W - CARD_W + CARD_W / 2) - OFFSET_X,
+    x1: OUTER_W - CARD_W + CARD_W / 2 - OFFSET_X,
     y1: CARD_H / 2 - OFFSET_Y,
     x2: SVG_W / 2,
     y2: SVG_H / 2,
@@ -53,14 +74,14 @@ const lines = [
   // bottom-left card (pb-1.5 offset)
   {
     x1: CARD_W / 2 - OFFSET_X,
-    y1: (OUTER_H - CARD_H + CARD_H / 2) - OFFSET_Y,
+    y1: OUTER_H - CARD_H + CARD_H / 2 - OFFSET_Y,
     x2: SVG_W / 2,
     y2: SVG_H / 2,
   },
   // bottom-right card (pr-0.5 offset)
   {
-    x1: (OUTER_W - CARD_W + CARD_W / 2) - OFFSET_X,
-    y1: (OUTER_H - CARD_H + CARD_H / 2) - OFFSET_Y,
+    x1: OUTER_W - CARD_W + CARD_W / 2 - OFFSET_X,
+    y1: OUTER_H - CARD_H + CARD_H / 2 - OFFSET_Y,
     x2: SVG_W / 2,
     y2: SVG_H / 2,
   },
@@ -121,8 +142,18 @@ export default function Impression() {
                 strokeWidth="2"
               />
               {/* user icon */}
-              <foreignObject x={SVG_W / 2 - 20} y={SVG_H / 2 - 20} width="40" height="40">
-                <img src="/impression/icon-user.svg" alt="user" width={40} height={40} />
+              <foreignObject
+                x={SVG_W / 2 - 20}
+                y={SVG_H / 2 - 20}
+                width="40"
+                height="40"
+              >
+                <Image
+                  src="/impression/icon-user.svg"
+                  alt="user"
+                  width={40}
+                  height={40}
+                />
               </foreignObject>
               {/* red question badge */}
               <circle
@@ -133,8 +164,18 @@ export default function Impression() {
                 stroke="white"
                 strokeWidth="2"
               />
-              <foreignObject x={SVG_W / 2 + 14} y={SVG_H / 2 + 14} width="12" height="12">
-                <img src="/impression/icon-question.svg" alt="question" width={12} height={12} />
+              <foreignObject
+                x={SVG_W / 2 + 14}
+                y={SVG_H / 2 + 14}
+                width="12"
+                height="12"
+              >
+                <Image
+                  src="/impression/icon-question.svg"
+                  alt="question"
+                  width={12}
+                  height={12}
+                />
               </foreignObject>
             </motion.g>
           </svg>
@@ -154,8 +195,11 @@ export default function Impression() {
               transition={{ duration: 0.5, delay: 0.3 + i * 0.15 }}
               className="w-[143px] h-18 bg-[#FEFEFE] border border-[#EDEDED] rounded-[16px] flex items-center justify-start gap-2 pl-4 rotate-[0.82deg]"
             >
-              <div style={{ backgroundColor: bg }} className="shrink-0">
-                <img src={icon} alt={label} width={24} height={24} />
+              <div
+                style={{ backgroundColor: bg }}
+                className="shrink-0 h-8.5 w-8.5 border border-[#EDEDED] flex items-center justify-center rounded-[4px]"
+              >
+                <Image src={icon} alt={label} width={24} height={24} />
               </div>
               <p className="text-[14px] leading-5 flex flex-col">
                 <span>{label}</span>
@@ -177,8 +221,11 @@ export default function Impression() {
               transition={{ duration: 0.5, delay: 0.5 + i * 0.15 }}
               className="w-[143px] h-18 bg-[#FEFEFE] border border-[#EDEDED] rounded-[16px] flex items-center justify-start gap-2 pl-4 rotate-[0.82deg]"
             >
-              <div style={{ backgroundColor: bg }} className="shrink-0">
-                <img src={icon} alt={label} width={24} height={24} />
+              <div
+                style={{ backgroundColor: bg }}
+                className="shrink-0 h-8.5 w-8.5 border border-[#EDEDED] flex items-center justify-center rounded-[4px]"
+              >
+                <Image src={icon} alt={label} width={24} height={24} />
               </div>
               <p className="text-[14px] leading-5 flex flex-col">
                 <span>{label}</span>
