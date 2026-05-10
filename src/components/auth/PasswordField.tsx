@@ -17,9 +17,14 @@ type Props = {
 
 export function PasswordField({ value, onChange, showRules, autoComplete = "current-password" }: Props) {
   const [show, setShow] = useState(false);
+  const [hovered, setHovered] = useState(false);
 
   return (
-    <div className="flex flex-col gap-1.5">
+    <div
+      className="flex flex-col gap-1.5"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
       <label className="text-sm font-medium text-[#454545]">Password</label>
       <div className="relative">
         <Input
@@ -56,18 +61,18 @@ export function PasswordField({ value, onChange, showRules, autoComplete = "curr
         </button>
       </div>
 
-      {showRules && value.length > 0 && (() => {
+      {showRules && hovered && (() => {
         const metCount = rules.filter((r) => r.test(value)).length;
-        if (metCount === rules.length) return null; // all met — disappear
+        const allMet = metCount === rules.length;
 
         const label =
-          metCount === 0 ? "Weak password. Must contain:" :
-          metCount === 1 ? "Weak password. Must contain:" :
+          value.length === 0 ? "Password must contain:" :
+          metCount <= 1 ? "Weak password. Must contain:" :
           "Okay, but could be stronger. Must contain:";
 
         return (
           <div className="flex flex-col pt-[20px]">
-            <p className="text-xs text-[#454545] mb-[16px]">{label}</p>
+            {!allMet && <p className="text-xs text-[#454545] mb-[16px]">{label}</p>}
             <div className="flex flex-col gap-[12px]">
               {rules.map((rule) => {
                 const met = rule.test(value);

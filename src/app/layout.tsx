@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     default: env.NEXT_PUBLIC_APP_NAME,
     template: `%s · ${env.NEXT_PUBLIC_APP_NAME}`,
   },
-  description: `${env.NEXT_PUBLIC_APP_NAME} — a Next.js 16 starter.`,
+  description: "OpenProfile — build a verified profile that tells the world exactly who you are.",
 };
 
 export default function RootLayout({
