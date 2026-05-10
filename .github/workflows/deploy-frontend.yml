@@ -119,7 +119,6 @@ jobs:
           password: ${{ secrets.EC2_PASSWORD }}
           source: "./"
           target: /var/www/openprofile-fe/main
-          exclude: "node_modules,.git,.next"
 
       - name: Copy env file
         uses: appleboy/ssh-action@v1.0.3
