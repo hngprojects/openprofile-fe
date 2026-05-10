@@ -1,4 +1,4 @@
-import { NextResponse, type NextMiddleware } from "next/server";
+import { NextResponse, type NextRequest } from "next/server";
 
 const SECURITY_HEADERS: Record<string, string> = {
   "X-Frame-Options": "DENY",
@@ -9,7 +9,7 @@ const SECURITY_HEADERS: Record<string, string> = {
 
 const PROTECTED_PREFIX = ["/dashboard", "/profile", "/settings"];
 
-export const middleware: NextMiddleware = async (request) => {
+export async function proxy(request: NextRequest) {
   const requestId = request.headers.get("x-request-id") ?? crypto.randomUUID();
 
   const requestHeaders = new Headers(request.headers);
@@ -38,7 +38,7 @@ export const middleware: NextMiddleware = async (request) => {
   response.headers.set("x-request-id", requestId);
 
   return response;
-};
+}
 
 export const config = {
   matcher: [

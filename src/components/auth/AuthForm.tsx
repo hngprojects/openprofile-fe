@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { AuthLayout } from "@/components/auth/AuthLayout";
-import { AuthPageHeader } from "@/components/auth/AuthPageHeader";
+// import { AuthPageHeader } from "@/components/auth/AuthPageHeader";
 import {
   PasswordField,
   allPasswordRulesMet,
