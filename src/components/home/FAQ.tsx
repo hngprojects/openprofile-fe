@@ -1,9 +1,12 @@
+"use client";
+
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { motion, Variants } from "framer-motion";
 
 const faqData = [
   {
@@ -34,39 +37,66 @@ const faqData = [
 ];
 
 export function FAQ() {
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut",
+      },
+    },
+  };
+
   return (
-    <section className="w-full bg-[#FEFEFE] py-20 md:py-28">
-      <div className="max-w-5xl mx-auto px-4">
-        <div className="text-center mb-12 space-y-3">
-          <h2 className="text-[32px] md:text-[48px] font-semibold tracking-tight text-[#050505] leading-tight">
-            FAQ
-          </h2>
-          <p className="text-[16px] md:text-[20px] text-[#454545] font-normal max-w-2xl mx-auto">
-            Everything you need to know about creating your verified profile
-          </p>
+    <section className="w-full bg-[#FEFEFE] py-16">
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={containerVariants}
+        className="max-w-7xl mx-auto px-4 md:px-8"
+      >
+        <div className="text-center mb-10">
+          <motion.h2
+            variants={itemVariants}
+            className="text-[32px] md:text-[40px] font-semibold tracking-tight text-[#050505]"
+          >
+            Frequently asked questions
+          </motion.h2>
         </div>
 
-        <div className="max-w-3xl mx-auto p-1">
-          <Accordion type="single" collapsible className="w-full space-y-4">
+        <motion.div variants={containerVariants} className="max-w-3xl mx-auto">
+          <Accordion type="single" collapsible className="w-full">
             {faqData.map((item, index) => (
-              <AccordionItem
-                key={index}
-                value={`item-${index}`}
-                className="bg-white border border-[#ABABAB]/30 data-[state=open]:border-[#087583]/60 rounded-[12px] overflow-hidden shadow-[0_2px_10px_rgba(0,0,0,0.01)] transition-all duration-300"
-              >
-                <AccordionTrigger 
-                  className="text-[15px] md:text-[16px] font-semibold text-[#050505] hover:no-underline py-6 px-8 md:px-10 flex items-center justify-between transition-all"
+              <motion.div key={index} variants={itemVariants}>
+                <AccordionItem
+                  value={`item-${index}`}
+                  className="border-[#E5E5E5]"
                 >
-                  <span className="text-left leading-tight font-normal pr-4">{item.question}</span>
-                </AccordionTrigger>
-                <AccordionContent className="text-[13px] md:text-[14px] text-[#525252] font-medium leading-normal px-8 md:px-10 pb-7">
-                  {item.answer}
-                </AccordionContent>
-              </AccordionItem>
+                  <AccordionTrigger className="hover:no-underline px-0">
+                    <span className="pr-4">{item.question}</span>
+                  </AccordionTrigger>
+                  <AccordionContent className="text-[15px] text-[#525252] leading-relaxed pb-6 px-0">
+                    {item.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              </motion.div>
             ))}
           </Accordion>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </section>
   );
 }
