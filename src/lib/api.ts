@@ -65,7 +65,7 @@ export async function apiFetch(path: string, options: ApiOptions = {}) {
 
       try {
         await createSession({ accessToken, refreshToken });
-      } catch {
+      } catch (_e) {
         // In Server Components, createSession will throw because cookies cannot be modified.
         // We throw unauthorized() to trigger the Next.js boundary instead.
         unauthorized();
@@ -84,7 +84,7 @@ export async function apiFetch(path: string, options: ApiOptions = {}) {
     } else {
       try {
         await deleteSession();
-      } catch {
+      } catch (_e) {
         unauthorized();
       }
     }

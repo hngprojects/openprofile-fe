@@ -6,7 +6,7 @@ type Props = {
   email?: string;
 };
 
-export function ResendTimer({ initialSeconds = 98 }: Props) {
+export function ResendTimer({ initialSeconds = 98, email: _email }: Props) {
   const [seconds, setSeconds] = useState(initialSeconds);
   const [resending, setResending] = useState(false);
 
