@@ -4,6 +4,8 @@ import { ProfilePreview } from "@/components/home/ProfilePreview";
 import { Opportunities } from "@/components/home/Opportunities";
 import { FAQ } from "@/components/home/FAQ";
 import { CTA } from "@/components/home/CTA";
+import { Journey } from "@/components/home/Journey";
+import { Features } from "@/components/home/Features";
 import Footer from "@/components/layout/Footer";
 
 export default function Home() {
@@ -21,6 +23,10 @@ export default function Home() {
       </section>
 
       <Opportunities />
+
+      <Journey />
+
+      <Features />
 
       <FAQ />
 
