@@ -126,14 +126,16 @@ export function Features() {
         </h2>
       </motion.div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-14">
-        {features.map((feature, i) => (
-          <FeatureCard
-            key={feature.id}
-            feature={feature}
-            delay={200 + i * 120}
-          />
-        ))}
+      <div className="max-w-7xl mx-auto px-4 md:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-14">
+          {features.map((feature, i) => (
+            <FeatureCard
+              key={feature.id}
+              feature={feature}
+              delay={200 + i * 120}
+            />
+          ))}
+        </div>
       </div>
 
       <motion.div
