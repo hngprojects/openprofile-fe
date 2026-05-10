@@ -11,8 +11,6 @@ export function AuthLayout({ children }: { children: React.ReactNode }) {
       <div className="flex justify-center pt-6">
         <Image src="/auth/logo.png" alt="Open.Profile" width={140} height={32} priority />
       </div>
-      <div className="flex justify-start px-6 pt-4">
-      </div>
 
       <div className="flex-1 flex items-center justify-center relative px-4 py-10">
         <div className="hidden lg:block absolute left-0 bottom-15 z-0">

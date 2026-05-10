@@ -16,7 +16,8 @@ export default function ResetPasswordPage() {
   const searchParams = useSearchParams();
   const token = searchParams.get("token") ?? "";
 
-  const isValid = allPasswordRulesMet(password) && confirm.length > 0 && password === confirm;
+  const isValid =
+    allPasswordRulesMet(password) && confirm.length > 0 && password === confirm;
 
   useEffect(() => {
     if (state?.error) toast.error(state.error);

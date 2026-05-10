@@ -39,7 +39,7 @@ export default function ForgotPasswordVerifyPage() {
         </Button>
       </div>
 
-      <ResendTimer />
+      <ResendTimer email={email} />
     </AuthLayout>
   );
 }

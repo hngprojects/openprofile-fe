@@ -44,7 +44,6 @@ export function PasswordField({ value, onChange, showRules, autoComplete = "curr
           aria-label={show ? "Hide password" : "Show password"}
         >
           {show ? (
-            /* closed eye — curved lids, no slash */
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M2 12c2-4 5-6 10-6s8 2 10 6"/>
               <path d="M2 12c2 4 5 6 10 6s8-2 10-6"/>
@@ -52,7 +51,6 @@ export function PasswordField({ value, onChange, showRules, autoComplete = "curr
               <path d="M12 16a4 4 0 0 0 4-4"/>
             </svg>
           ) : (
-            /* open eye */
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/>
               <circle cx="12" cy="12" r="3"/>

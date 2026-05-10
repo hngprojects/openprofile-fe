@@ -7,12 +7,10 @@ const SECURITY_HEADERS: Record<string, string> = {
   "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
 };
 
-const PUBLIC_ROUTES = ["/", "/login", "/signup", "/auth/callback", "/verify-email", "/verify-email/success", "/forgot-password"];
 const PROTECTED_PREFIX = ["/dashboard", "/profile", "/settings"];
 
 export const middleware: NextMiddleware = async (request) => {
-  const requestId =
-    request.headers.get("x-request-id") ?? crypto.randomUUID();
+  const requestId = request.headers.get("x-request-id") ?? crypto.randomUUID();
 
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set("x-request-id", requestId);
@@ -26,7 +24,6 @@ export const middleware: NextMiddleware = async (request) => {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  // Redirect authenticated users away from login/signup
   if ((pathname === "/login" || pathname === "/signup") && token) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }

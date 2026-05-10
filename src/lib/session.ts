@@ -35,3 +35,8 @@ export async function getSession(): Promise<SessionData | null> {
     return null;
   }
 }
+
+export function decrypt(token: string) {
+  // TODO: implement actual decryption/verification
+  return { userId: token };
+}

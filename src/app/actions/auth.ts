@@ -105,9 +105,7 @@ export async function resetPassword(
 
 export async function getCurrentUser() {
   const res = await apiFetch("/api/auth/me");
-  if (!res.ok) {
-    return null;
-  }
+  if (!res.ok) return null;
   return await res.json();
 }
 
@@ -117,16 +115,12 @@ export async function refreshToken() {
 
   if (!session?.refreshToken) return { error: "No refresh token available." };
 
-  // Note: we can't easily use apiFetch here if we want to avoid circular concerns or infinite loops,
-  // but since apiFetch excludes /api/auth/refresh from its interception, it is safe.
   const res = await apiFetch("/api/auth/refresh", {
     method: "POST",
     body: { refreshToken: session.refreshToken },
   });
 
-  if (!res.ok) {
-    return { error: "Session expired." };
-  }
+  if (!res.ok) return { error: "Session expired." };
 
   const { accessToken, refreshToken: newRefreshToken } = await res.json();
   await createSession({ accessToken, refreshToken: newRefreshToken });
