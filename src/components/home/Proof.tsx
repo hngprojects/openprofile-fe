@@ -81,13 +81,13 @@ export function Proof() {
   };
 
   return (
-    <section className="w-full bg-[#FAFAFA] py-20 md:py-28 px-4 md:px-8 -mt-15">
+    <section className="w-full bg-[#FAFAFA] py-20 md:py-28 -mt-15">
       <motion.div
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
         variants={containerVariants}
-        className="max-w-7xl mx-auto flex flex-col items-center"
+        className="max-w-7xl mx-auto px-4 md:px-8 flex flex-col items-center"
       >
         <motion.div
           variants={itemVariants}
