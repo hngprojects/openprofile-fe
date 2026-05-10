@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
@@ -46,6 +47,15 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+
+  /* fonts */
+  --font-afacad: "Afacad", "Inter", sans-serif;
+  --font-sfpror: "sfProR", "Inter", sans-serif;
+  --font-inter: "Inter", "sans-serif";
+
+  /* colors */
+  --color-primary: #050505;
+  --color-brand: #087583;
 }
 
 :root {
@@ -117,6 +127,17 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+@font-face {
+  font-family: "sfProR";
+  src: url("/fonts/sf-pro-rounded.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+body {
+  font-family: "sfProR", inter;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -126,5 +147,12 @@
   }
   html {
     @apply font-sans;
+  }
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0px 1000px #fafafa inset !important;
+    box-shadow: 0 0 0px 1000px #fafafa inset !important;
+    -webkit-text-fill-color: #050505 !important;
   }
 }
