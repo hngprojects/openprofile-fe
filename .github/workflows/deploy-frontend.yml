@@ -37,7 +37,7 @@ jobs:
         run: pnpm install --no-frozen-lockfile --ignore-scripts
 
       - name: Typecheck
-        run: pnpm type-check
+        run: pnpm typecheck
 
       - name: Lint
         run: pnpm lint
