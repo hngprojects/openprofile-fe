@@ -2,25 +2,22 @@ import { type NextRequest, NextResponse } from "next/server";
 import { createSession } from "@/lib/session";
 
 /**
- * GET /auth/callback?token=<jwt_from_backend>
+ * GET /auth/callback?accessToken=<jwt>&refreshToken=<jwt>
  *
- * The backend redirects here after Google OAuth succeeds.
- * It passes the user's token (or user ID) as a query param.
- *
- * TODO: Adjust the param name / verification logic once the backend API is ready.
+ * Requires the backend FRONTEND_URL to point here so it redirects with
+ * accessToken and refreshToken as query params after Google OAuth.
  */
 export async function GET(request: NextRequest) {
-  const token = request.nextUrl.searchParams.get("token");
+  const { searchParams } = request.nextUrl;
+  const accessToken = searchParams.get("accessToken");
+  const refreshToken = searchParams.get("refreshToken");
 
-  if (!token) {
+  if (!accessToken || !refreshToken) {
     return NextResponse.redirect(
-      new URL("/login?error=missing_token", request.url)
+      new URL("/login?error=missing_tokens", request.url)
     );
   }
 
-  // TODO: Optionally verify the token with the backend before trusting it.
-  // For now we treat the token value as the userId placeholder.
-  await createSession(token);
-
+  await createSession({ accessToken, refreshToken });
   return NextResponse.redirect(new URL("/dashboard", request.url));
 }
