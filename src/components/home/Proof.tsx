@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
-import {Zap } from "lucide-react";
+import { Zap } from "lucide-react";
+import { motion, Variants } from "framer-motion";
 
 interface Testimonial {
   name: string;
@@ -55,23 +58,60 @@ const testimonials: Testimonial[] = [
 ];
 
 export function Proof() {
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut",
+      },
+    },
+  };
+
   return (
     <section className="w-full bg-[#FAFAFA] py-20 md:py-28 px-4 md:px-8 -mt-15">
-      <div className="max-w-7xl mx-auto flex flex-col items-center">
-
-        <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-[#E6F9FB] text-[#087583] text-[13px] font-bold mb-8">
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={containerVariants}
+        className="max-w-7xl mx-auto flex flex-col items-center"
+      >
+        <motion.div
+          variants={itemVariants}
+          className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-[#E6F9FB] text-[#087583] text-[13px] font-bold mb-8"
+        >
           <Zap className="w-3.5 h-3.5 " />
           Social Proof
-        </div>
+        </motion.div>
 
-        <h2 className="text-[28px] md:text-[40px] font-semibold text-center text-[#050505] mb-10">
+        <motion.h2
+          variants={itemVariants}
+          className="text-[32px] md:text-[44px] lg:text-[48px] font-bold text-center text-[#050505] mb-16 leading-[1.1] max-w-4xl"
+        >
           Join creators and freelancers building their identity online
-        </h2>
+        </motion.h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 w-full ">
+        <motion.div
+          variants={containerVariants}
+          className="grid grid-cols-1 md:grid-cols-4 gap-4 w-full"
+        >
           {testimonials.map((testimonial, index) => (
-            <div
+            <motion.div
               key={index}
+              variants={itemVariants}
               className={`bg-white rounded-[20px] p-8 shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-[#F5F5F5] flex flex-col justify-between ${testimonial.className}`}
             >
               <div className="mb-8">
@@ -98,10 +138,10 @@ export function Proof() {
                   />
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </section>
   );
 }

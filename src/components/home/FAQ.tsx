@@ -1,9 +1,12 @@
+"use client";
+
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { motion, Variants } from "framer-motion";
 
 const faqData = [
   {
@@ -34,34 +37,66 @@ const faqData = [
 ];
 
 export function FAQ() {
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut",
+      },
+    },
+  };
+
   return (
     <section className="w-full bg-[#FEFEFE] py-20 md:py-32">
-      <div className="max-w-4xl mx-auto px-4">
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={containerVariants}
+        className="max-w-4xl mx-auto px-4"
+      >
         <div className="text-center mb-16">
-          <h2 className="text-[32px] md:text-[44px] font-bold tracking-tight text-[#050505]">
+          <motion.h2
+            variants={itemVariants}
+            className="text-[32px] md:text-[44px] font-bold tracking-tight text-[#050505]"
+          >
             Frequently asked questions
-          </h2>
+          </motion.h2>
         </div>
 
-        <div className="max-w-3xl mx-auto">
+        <motion.div variants={containerVariants} className="max-w-3xl mx-auto">
           <Accordion type="single" collapsible className="w-full">
             {faqData.map((item, index) => (
-              <AccordionItem
-                key={index}
-                value={`item-${index}`}
-                className="border-[#E5E5E5]"
-              >
-                <AccordionTrigger className="hover:no-underline px-0">
-                  <span className="pr-4">{item.question}</span>
-                </AccordionTrigger>
-                <AccordionContent className="text-[15px] text-[#525252] leading-relaxed pb-6 px-0">
-                  {item.answer}
-                </AccordionContent>
-              </AccordionItem>
+              <motion.div key={index} variants={itemVariants}>
+                <AccordionItem
+                  value={`item-${index}`}
+                  className="border-[#E5E5E5]"
+                >
+                  <AccordionTrigger className="hover:no-underline px-0">
+                    <span className="pr-4">{item.question}</span>
+                  </AccordionTrigger>
+                  <AccordionContent className="text-[15px] text-[#525252] leading-relaxed pb-6 px-0">
+                    {item.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              </motion.div>
             ))}
           </Accordion>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </section>
   );
 }

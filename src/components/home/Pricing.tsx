@@ -1,5 +1,8 @@
+"use client";
+
 import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { motion, Variants } from "framer-motion";
 
 interface PricingPlan {
   name: string;
@@ -56,17 +59,52 @@ const plans: PricingPlan[] = [
 ];
 
 export function Pricing() {
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut",
+      },
+    },
+  };
+
   return (
     <section className="w-full bg-[#FAFAFA] py-20 md:py-32 px-4 md:px-8">
-      <div className="max-w-7xl mx-auto flex flex-col items-center">
-        <h2 className="text-[28px] md:text-[40px] font-semibold text-center text-[#050505] mb-16">
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={containerVariants}
+        className="max-w-7xl mx-auto flex flex-col items-center"
+      >
+        <motion.h2
+          variants={itemVariants}
+          className="text-[28px] md:text-[40px] font-semibold text-center text-[#050505] mb-16"
+        >
           Choose the plan that fits your needs.
-        </h2>
+        </motion.h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-6xl">
+        <motion.div
+          variants={containerVariants}
+          className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-6xl"
+        >
           {plans.map((plan, index) => (
-            <div
+            <motion.div
               key={index}
+              variants={itemVariants}
               className={`rounded-[16px] p-4 xl:p-8 flex flex-col h-full border ${
                 plan.highlighted
                   ? "bg-[#087583] border-[#087583] text-white "
@@ -74,26 +112,50 @@ export function Pricing() {
               }`}
             >
               <div className="mb-8">
-                <p className={`text-[16px] font-medium mb-4 ${plan.highlighted ? "text-white/90" : "text-[#525252]"}`}>
+                <p
+                  className={`text-[16px] font-medium mb-4 ${
+                    plan.highlighted ? "text-white/90" : "text-[#525252]"
+                  }`}
+                >
                   {plan.name}
                 </p>
-                <div className={`flex items-baseline gap-1 border-b  ${plan.highlighted ? "border-white/20" : "border-[#E5E5E5]"}`}>
+                <div
+                  className={`flex items-baseline gap-1 border-b pb-8 ${
+                    plan.highlighted ? "border-white/20" : "border-[#E5E5E5]"
+                  }`}
+                >
                   <span className="text-[36px] font-bold">${plan.price}</span>
-                  <span className={`text-[15px] ${plan.highlighted ? "text-white/80" : "text-[#525252]"}`}>
+                  <span
+                    className={`text-[15px] ${
+                      plan.highlighted ? "text-white/80" : "text-[#525252]"
+                    }`}
+                  >
                     /month
                   </span>
                 </div>
               </div>
 
               <div className="flex-1">
-                <p className={`text-[14px] font-bold mb-6 ${plan.highlighted ? "text-white" : "text-[#050505]"}`}>
+                <p
+                  className={`text-[14px] font-bold mb-6 ${
+                    plan.highlighted ? "text-white" : "text-[#050505]"
+                  }`}
+                >
                   {plan.featureTitle || "Includes:"}
                 </p>
                 <ul className="space-y-4 mb-10">
                   {plan.features.map((feature, fIndex) => (
                     <li key={fIndex} className="flex items-start gap-3 text-[14px]">
-                      <Check className={`w-4 h-4 shrink-0 mt-0.5 ${plan.highlighted ? "text-white" : "text-[#087583]"}`} />
-                      <span className={plan.highlighted ? "text-white/90" : "text-[#525252]"}>
+                      <Check
+                        className={`w-4 h-4 shrink-0 mt-0.5 ${
+                          plan.highlighted ? "text-white" : "text-[#087583]"
+                        }`}
+                      />
+                      <span
+                        className={
+                          plan.highlighted ? "text-white/90" : "text-[#525252]"
+                        }
+                      >
                         {feature}
                       </span>
                     </li>
@@ -111,10 +173,10 @@ export function Pricing() {
               >
                 {plan.buttonText}
               </Button>
-            </div>
+            </motion.div>
           ))}
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </section>
   );
 }
