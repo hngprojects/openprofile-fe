@@ -43,7 +43,6 @@ export function Hero() {
       <div className="max-w-[1440px] mx-auto px-6 md:px-[125px] pt-[80px] pb-[60px] flex flex-col lg:flex-row items-start lg:items-start gap-10 lg:gap-4 relative min-h-[685px]">
         {/* ───────────────── LEFT COLUMN ───────────────── */}
         <div className="flex flex-col gap-4 w-full lg:max-w-[500px] shrink-0 z-10">
-
           {/* Heading */}
           <motion.h1
             {...fadeUp(0.05)}
@@ -144,112 +143,109 @@ export function Hero() {
           </motion.div>
         </div>
 
-{/* ───────────────── RIGHT COLUMN ───────────────── */}
-<div className="relative flex-1 w-full overflow-visible -ml-[10px]">
-
-  {/* Cards */}
-  <motion.div
-    initial={{ opacity: 0, x: 40 }}
-    animate={{ opacity: 1, x: 0 }}
-    transition={{ duration: 0.7, delay: 0.25, ease: "easeOut" }}
-    className="flex gap-4 items-start justify-center w-full translate-x-[8px]"
-  >
-    {profiles.map((p, i) => (
-      <motion.div
-        key={p.name}
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.55, delay: 0.3 + i * 0.1 }}
-        className="relative flex flex-col justify-end shrink-0 rounded-[9px] overflow-hidden"
-        style={{
-          width: "210px",
-          height: "365px",
-        }}
-      >
-
-        {/* Image */}
-        <Image
-          src={p.img}
-          alt={p.name}
-          fill
-          priority
-          quality={100}
-          unoptimized
-          sizes="246px"
-          className="object-cover object-center"
-        />
-
-        {/* Dark overlay */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(360deg, rgba(0,0,0,0.9) 19.96%, rgba(102,102,102,0) 42.85%)",
-          }}
-        />
-
-        {/* IMAGE 1 FADE */}
-        {i === 0 && (
-          <div
-            style={{
-              position: "absolute",
-              left: "-2px",
-              top: 0,
-              bottom: 0,
-              width: "48%",
-              background:
-                "linear-gradient(to right, #FFFFFF 0%, #FFFFFF 46%, rgba(255,255,255,0.96) 62%, rgba(255,255,255,0.72) 82%, rgba(255,255,255,0) 100%)",
-              zIndex: 20,
-              pointerEvents: "none",
-            }}
-          />
-        )}
-
-        {/* IMAGE 3 FADE */}
-        {i === 2 && (
-          <div
-            style={{
-              position: "absolute",
-              right: 0,
-              top: 0,
-              bottom: 0,
-              width: "50%",
-              background:
-                "linear-gradient(to left, #FFFFFF 0%, #FFFFFF 34%, rgba(255,255,255,0.92) 58%, rgba(255,255,255,0.55) 80%, rgba(255,255,255,0) 100%)",
-              zIndex: 20,
-              pointerEvents: "none",
-            }}
-          />
-        )}
-
-        {/* Content */}
-        <div className="relative z-10 p-[15px_18px] flex flex-col gap-1">
-
-          <div className="flex items-center gap-1">
-            <span
-              className="font-bold text-[20px] leading-[26px] text-[#FEFEFE]"
-              style={{ fontFamily: "'Afacad', sans-serif" }}
-            >
-              {p.name}
-            </span>
-
-            <CircleCheck
-              className="w-5 h-5 shrink-0"
-              style={{ color: "#98FAC3" }}
-            />
-          </div>
-
-          <span
-            className="font-medium text-[14px] leading-[24px] text-[#E6E6E6]"
-            style={{ fontFamily: "'Afacad', sans-serif" }}
+        {/* ───────────────── RIGHT COLUMN ───────────────── */}
+        <div className="relative flex-1 w-full overflow-visible -ml-[10px]">
+          {/* Cards */}
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7, delay: 0.25, ease: "easeOut" }}
+            className="flex gap-4 items-start justify-center w-full translate-x-[8px]"
           >
-            {p.role}
-          </span>
+            {profiles.map((p, i) => (
+              <motion.div
+                key={p.name}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.55, delay: 0.3 + i * 0.1 }}
+                className="relative flex flex-col justify-end shrink-0 rounded-[9px] overflow-hidden"
+                style={{
+                  width: "210px",
+                  height: "365px",
+                }}
+              >
+                {/* Image */}
+                <Image
+                  src={p.img}
+                  alt={p.name}
+                  fill
+                  priority
+                  quality={100}
+                  unoptimized
+                  sizes="246px"
+                  className="object-cover object-center"
+                />
+
+                {/* Dark overlay */}
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    background:
+                      "linear-gradient(360deg, rgba(0,0,0,0.9) 19.96%, rgba(102,102,102,0) 42.85%)",
+                  }}
+                />
+
+                {/* IMAGE 1 FADE */}
+                {i === 0 && (
+                  <div
+                    style={{
+                      position: "absolute",
+                      left: "-2px",
+                      top: 0,
+                      bottom: 0,
+                      width: "48%",
+                      background:
+                        "linear-gradient(to right, #FFFFFF 0%, #FFFFFF 46%, rgba(255,255,255,0.96) 62%, rgba(255,255,255,0.72) 82%, rgba(255,255,255,0) 100%)",
+                      zIndex: 20,
+                      pointerEvents: "none",
+                    }}
+                  />
+                )}
+
+                {/* IMAGE 3 FADE */}
+                {i === 2 && (
+                  <div
+                    style={{
+                      position: "absolute",
+                      right: 0,
+                      top: 0,
+                      bottom: 0,
+                      width: "50%",
+                      background:
+                        "linear-gradient(to left, #FFFFFF 0%, #FFFFFF 34%, rgba(255,255,255,0.92) 58%, rgba(255,255,255,0.55) 80%, rgba(255,255,255,0) 100%)",
+                      zIndex: 20,
+                      pointerEvents: "none",
+                    }}
+                  />
+                )}
+
+                {/* Content */}
+                <div className="relative z-10 p-[15px_18px] flex flex-col gap-1">
+                  <div className="flex items-center gap-1">
+                    <span
+                      className="font-bold text-[20px] leading-[26px] text-[#FEFEFE]"
+                      style={{ fontFamily: "'Afacad', sans-serif" }}
+                    >
+                      {p.name}
+                    </span>
+
+                    <CircleCheck
+                      className="w-5 h-5 shrink-0"
+                      style={{ color: "#98FAC3" }}
+                    />
+                  </div>
+
+                  <span
+                    className="font-medium text-[14px] leading-[24px] text-[#E6E6E6]"
+                    style={{ fontFamily: "'Afacad', sans-serif" }}
+                  >
+                    {p.role}
+                  </span>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
-      </motion.div>
-    ))}
-  </motion.div>
-</div>
 
         {/* Bottom divider */}
         <div className="absolute bottom-0 left-[125px] right-[125px] border-t border-[#C9C9C9] hidden lg:block" />
