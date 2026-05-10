@@ -11,7 +11,10 @@ import { verifyEmailOtp, type AuthState } from "@/app/actions/auth";
 
 export default function VerifyEmailPage() {
   const [code, setCode] = useState<string[]>([]);
-  const [state, formAction, pending] = useActionState(verifyEmailOtp, undefined as AuthState);
+  const [state, formAction, pending] = useActionState(
+    verifyEmailOtp,
+    undefined as AuthState
+  );
   const params = useSearchParams();
   const email = params.get("email") ?? "";
 

@@ -10,50 +10,50 @@ export function Navbar() {
 
   return (
     <header className="w-full bg-white border-b border-[#EDEDED]" style={{ opacity: 0.8 }}>
-      <nav className="flex items-center justify-between px-6 md:px-[125px] h-[80px] max-w-[1440px] mx-auto w-full">
+      <nav className="flex items-center justify-between pl-[20px] pr-[20px] md:pl-[112px] md:pr-[112px] h-[76px] max-w-[1440px] mx-auto w-full">
 
         {/* Logo */}
         <Link href="/" className="flex items-center gap-1 shrink-0">
           <Image
             src="/logo.png"
             alt="Open Profile"
-            width={165}
-            height={30}
-            className="h-[30px] w-auto"
+            width={170}
+            height={32}
+            className="h-[32px] w-auto"
           />
         </Link>
 
         {/* Desktop nav links */}
-        <div className="hidden md:flex items-center gap-6">
+        <div className="hidden md:flex items-center gap-4">
           <Link
             href="#how-it-works"
-            className="text-[#050505] font-medium text-[18px] leading-[26px] font-[Afacad] hover:text-[#087583] transition-colors"
+            className="text-[#050505] font-medium text-[17px] leading-[26px] font-[Afacad] hover:text-[#087583] transition-colors"
           >
             How it works
           </Link>
           <Link
             href="#pricing"
-            className="text-[#050505] font-medium text-[18px] leading-[26px] font-[Afacad] hover:text-[#087583] transition-colors"
+            className="text-[#050505] font-medium text-[16px] leading-[24px] font-[Afacad] hover:text-[#087583] transition-colors"
           >
             Pricing
           </Link>
           <Link
             href="#faq"
-            className="text-[#050505] font-medium text-[18px] leading-[26px] font-[Afacad] hover:text-[#087583] transition-colors"
+            className="text-[#050505] font-medium text-[16px] leading-[24px] font-[Afacad] hover:text-[#087583] transition-colors"
           >
             FAQ
           </Link>
         </div>
 
         {/* Desktop CTA buttons */}
-        <div className="hidden md:flex items-center gap-4">
+        <div className="hidden md:flex items-center gap-3">
           {/* Login */}
-          <button className="flex items-center justify-center px-[14px] py-[8px] h-[36px] bg-[#FAFAFA] rounded-[8px] text-[#087583] font-semibold text-[14px] leading-[20px] font-[Inter] hover:bg-[#E5F4F6] transition-colors">
+          <button className="flex items-center justify-center px-[14px] py-[8px] h-[36px] bg-[#FAFAFA] rounded-[8px] text-[#087583] font-semibold text-[13px] leading-[18px] font-[Inter] hover:bg-[#E5F4F6] transition-colors">
             Login
           </button>
 
           {/* Get Started */}
-          <button className="flex items-center justify-center px-[16px] py-[16px] h-[48px] bg-[#087583] rounded-[8px] text-[#FEFEFE] font-medium text-[16px] leading-[24px] font-[Afacad] hover:bg-[#065E69] transition-colors whitespace-nowrap">
+          <button className="flex items-center justify-center px-[16px] py-[12px] h-[44px] bg-[#087583] rounded-[8px] text-[#FEFEFE] font-medium text-[15px] leading-[22px] font-[Afacad] hover:bg-[#065E69] transition-colors whitespace-nowrap">
             Get Started
           </button>
         </div>
@@ -64,9 +64,15 @@ export function Navbar() {
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label="Toggle menu"
         >
-          <span className={`block h-0.5 w-5 bg-[#050505] transition-transform duration-200 ${mobileOpen ? "rotate-45 translate-y-2" : ""}`} />
-          <span className={`block h-0.5 w-5 bg-[#050505] transition-opacity duration-200 ${mobileOpen ? "opacity-0" : ""}`} />
-          <span className={`block h-0.5 w-5 bg-[#050505] transition-transform duration-200 ${mobileOpen ? "-rotate-45 -translate-y-2" : ""}`} />
+          <span
+            className={`block h-0.5 w-5 bg-[#050505] transition-transform duration-200 ${mobileOpen ? "rotate-45 translate-y-2" : ""}`}
+          />
+          <span
+            className={`block h-0.5 w-5 bg-[#050505] transition-opacity duration-200 ${mobileOpen ? "opacity-0" : ""}`}
+          />
+          <span
+            className={`block h-0.5 w-5 bg-[#050505] transition-transform duration-200 ${mobileOpen ? "-rotate-45 -translate-y-2" : ""}`}
+          />
         </button>
       </nav>
 
