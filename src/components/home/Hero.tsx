@@ -41,21 +41,16 @@ export function Hero() {
   return (
     <section className="w-full bg-white overflow-hidden">
       <div className="max-w-[1440px] mx-auto px-6 md:px-[125px] pt-[80px] pb-[60px] flex flex-col lg:flex-row items-start lg:items-start gap-10 lg:gap-4 relative min-h-[685px]">
-
         {/* ───────────────── LEFT COLUMN ───────────────── */}
         <div className="flex flex-col gap-6 w-full lg:max-w-[500px] shrink-0 z-10">
-
           {/* Heading */}
           <motion.h1
             {...fadeUp(0.05)}
             className="font-semibold text-[42px] sm:text-[50px] md:text-[56px] leading-[1.12] tracking-[-1px] text-[#050505]"
             style={{ fontFamily: "'Afacad', sans-serif" }}
           >
-            Create{" "}
-
-            {/* One */}
+            Create {/* One */}
             <span className="relative inline-block mx-2">
-
               {/* Decorative symbol */}
               <span className="absolute -top-5 left-1/2 -translate-x-1/2 text-[#087583] text-xl leading-none tracking-wider whitespace-nowrap">
                 \ | /
@@ -68,7 +63,6 @@ export function Hero() {
                 One
               </span>
             </span>{" "}
-
             Searchable Profile People Can Find And Trust
           </motion.h1>
 
@@ -109,7 +103,6 @@ export function Hero() {
             {...fadeUp(0.28)}
             className="flex flex-col sm:flex-row sm:items-center gap-3"
           >
-
             {/* Mini avatars */}
             <div
               className="flex items-center relative"
@@ -142,9 +135,7 @@ export function Hero() {
               style={{ fontFamily: "'Afacad', sans-serif" }}
             >
               Join over{" "}
-              <span className="font-semibold text-[#050505]">
-                2000+
-              </span>{" "}
+              <span className="font-semibold text-[#050505]">2000+</span>{" "}
               Creators and freelancers that trusts us all over the world.
             </p>
           </motion.div>
@@ -152,7 +143,6 @@ export function Hero() {
 
         {/* ───────────────── RIGHT COLUMN ───────────────── */}
         <div className="relative flex-1 w-full overflow-hidden">
-
           {/* Left fade */}
           <div className="absolute left-0 top-0 h-full w-[70px] bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
 
@@ -170,7 +160,6 @@ export function Hero() {
             }}
             className="flex gap-4 items-start justify-center w-full"
           >
-
             {profiles.map((p, i) => (
               <motion.div
                 key={p.name}
@@ -186,14 +175,14 @@ export function Hero() {
                   height: "400px",
                 }}
               >
-
                 {/* Image */}
                 <Image
                   src={p.img}
                   alt={p.name}
                   fill
-                  sizes="246px"
+                  sizes="(max-width: 768px) 100vw, 492px"
                   className="object-cover object-top"
+                  quality={90}
                 />
 
                 {/* Gradient overlay */}
@@ -207,10 +196,8 @@ export function Hero() {
 
                 {/* Content */}
                 <div className="relative z-10 p-[15px_18px] flex flex-col gap-1">
-
                   {/* Name */}
                   <div className="flex items-center gap-1">
-
                     <span
                       className="font-bold text-[20px] leading-[26px] text-[#FEFEFE]"
                       style={{ fontFamily: "'Afacad', sans-serif" }}
