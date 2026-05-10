@@ -58,14 +58,14 @@ export function Opportunities() {
 
           {/* Bottom Right Card */}
           <div className="relative rounded-[8px] overflow-hidden flex-1 min-h-[280px] group shadow-[0_2px_15px_rgb(0,0,0,0.03)]">
-            <div className="absolute inset-0 bg-[#e2e8f0]"></div>
+            <div className="absolute inset-0 bg-[#e2e8f0]" />
             <Image
               src="/opportunity/audience.jpg"
               alt="Monitor audience"
               fill
               className="object-cover transition-transform duration-700 group-hover:scale-105"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
 
             <h3 className="absolute bottom-8 left-8 text-white font-bold text-[24px] tracking-tight">
               -Monitor your audience
