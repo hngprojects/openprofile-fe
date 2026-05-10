@@ -4,7 +4,7 @@ import * as React from "react"
 import { Accordion as AccordionPrimitive } from "radix-ui"
 
 import { cn } from "@/lib/utils"
-import { ChevronDown, ChevronUp } from "lucide-react"
+import { Plus, Minus } from "lucide-react"
 
 function Accordion({
   className,
@@ -26,7 +26,7 @@ function AccordionItem({
   return (
     <AccordionPrimitive.Item
       data-slot="accordion-item"
-      className={cn("not-last:border-b data-open:bg-transparent", className)}
+      className={cn("border-b border-[#E5E5E5] last:border-0", className)}
       {...props}
     />
   )
@@ -42,20 +42,20 @@ function AccordionTrigger({
       <AccordionPrimitive.Trigger
         data-slot="accordion-trigger"
         className={cn(
-          "group/accordion-trigger relative flex flex-1 items-start justify-between gap-6 border border-transparent p-0 text-left text-inherit font-medium transition-all outline-none disabled:pointer-events-none disabled:opacity-50",
+          "group/accordion-trigger flex flex-1 items-center justify-between py-6 text-left text-[16px] md:text-[18px] font-medium text-[#050505] transition-all hover:no-underline disabled:pointer-events-none disabled:opacity-50",
           className
         )}
         {...props}
       >
         {children}
-        <div className="flex items-center justify-center size-9 rounded-full transition-all duration-200 bg-[#FAFAFA] group-aria-expanded/accordion-trigger:bg-[#087583] group-aria-expanded/accordion-trigger:text-white text-[#050505]">
-          <ChevronDown 
-            size={24}
-            className="transition-transform duration-200 group-aria-expanded/accordion-trigger:hidden" 
+        <div className="flex items-center justify-center text-[#050505]">
+          <Plus 
+            size={20}
+            className="group-aria-expanded/accordion-trigger:hidden" 
           />
-          <ChevronUp 
-            size={24}
-            className="hidden transition-transform duration-200 group-aria-expanded/accordion-trigger:inline" 
+          <Minus 
+            size={20}
+            className="hidden group-aria-expanded/accordion-trigger:inline" 
           />
         </div>
       </AccordionPrimitive.Trigger>

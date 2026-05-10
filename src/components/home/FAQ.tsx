@@ -35,31 +35,26 @@ const faqData = [
 
 export function FAQ() {
   return (
-    <section className="w-full bg-[#FEFEFE] py-20 md:py-28">
-      <div className="max-w-5xl mx-auto px-4">
-        <div className="text-center mb-12 space-y-3">
-          <h2 className="text-[32px] md:text-[48px] font-semibold tracking-tight text-[#050505] leading-tight">
-            FAQ
+    <section className="w-full bg-[#FEFEFE] py-20 md:py-32">
+      <div className="max-w-4xl mx-auto px-4">
+        <div className="text-center mb-16">
+          <h2 className="text-[32px] md:text-[44px] font-bold tracking-tight text-[#050505]">
+            Frequently asked questions
           </h2>
-          <p className="text-[16px] md:text-[20px] text-[#454545] font-normal max-w-2xl mx-auto">
-            Everything you need to know about creating your verified profile
-          </p>
         </div>
 
-        <div className="max-w-3xl mx-auto p-1">
-          <Accordion type="single" collapsible className="w-full space-y-4">
+        <div className="max-w-3xl mx-auto">
+          <Accordion type="single" collapsible className="w-full">
             {faqData.map((item, index) => (
               <AccordionItem
                 key={index}
                 value={`item-${index}`}
-                className="bg-white border border-[#ABABAB]/30 data-[state=open]:border-[#087583]/60 rounded-[12px] overflow-hidden shadow-[0_2px_10px_rgba(0,0,0,0.01)] transition-all duration-300"
+                className="border-[#E5E5E5]"
               >
-                <AccordionTrigger 
-                  className="text-[15px] md:text-[16px] font-semibold text-[#050505] hover:no-underline py-6 px-8 md:px-10 flex items-center justify-between transition-all"
-                >
-                  <span className="text-left leading-tight font-normal pr-4">{item.question}</span>
+                <AccordionTrigger className="hover:no-underline px-0">
+                  <span className="pr-4">{item.question}</span>
                 </AccordionTrigger>
-                <AccordionContent className="text-[13px] md:text-[14px] text-[#525252] font-medium leading-normal px-8 md:px-10 pb-7">
+                <AccordionContent className="text-[15px] text-[#525252] leading-relaxed pb-6 px-0">
                   {item.answer}
                 </AccordionContent>
               </AccordionItem>
