@@ -71,7 +71,7 @@ export function AuthForm({ mode, action, googleAuthUrl }: Props) {
                 setNameError(
                   name.trim().split(/\s+/).length < 2
                     ? "Enter first and last name"
-                    : "",
+                    : ""
                 )
               }
               className={`${inputClass} ${nameError ? "border-red-400" : ""}`}
@@ -94,7 +94,7 @@ export function AuthForm({ mode, action, googleAuthUrl }: Props) {
             onChange={(e) => setEmail(e.target.value)}
             onBlur={() =>
               setEmailError(
-                email && !EMAIL_RE.test(email) ? "Incorrect email" : "",
+                email && !EMAIL_RE.test(email) ? "Incorrect email" : ""
               )
             }
             className={`${inputClass} ${emailError ? "border-red-400" : ""}`}
@@ -111,7 +111,10 @@ export function AuthForm({ mode, action, googleAuthUrl }: Props) {
 
         {!isSignup && (
           <div className="flex justify-end -mt-2">
-            <Link href="/forgot-password" className="text-sm text-[#087583] font-medium hover:underline">
+            <Link
+              href="/forgot-password"
+              className="text-sm text-[#087583] font-medium hover:underline"
+            >
               Forgot password?
             </Link>
           </div>

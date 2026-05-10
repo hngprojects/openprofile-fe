@@ -145,7 +145,10 @@ export function Pricing() {
                 </p>
                 <ul className="space-y-4 mb-10">
                   {plan.features.map((feature, fIndex) => (
-                    <li key={fIndex} className="flex items-start gap-3 text-[14px]">
+                    <li
+                      key={fIndex}
+                      className="flex items-start gap-3 text-[14px]"
+                    >
                       <Check
                         className={`w-4 h-4 shrink-0 mt-0.5 ${
                           plan.highlighted ? "text-white" : "text-[#087583]"

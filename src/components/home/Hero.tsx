@@ -1,6 +1,4 @@
 import { BsLightningChargeFill, BsCheckLg } from "react-icons/bs";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 
 export function Hero() {
   return (
@@ -18,8 +16,8 @@ export function Hero() {
         </h1>
 
         <p className="text-[15px] md:text-[17px] text-[#050505] max-w-[680px] mx-auto leading-relaxed mb-16">
-          Whether you're freelancing, creating content, or building products,
-          Open
+          Whether you&apos;re freelancing, creating content, or building
+          products, Open
           <br className="hidden md:block" /> Profile helps you stand out.
         </p>
 

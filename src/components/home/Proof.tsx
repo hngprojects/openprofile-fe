@@ -116,7 +116,7 @@ export function Proof() {
             >
               <div className="mb-8">
                 <p className="text-[14px] md:text-[15px] leading-relaxed text-[#050505] font-medium">
-                  "{testimonial.text}"
+                  &quot;{testimonial.text}&quot;
                 </p>
               </div>
 

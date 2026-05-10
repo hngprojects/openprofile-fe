@@ -13,7 +13,9 @@ export async function GET(request: NextRequest) {
   const token = request.nextUrl.searchParams.get("token");
 
   if (!token) {
-    return NextResponse.redirect(new URL("/login?error=missing_token", request.url));
+    return NextResponse.redirect(
+      new URL("/login?error=missing_token", request.url)
+    );
   }
 
   // TODO: Optionally verify the token with the backend before trusting it.
