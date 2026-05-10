@@ -9,7 +9,10 @@ import { forgotPassword, type AuthState } from "@/app/actions/auth";
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export default function ForgotPasswordPage() {
-  const [state, formAction, pending] = useActionState(forgotPassword, undefined as AuthState);
+  const [state, formAction, pending] = useActionState(
+    forgotPassword,
+    undefined as AuthState
+  );
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
 
@@ -30,14 +33,20 @@ export default function ForgotPasswordPage() {
 
       <form action={formAction} className="flex flex-col gap-4">
         <div className="flex flex-col gap-1.5">
-          <label className="text-sm font-medium text-[#454545]">Email Address</label>
+          <label className="text-sm font-medium text-[#454545]">
+            Email Address
+          </label>
           <Input
             name="email"
             type="email"
             placeholder="Enter your email address"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            onBlur={() => setEmailError(email && !EMAIL_RE.test(email) ? "Incorrect email" : "")}
+            onBlur={() =>
+              setEmailError(
+                email && !EMAIL_RE.test(email) ? "Incorrect email" : ""
+              )
+            }
             className={`h-11 bg-[#FAFAFA] border border-[#EDEDED] shadow-none placeholder:text-[#747474] ${emailError ? "border-red-400" : ""}`}
           />
           {emailError && <p className="text-xs text-red-500">{emailError}</p>}
