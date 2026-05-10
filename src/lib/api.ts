@@ -5,9 +5,12 @@ import { unauthorized } from "next/navigation";
 
 export function extractTokensFromResponse(headers: Headers) {
   const cookies: string[] =
-    typeof (headers as unknown as { getSetCookie?: () => string[] }).getSetCookie === "function"
+    typeof (headers as unknown as { getSetCookie?: () => string[] })
+      .getSetCookie === "function"
       ? (headers as unknown as { getSetCookie: () => string[] }).getSetCookie()
-      : (headers.get("set-cookie") ?? "").split(/,(?=[^ ])/).map((s) => s.trim());
+      : (headers.get("set-cookie") ?? "")
+          .split(/,(?=[^ ])/)
+          .map((s) => s.trim());
 
   const find = (names: string[]) => {
     for (const cookie of cookies) {

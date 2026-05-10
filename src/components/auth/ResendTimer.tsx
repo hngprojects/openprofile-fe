@@ -38,7 +38,13 @@ export function ResendTimer({ initialSeconds = 98, email }: Props) {
         Resend Code
       </button>
       {seconds > 0 && (
-        <> in <span className="font-medium">{mm}:{ss}</span></>
+        <>
+          {" "}
+          in{" "}
+          <span className="font-medium">
+            {mm}:{ss}
+          </span>
+        </>
       )}
     </p>
   );
