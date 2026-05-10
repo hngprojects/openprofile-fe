@@ -30,12 +30,14 @@ export function Navbar() {
           </div>
 
           <div className="flex items-center gap-4">
-            <Button className="hidden sm:flex text-[#065E69] bg-[#F6F6F6] hover:bg-[#E5E7EB] font-semibold rounded-[8px] px-6 h-10 shadow-none">
-              Login
+            <Button asChild className="hidden sm:flex text-[#065E69] bg-[#F6F6F6] hover:bg-[#E5E7EB] font-semibold rounded-[8px] px-6 h-10 shadow-none">
+              <Link href="/login">Login</Link>
             </Button>
-            <Button className="bg-[#087583] text-white hover:bg-[#065E69]/90 font-semibold rounded-[8px] px-6 h-10 flex items-center gap-2 shadow-none border border-[#087583]">
-              Button CTA
-              <div className="w-4 h-4 rounded-full border-2 border-white" />
+            <Button asChild className="bg-[#087583] text-white hover:bg-[#065E69]/90 font-semibold rounded-[8px] px-6 h-10 flex items-center gap-2 shadow-none border border-[#087583]">
+              <Link href="/signup">
+                Get Started
+                <div className="w-4 h-4 rounded-full border-2 border-white"></div>
+              </Link>
             </Button>
           </div>
         </div>
