@@ -137,7 +137,7 @@ jobs:
           password: ${{ secrets.EC2_PASSWORD }}
           script: |
             cd /var/www/openprofile-fe/main
-            pnpm install --config.ignore-scripts=true
+            pnpm install --no-frozen-lockfile
             pnpm build
 
       - name: Start app with PM2
@@ -147,6 +147,6 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           password: ${{ secrets.EC2_PASSWORD }}
           script: |
-            cd /var/www/openprofile-fe/main
-            pm2 restart openprofile-main-fe || pm2 start "pnpm" --name "openprofile-main-fe" -- start --env PORT=3001
+            cd /var/www/openprofile-fe/staging
+            pm2 restart openprofile-staging-fe || pm2 start "pnpm" --name "openprofile-staging-fe" -- start --env PORT=3001
             pm2 save
