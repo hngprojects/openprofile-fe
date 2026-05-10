@@ -1,7 +1,7 @@
 "use server";
 import { redirect } from "next/navigation";
 import { createSession, deleteSession } from "@/lib/session";
-import { apiFetch } from "@/lib/api";
+import { apiFetch, extractTokensFromResponse } from "@/lib/api";
 
 export type AuthState = { error?: string } | undefined;
 
@@ -49,7 +49,10 @@ export async function emailLogin(
     return { error: data.message ?? "Invalid credentials." };
   }
 
-  const { accessToken, refreshToken } = await res.json();
+  const { accessToken, refreshToken } = extractTokensFromResponse(res.headers);
+  if (!accessToken || !refreshToken) {
+    return { error: "Login succeeded but no session was returned. Please try again." };
+  }
   await createSession({ accessToken, refreshToken });
 
   redirect("/dashboard");
@@ -101,6 +104,28 @@ export async function resetPassword(
   }
 
   redirect("/forgot-password/success");
+}
+
+export async function verifyEmailOtp(
+  _prev: AuthState,
+  formData: FormData,
+): Promise<AuthState> {
+  const email = formData.get("email") as string;
+  const otp = formData.get("otp") as string;
+
+  if (!email || !otp) return { error: "Missing email or code." };
+
+  const res = await apiFetch("/api/auth/verify-otp", {
+    method: "POST",
+    body: { email, otp },
+  });
+
+  if (!res.ok) {
+    const data = await res.json().catch(() => ({}));
+    return { error: data.message ?? "Verification failed." };
+  }
+
+  redirect("/verify-email/success");
 }
 
 export async function getCurrentUser() {
