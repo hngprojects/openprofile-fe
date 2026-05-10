@@ -99,7 +99,7 @@ export function Proof() {
 
         <motion.h2
           variants={itemVariants}
-          className="text-[32px] md:text-[44px] lg:text-[48px] font-bold text-center text-[#050505] mb-16 leading-[1.1] max-w-4xl"
+          className="text-[32px] md:text-[44px] lg:text-[40px] font-bold text-center text-[#050505] mb-10"
         >
           Join creators and freelancers building their identity online
         </motion.h2>
