@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 const audiences = [
   {
     bg: "#EFF6F8",
+    right: "right-[-7px]",
     icon: "/target_assets/icon-code.svg",
     checkIcon: "/target_assets/icon-check.svg",
     title: "Freelancers",
@@ -19,6 +20,7 @@ const audiences = [
   },
   {
     bg: "#FFF6EF",
+    right: "right-[-20px]",
     icon: "/target_assets/icon-pencil.svg",
     checkIcon: "/target_assets/icon-orange-check.svg",
     title: "Creators",
@@ -32,6 +34,7 @@ const audiences = [
   },
   {
     bg: "#F3FEF7",
+    right: "right-[-21px]",
     icon: "/target_assets/icon-artboard.svg",
     checkIcon: "/target_assets/icon-green-check.svg",
     title: "Indie Builders",
@@ -52,7 +55,7 @@ const fadeUp = {
 
 export default function Target() {
   return (
-    <div className="text-primary font-sfpror max-w-7xl">
+    <div className="text-primary font-sfpror w-full mx-4 sm:mx-6 md:mx-8 py-16 max-w-7xl">
       {/* header */}
       <motion.div
         variants={fadeUp}
@@ -68,18 +71,20 @@ export default function Target() {
             width={16}
             height={16}
           />
-          <p className="font-medium text-[12px] leading-4">Target Audience</p>
+          <p className="font-medium text-[12px] leading-4 text-brand">
+            Target Audience
+          </p>
         </div>
 
-        <p className="font-afacad font-semibold text-[48px] leading-14 mt-2 text-center">
+        <p className="font-afacad font-semibold text-[28px] md:text-[40px] lg:text-[48px] leading-9 md:leading-12 lg:leading-14 mt-2 text-center max-w-[450px] md:max-w-full mx-auto">
           Built for people who need to be discovered early
         </p>
       </motion.div>
 
       {/* cards grid */}
-      <div className="mt-10 grid gap-6 grid-cols-[repeat(auto-fit,minmax(340px,1fr))] items-center justify-center">
+      <div className="mt-10 grid gap-6 grid-cols-[repeat(auto-fit,minmax(300px,1fr))] items-center justify-center">
         {audiences.map(
-          ({ bg, icon, checkIcon, title, description, items }, i) => (
+          ({ bg, right, icon, checkIcon, title, description, items }, i) => (
             <motion.div
               key={title}
               style={{ backgroundColor: bg }}
@@ -88,10 +93,10 @@ export default function Target() {
               whileInView="show"
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.15 }}
-              className="px-6 pt-20 pb-6 space-y-4 rounded-[16px] relative h-full flex flex-col"
+              className="px-6 pt-20 pb-6 space-y-4 rounded-[16px] relative h-full flex flex-col overflow-hidden max-w-[450px] w-full mx-auto"
             >
               {/* top icon */}
-              <div className="absolute top-0 right-0">
+              <div className={`absolute top-0 ${right}`}>
                 <Image
                   src={icon}
                   alt={title}
@@ -127,7 +132,7 @@ export default function Target() {
                 ))}
               </div>
             </motion.div>
-          ),
+          )
         )}
       </div>
     </div>
