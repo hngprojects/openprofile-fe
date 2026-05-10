@@ -1,7 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -12,6 +12,21 @@ const fadeIn = {
   hidden: { opacity: 0 },
   show: { opacity: 1 },
 };
+
+const CARD_W = 143;
+const CARD_H = 72;
+
+// outer container dimensions at 1440px
+const OUTER_W = 528;
+const OUTER_H = 420;
+
+// svg dimensions
+const SVG_W = 363;
+const SVG_H = 274;
+
+// offset between outer container and centered SVG
+const OFFSET_X = (OUTER_W - SVG_W) / 2; // 82.5
+const OFFSET_Y = (OUTER_H - SVG_H) / 2; // 73
 
 const socials = [
   {
@@ -24,25 +39,57 @@ const socials = [
     label: "Behance",
     sub: "Portfolio",
     bg: "#548BF1",
-    icon: "/impression/icon-github.svg",
+    icon: "/impression/icon-behance.svg",
   },
   {
     label: "LinkedIn",
     sub: "Experience",
     bg: "#548BF1",
-    icon: "/impression/icon-github.svg",
+    icon: "/impression/icon-linkedin.svg",
   },
   {
     label: "X",
     sub: "Thoughts",
     bg: "#171717",
-    icon: "/impression/icon-github.svg",
+    icon: "/impression/icon-twitter.svg",
+  },
+];
+
+// card center positions in outer container space → converted to SVG coordinate space
+const lines = [
+  // top-left card (pl-[19px] offset)
+  {
+    x1: 19 + CARD_W / 2 - OFFSET_X,
+    y1: CARD_H / 2 - OFFSET_Y,
+    x2: SVG_W / 2,
+    y2: SVG_H / 2,
+  },
+  // top-right card
+  {
+    x1: OUTER_W - CARD_W + CARD_W / 2 - OFFSET_X,
+    y1: CARD_H / 2 - OFFSET_Y,
+    x2: SVG_W / 2,
+    y2: SVG_H / 2,
+  },
+  // bottom-left card (pb-1.5 offset)
+  {
+    x1: CARD_W / 2 - OFFSET_X,
+    y1: OUTER_H - CARD_H + CARD_H / 2 - OFFSET_Y,
+    x2: SVG_W / 2,
+    y2: SVG_H / 2,
+  },
+  // bottom-right card (pr-0.5 offset)
+  {
+    x1: OUTER_W - CARD_W + CARD_W / 2 - OFFSET_X,
+    y1: OUTER_H - CARD_H + CARD_H / 2 - OFFSET_Y,
+    x2: SVG_W / 2,
+    y2: SVG_H / 2,
   },
 ];
 
 export default function Impression() {
   return (
-    <div className="font-afacad text-primary flex items-center justify-between w-full gap-20 max-w-7xl">
+    <div className="font-afacad text-primary grid grid-cols-1 lg:grid-cols-2 gap-10 xl:gap-20 w-full items-center max-w-7xl mx-4 sm:mx-6 md:mx-8 py-16">
       {/* left visual */}
       <motion.div
         variants={fadeIn}
@@ -50,140 +97,142 @@ export default function Impression() {
         whileInView="show"
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="space-y-4 min-w-132 h-105 relative flex items-center justify-center"
+        className="relative flex items-center justify-center w-full max-w-[528px] mx-auto"
+        style={{ aspectRatio: `${OUTER_W} / ${OUTER_H}` }}
       >
-        <div className="relative flex items-center justify-center">
-          {/* user */}
-          <motion.div
-            initial={{ scale: 0.7, opacity: 0 }}
-            whileInView={{ scale: 1, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="p-4 h-18 bg-[#FEFEFE] border-2 border-white rounded-full w-fit absolute z-10"
+        {/* SVG — dashes + user icon only, centered inside outer container */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <svg
+            width={SVG_W}
+            height={SVG_H}
+            viewBox={`0 0 ${SVG_W} ${SVG_H}`}
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <Image
-              src="/impression/icon-user.svg"
-              alt="user"
-              width={40}
-              height={40}
-            />
-            <div className="bg-[#FF4D4D] flex items-center justify-center w-7 h-7 border-2 border-white rounded-full absolute right-[1.3px] bottom-[-8.74px]">
-              <Image
-                src="/impression/icon-question.svg"
-                alt="user"
-                width={12}
-                height={12}
+            {/* dashes from card centers to user icon */}
+            {lines.map((line, i) => (
+              <motion.line
+                key={i}
+                {...line}
+                stroke="#ABABAB"
+                strokeWidth="1"
+                strokeDasharray="6 6"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1, delay: 0.4 }}
               />
-            </div>
-          </motion.div>
+            ))}
 
-          {/* dashes */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1, delay: 0.4 }}
-            className="relative w-[363px] h-[274px]"
-          >
-            <svg
-              width="363"
-              height="274"
-              viewBox="0 0 363 274"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="absolute inset-0"
+            {/* user icon at center */}
+            <motion.g
+              initial={{ scale: 0.7, opacity: 0 }}
+              whileInView={{ scale: 1, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              style={{ transformOrigin: `${SVG_W / 2}px ${SVG_H / 2}px` }}
             >
-              <line
-                x1="0"
-                y1="0"
-                x2="181.5"
-                y2="137"
-                stroke="#ABABAB"
-                strokeWidth="1"
-                strokeDasharray="6 6"
+              {/* circle bg */}
+              <circle
+                cx={SVG_W / 2}
+                cy={SVG_H / 2}
+                r="30"
+                fill="#FEFEFE"
+                stroke="white"
+                strokeWidth="2"
               />
-              <line
-                x1="363"
-                y1="0"
-                x2="181.5"
-                y2="137"
-                stroke="#ABABAB"
-                strokeWidth="1"
-                strokeDasharray="6 6"
+              {/* user icon */}
+              <foreignObject
+                x={SVG_W / 2 - 20}
+                y={SVG_H / 2 - 20}
+                width="40"
+                height="40"
+              >
+                <Image
+                  src="/impression/icon-user.svg"
+                  alt="user"
+                  width={40}
+                  height={40}
+                />
+              </foreignObject>
+              {/* red question badge */}
+              <circle
+                cx={SVG_W / 2 + 20}
+                cy={SVG_H / 2 + 20}
+                r="11"
+                fill="#FF4D4D"
+                stroke="white"
+                strokeWidth="2"
               />
-              <line
-                x1="0"
-                y1="274"
-                x2="181.5"
-                y2="137"
-                stroke="#ABABAB"
-                strokeWidth="1"
-                strokeDasharray="6 6"
-              />
-              <line
-                x1="363"
-                y1="274"
-                x2="181.5"
-                y2="137"
-                stroke="#ABABAB"
-                strokeWidth="1"
-                strokeDasharray="6 6"
-              />
-            </svg>
-          </motion.div>
+              <foreignObject
+                x={SVG_W / 2 + 14}
+                y={SVG_H / 2 + 14}
+                width="12"
+                height="12"
+              >
+                <Image
+                  src="/impression/icon-question.svg"
+                  alt="question"
+                  width={12}
+                  height={12}
+                />
+              </foreignObject>
+            </motion.g>
+          </svg>
         </div>
 
-        {/* social cards */}
-        <div className="absolute h-full w-full flex flex-col items-center justify-between">
-          <div className="flex items-center justify-between w-full pl-[19px]">
-            {socials.slice(0, 2).map(({ label, sub, bg, icon }, i) => (
-              <motion.div
-                key={label}
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.3 + i * 0.15 }}
-                className="w-[143px] h-18 bg-[#FEFEFE] border border-[#EDEDED] rounded-[16px] flex items-center justify-start gap-2 pl-4 rotate-[0.82deg]"
-              >
-                <div
-                  style={{ backgroundColor: bg }}
-                  className="border border-[#EDEDED]"
-                >
-                  <Image src={icon} alt={label} height={24} width={24} />
-                </div>
-                <p className="text-[14px] leading-5 flex flex-col">
-                  <span>{label}</span>
-                  <span>{sub}</span>
-                </p>
-              </motion.div>
-            ))}
-          </div>
+        {/* social cards — HTML divs absolutely positioned at corners */}
 
-          <div className="flex items-center justify-between w-full pr-0.5 pb-1.5">
-            {socials.slice(2).map(({ label, sub, bg, icon }, i) => (
-              <motion.div
-                key={label}
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.5 + i * 0.15 }}
-                className="w-[143px] h-18 bg-[#FEFEFE] border border-[#EDEDED] rounded-[16px] flex items-center justify-start gap-2 pl-4 rotate-[0.82deg]"
+        {/* top row */}
+        <div className="absolute top-0 left-0 right-0 flex items-start justify-between pl-[19px]">
+          {socials.slice(0, 2).map(({ label, sub, bg, icon }, i) => (
+            <motion.div
+              key={label}
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.3 + i * 0.15 }}
+              className="w-[143px] h-18 bg-[#FEFEFE] border border-[#EDEDED] rounded-[16px] flex items-center justify-start gap-2 pl-4 rotate-[0.82deg]"
+            >
+              <div
+                style={{ backgroundColor: bg }}
+                className="shrink-0 h-8.5 w-8.5 border border-[#EDEDED] flex items-center justify-center rounded-[4px]"
               >
-                <div
-                  style={{ backgroundColor: bg }}
-                  className="border border-[#EDEDED]"
-                >
-                  <Image src={icon} alt={label} height={24} width={24} />
-                </div>
-                <p className="text-[14px] leading-5 flex flex-col">
-                  <span>{label}</span>
-                  <span>{sub}</span>
-                </p>
-              </motion.div>
-            ))}
-          </div>
+                <Image src={icon} alt={label} width={24} height={24} />
+              </div>
+              <p className="text-[14px] leading-5 flex flex-col">
+                <span>{label}</span>
+                <span>{sub}</span>
+              </p>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* bottom row */}
+        <div className="absolute bottom-0 left-0 right-0 flex items-end justify-between pr-0.5 pb-1.5">
+          {socials.slice(2).map(({ label, sub, bg, icon }, i) => (
+            <motion.div
+              key={label}
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.5 + i * 0.15 }}
+              className="w-[143px] h-18 bg-[#FEFEFE] border border-[#EDEDED] rounded-[16px] flex items-center justify-start gap-2 pl-4 rotate-[0.82deg]"
+            >
+              <div
+                style={{ backgroundColor: bg }}
+                className="shrink-0 h-8.5 w-8.5 border border-[#EDEDED] flex items-center justify-center rounded-[4px]"
+              >
+                <Image src={icon} alt={label} width={24} height={24} />
+              </div>
+              <p className="text-[14px] leading-5 flex flex-col">
+                <span>{label}</span>
+                <span>{sub}</span>
+              </p>
+            </motion.div>
+          ))}
         </div>
       </motion.div>
 
@@ -194,7 +243,7 @@ export default function Impression() {
         whileInView="show"
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.2 }}
-        className="flex flex-col items-start gap-6 justify-center w-145.5"
+        className="flex flex-col items-start gap-6 justify-center w-full"
       >
         <div className="space-y-4">
           <motion.p
@@ -203,7 +252,7 @@ export default function Impression() {
             whileInView="show"
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="text-[40px] leading-12 tracking-[-1px] font-semibold font-sfpror"
+            className="text-[28px] md:text-[34px] lg:text-[40px] leading-9 md:leading-11 lg:leading-12 tracking-[-1px] font-semibold font-sfpror"
           >
             Your Links Are Scattered.{" "}
             <span className="text-[#087583]">
@@ -217,7 +266,7 @@ export default function Impression() {
             whileInView="show"
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className="text-[18px] leading-6.5 min-h-45.5 flex flex-col font-sfpror justify-between gap-6"
+            className="text-[15px] md:text-[16px] lg:text-[18px] leading-6 lg:leading-6.5 flex flex-col font-sfpror gap-4 md:gap-6"
           >
             <span>
               Your projects may be on GitHub. Your designs may be on Behance.

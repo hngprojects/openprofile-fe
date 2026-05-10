@@ -1,45 +1,108 @@
+"use client";
+
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 
 export function Navbar() {
+  const [mobileOpen, setMobileOpen] = useState(false);
+
   return (
-    <header className="w-full bg-[#F7F7F7]">
-      <nav className="flex items-center justify-between py-6 px-4 md:px-8 max-w-7xl mx-auto w-full">
-        <div className="flex">
+    <header className="w-full bg-white border-b border-[#EDEDED]" style={{ opacity: 0.8 }}>
+      <nav className="flex items-center justify-between px-6 md:px-[125px] h-[80px] max-w-[1440px] mx-auto w-full">
+
+        {/* Logo */}
+        <Link href="/" className="flex items-center gap-1 shrink-0">
           <Image
             src="/logo.png"
-            alt="Logo"
-            width={160}
-            height={40}
-            className="h-8 w-auto"
+            alt="Open Profile"
+            width={165}
+            height={30}
+            className="h-[30px] w-auto"
           />
+        </Link>
+
+        {/* Desktop nav links */}
+        <div className="hidden md:flex items-center gap-6">
+          <Link
+            href="#how-it-works"
+            className="text-[#050505] font-medium text-[18px] leading-[26px] font-[Afacad] hover:text-[#087583] transition-colors"
+          >
+            How it works
+          </Link>
+          <Link
+            href="#pricing"
+            className="text-[#050505] font-medium text-[18px] leading-[26px] font-[Afacad] hover:text-[#087583] transition-colors"
+          >
+            Pricing
+          </Link>
+          <Link
+            href="#faq"
+            className="text-[#050505] font-medium text-[18px] leading-[26px] font-[Afacad] hover:text-[#087583] transition-colors"
+          >
+            FAQ
+          </Link>
         </div>
 
-        <div className="flex items-center gap-8">
-          <div className="hidden md:flex items-center gap-8 font-semibold text-sm text-[#111111]">
-            <Link href="#" className="hover:opacity-80 transition-opacity">
-              How it works
-            </Link>
-            <Link href="#" className="hover:opacity-80 transition-opacity">
-              Pricing
-            </Link>
-            <Link href="#" className="hover:opacity-80 transition-opacity">
-              FAQ
-            </Link>
-          </div>
+        {/* Desktop CTA buttons */}
+        <div className="hidden md:flex items-center gap-4">
+          {/* Login */}
+          <button className="flex items-center justify-center px-[14px] py-[8px] h-[36px] bg-[#FAFAFA] rounded-[8px] text-[#087583] font-semibold text-[14px] leading-[20px] font-[Inter] hover:bg-[#E5F4F6] transition-colors">
+            Login
+          </button>
 
-          <div className="flex items-center gap-4">
-            <Button className="hidden sm:flex text-[#065E69] bg-[#F6F6F6] hover:bg-[#E5E7EB] font-semibold rounded-[8px] px-6 h-10 shadow-none">
-              Login
-            </Button>
-            <Button className="bg-[#087583] text-white hover:bg-[#065E69]/90 font-semibold rounded-[8px] px-6 h-10 flex items-center gap-2 shadow-none border border-[#087583]">
-              Button CTA
-              <div className="w-4 h-4 rounded-full border-2 border-white" />
-            </Button>
-          </div>
+          {/* Get Started */}
+          <button className="flex items-center justify-center px-[16px] py-[16px] h-[48px] bg-[#087583] rounded-[8px] text-[#FEFEFE] font-medium text-[16px] leading-[24px] font-[Afacad] hover:bg-[#065E69] transition-colors whitespace-nowrap">
+            Get Started
+          </button>
         </div>
+
+        {/* Mobile hamburger */}
+        <button
+          className="md:hidden p-2 flex flex-col gap-1.5"
+          onClick={() => setMobileOpen(!mobileOpen)}
+          aria-label="Toggle menu"
+        >
+          <span className={`block h-0.5 w-5 bg-[#050505] transition-transform duration-200 ${mobileOpen ? "rotate-45 translate-y-2" : ""}`} />
+          <span className={`block h-0.5 w-5 bg-[#050505] transition-opacity duration-200 ${mobileOpen ? "opacity-0" : ""}`} />
+          <span className={`block h-0.5 w-5 bg-[#050505] transition-transform duration-200 ${mobileOpen ? "-rotate-45 -translate-y-2" : ""}`} />
+        </button>
       </nav>
+
+      {/* Mobile dropdown */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="md:hidden overflow-hidden bg-white border-t border-[#EDEDED]"
+          >
+            <div className="flex flex-col px-6 py-5 gap-5">
+              {["How it works", "Pricing", "FAQ"].map((item) => (
+                <Link
+                  key={item}
+                  href={`#${item.toLowerCase().replace(/\s+/g, "-")}`}
+                  onClick={() => setMobileOpen(false)}
+                  className="text-[#050505] font-medium text-[16px] font-[Afacad] hover:text-[#087583] transition-colors"
+                >
+                  {item}
+                </Link>
+              ))}
+              <div className="flex gap-3 pt-1">
+                <button className="flex-1 h-10 bg-[#FAFAFA] rounded-[8px] text-[#087583] font-semibold text-sm border border-[#EDEDED]">
+                  Login
+                </button>
+                <button className="flex-1 h-10 bg-[#087583] rounded-[8px] text-white font-medium text-sm">
+                  Get Started
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }
