@@ -1,0 +1,107 @@
+import Image from "next/image";
+import {Zap } from "lucide-react";
+
+interface Testimonial {
+  name: string;
+  role: string;
+  image: string;
+  text: string;
+  className?: string;
+}
+
+const testimonials: Testimonial[] = [
+  {
+    name: "David",
+    role: "Product Designer",
+    image: "/socialproof/david.png",
+    text: "Before using Open Profile, I had my work scattered across different platforms—my portfolio on one site, links in my bio, and social media everywhere else. It was always a struggle sending everything to clients without overwhelming them. With Open Profile, I was able to bring everything together into one clean, professional page. Now when someone wants to know about me, I just send a single link and they can see my work.",
+    className: "md:col-span-2",
+  },
+  {
+    name: "Amaka",
+    role: "Content Creator",
+    image: "/socialproof/amaka.png",
+    text: "Having everything in one place makes me look more professional, especially with the verification badge.",
+    className: "md:col-span-1",
+  },
+  {
+    name: "Tunde",
+    role: "Frontend Developer",
+    image: "/socialproof/tunde.png",
+    text: "I like that people can actually find my profile instead of me always sharing it first.",
+    className: "md:col-span-1",
+  },
+  {
+    name: "Linda",
+    role: "Content Creator",
+    image: "/socialproof/linda.png",
+    text: "I like that people can actually find my profile instead of me always sharing it first.",
+    className: "md:col-span-1",
+  },
+  {
+    name: "James",
+    role: "Backend Developer",
+    image: "/socialproof/james.png",
+    text: "I used to send multiple links to clients. Now I just share one profile and everything they need is there.",
+    className: "md:col-span-1",
+  },
+  {
+    name: "Chinedu",
+    role: "Programmer",
+    image: "/socialproof/chinedu.png",
+    text: "What I like most about Open Profile is how simple it is to bring everything together into one clean, professional page. Now, when someone wants to learn more about me, I just share a single link and they can instantly see my work, connect with me, and even verify my profile. It's made a big difference in how I present myself online. I feel more organized, more credible, and I've noticed that people take me more seriously when they reach out.",
+    className: "md:col-span-2",
+  },
+];
+
+export function Proof() {
+  return (
+    <section className="w-full bg-[#FAFAFA] py-20 md:py-28 px-4 md:px-8 -mt-15">
+      <div className="max-w-7xl mx-auto flex flex-col items-center">
+
+        <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-[#E6F9FB] text-[#087583] text-[13px] font-bold mb-8">
+          <Zap className="w-3.5 h-3.5 " />
+          Social Proof
+        </div>
+
+        <h2 className="text-[28px] md:text-[40px] font-semibold text-center text-[#050505] mb-10">
+          Join creators and freelancers building their identity online
+        </h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 w-full ">
+          {testimonials.map((testimonial, index) => (
+            <div
+              key={index}
+              className={`bg-white rounded-[20px] p-8 shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-[#F5F5F5] flex flex-col justify-between ${testimonial.className}`}
+            >
+              <div className="mb-8">
+                <p className="text-[14px] md:text-[15px] leading-relaxed text-[#050505] font-medium">
+                  "{testimonial.text}"
+                </p>
+              </div>
+
+              <div className="flex items-end justify-between mt-auto">
+                <div>
+                  <h4 className="text-[16px] font-bold text-[#050505] mb-0.5">
+                    {testimonial.name}
+                  </h4>
+                  <p className="text-[13px] text-[#525252] font-medium">
+                    {testimonial.role}
+                  </p>
+                </div>
+                <div className="relative w-12 h-12 rounded-full overflow-hidden shrink-0">
+                  <Image
+                    src={testimonial.image}
+                    alt={testimonial.name}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
