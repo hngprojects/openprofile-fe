@@ -86,7 +86,7 @@ jobs:
           password: ${{ secrets.EC2_PASSWORD }}
           script: |
             cd /var/www/openprofile-fe/staging
-            pnpm install --no-frozen-lockfile
+            pnpm install --config.ignore-scripts=true
             pnpm build
 
       - name: Start app with PM2
