@@ -34,10 +34,10 @@ jobs:
           version: 8
 
       - name: Install dependencies
-        run: pnpm install --no-frozen-lockfile
+        run: pnpm install --no-frozen-lockfile --ignore-scripts
 
       - name: Typecheck
-        run: pnpm type-check
+        run: pnpm typecheck
 
       - name: Lint
         run: pnpm lint
@@ -67,6 +67,7 @@ jobs:
           password: ${{ secrets.EC2_PASSWORD }}
           source: "./"
           target: /var/www/openprofile-fe/staging
+          
 
       - name: Copy env file
         uses: appleboy/ssh-action@v1.0.3
@@ -85,7 +86,7 @@ jobs:
           password: ${{ secrets.EC2_PASSWORD }}
           script: |
             cd /var/www/openprofile-fe/staging
-            pnpm install --no-frozen-lockfile --ignore-scripts
+            pnpm install --config.ignore-scripts=true
             pnpm build
 
       - name: Start app with PM2
@@ -146,6 +147,6 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           password: ${{ secrets.EC2_PASSWORD }}
           script: |
-            cd /var/www/openprofile-fe/main
+            cd /var/www/openprofile-fe/staging
             pm2 startOrRestart ecosystem.config.js
             pm2 save
