@@ -1,4 +1,4 @@
-import { NextResponse, type NextProxy } from "next/server";
+import { NextResponse, type NextRequest } from "next/server";
 
 const SECURITY_HEADERS: Record<string, string> = {
   "X-Frame-Options": "DENY",
@@ -7,12 +7,26 @@ const SECURITY_HEADERS: Record<string, string> = {
   "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
 };
 
-export const proxy: NextProxy = (request) => {
-  const requestId =
-    request.headers.get("x-request-id") ?? crypto.randomUUID();
+const PROTECTED_PREFIX = ["/dashboard", "/profile", "/settings"];
+
+export async function proxy(request: NextRequest) {
+  const requestId = request.headers.get("x-request-id") ?? crypto.randomUUID();
 
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set("x-request-id", requestId);
+
+  const { pathname } = request.nextUrl;
+
+  const isProtected = PROTECTED_PREFIX.some((p) => pathname.startsWith(p));
+  const token = request.cookies.get("session")?.value;
+
+  if (isProtected && !token) {
+    return NextResponse.redirect(new URL("/login", request.url));
+  }
+
+  if ((pathname === "/login" || pathname === "/signup") && token) {
+    return NextResponse.redirect(new URL("/dashboard", request.url));
+  }
 
   const response = NextResponse.next({
     request: { headers: requestHeaders },
@@ -24,7 +38,7 @@ export const proxy: NextProxy = (request) => {
   response.headers.set("x-request-id", requestId);
 
   return response;
-};
+}
 
 export const config = {
   matcher: [
