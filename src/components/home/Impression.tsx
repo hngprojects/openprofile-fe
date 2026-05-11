@@ -92,7 +92,7 @@ const lines = [
 
 export default function Impression() {
   return (
-    <div className="font-afacad text-primary grid grid-cols-1 lg:grid-cols-2 gap-10 xl:gap-20 w-full items-center max-w-7xl mx-4 sm:mx-6 md:mx-8 py-16">
+    <div className="font-afacad text-primary grid grid-cols-1 lg:grid-cols-2 gap-10 xl:gap-20 w-full items-center">
       {/* left visual */}
       <motion.div
         variants={fadeIn}

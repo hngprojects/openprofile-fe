@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { Zap } from "lucide-react";
 import { motion, Variants } from "framer-motion";
 
 interface Testimonial {
@@ -91,10 +90,10 @@ export function Proof() {
       >
         <motion.div
           variants={itemVariants}
-          className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-[#E6F9FB] text-[#087583] text-[13px] font-bold mb-8"
+          className="rounded-[24px] bg-[#F2FDFE] pl-3.5 pr-5.5 w-fit flex items-center gap-1 mx-auto h-7.5 mb-8"
         >
-          <Zap className="w-3.5 h-3.5 " />
-          Social Proof
+          <Image src="/target_assets/icon-flash.svg" alt="" width={16} height={16} />
+          <p className="font-medium text-[12px] leading-4 text-brand font-sfpror">Social Proof</p>
         </motion.div>
 
         <motion.h2
