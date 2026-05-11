@@ -1,6 +1,6 @@
 "use client";
 import { useActionState, useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import { AuthLayout } from "@/components/auth/AuthLayout";
 import { AuthPageHeader } from "@/components/auth/AuthPageHeader";
@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { verifyEmailOtp, type AuthState } from "@/app/actions/auth";
 
 export default function VerifyEmailPage() {
+  const router = useRouter();
   const [code, setCode] = useState<string[]>([]);
   const [state, formAction, pending] = useActionState(
     verifyEmailOtp,
@@ -21,8 +22,9 @@ export default function VerifyEmailPage() {
   const isComplete = code.length === 6 && code.every(Boolean);
 
   useEffect(() => {
-    if (state?.error) toast.error(state.error);
-  }, [state]);
+    if (state?.redirectTo) router.push(state.redirectTo);
+    else if (state?.error) toast.error(state.error);
+  }, [state, router]);
 
   return (
     <AuthLayout>
