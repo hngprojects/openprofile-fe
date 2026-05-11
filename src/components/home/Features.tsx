@@ -115,16 +115,16 @@ export function Features() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.6 }}
-        className="flex flex-col items-center gap-4 mb-16 text-center"
+        className="max-w-7xl mx-auto px-4 md:px-8 flex flex-col items-center gap-4 mb-16 text-center"
       >
-        <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-teal-700 bg-white rounded-full px-4 py-1.5">
+        <span className="rounded-[24px] bg-[#F2FDFE] pl-3.5 pr-5.5 w-fit flex items-center gap-1 mx-auto h-7.5">
           <Image
-            src="/features/Bolt.svg"
-            alt="bolt icon"
-            width={13}
-            height={13}
+            src="/target_assets/icon-flash.svg"
+            alt=""
+            width={16}
+            height={16}
           />
-          Powerful Features
+          <p className="font-medium text-[12px] leading-4 text-brand font-sfpror">Powerful Features</p>
         </span>
 
         <h2
@@ -143,7 +143,7 @@ export function Features() {
         </h2>
       </motion.div>
 
-      <div className="max-w-7xl mx-auto px-5 sm:px-6 md:px-8">
+      <div className="max-w-7xl mx-auto px-4 md:px-8">
         <div
           className="
   grid
@@ -171,7 +171,7 @@ export function Features() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.8 }}
-        className="flex justify-center mt-12 md:mt-20 px-4"
+        className="max-w-7xl mx-auto px-4 md:px-8 flex justify-center mt-12 md:mt-20"
       >
         <Link
           href="/signup"

@@ -91,7 +91,7 @@ function MobileStepCard({ step }: { step: Step }) {
 export function Journey() {
   return (
     <section className="relative w-full overflow-hidden bg-[#FBFBFB] py-20">
-      <div className="mx-auto max-w-[1440px] px-6 lg:px-12">
+      <div className="mx-auto max-w-7xl px-4 md:px-8">
         {/* HEADER */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -101,12 +101,9 @@ export function Journey() {
           className="flex flex-col items-center text-center"
         >
           {/* Badge */}
-          <div className="flex items-center gap-2">
-            <Image src="/journey/Bolt.svg" alt="bolt" width={14} height={14} />
-
-            <span className="text-sm font-semisemisemibold text-[#00798C]">
-              Your Journey Starts Here
-            </span>
+          <div className="rounded-[24px] bg-[#F2FDFE] pl-3.5 pr-5.5 w-fit flex items-center gap-1 mx-auto h-7.5">
+            <Image src="/target_assets/icon-flash.svg" alt="" width={16} height={16} />
+            <p className="font-medium text-[12px] leading-4 text-brand font-sfpror">Your Journey Starts Here</p>
           </div>
 
           {/* Heading */}
