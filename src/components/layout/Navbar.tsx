@@ -13,11 +13,11 @@ export function Navbar() {
       className="w-full bg-white border-b border-[#EDEDED]"
       style={{ opacity: 0.8 }}
     >
-      <nav className="flex items-center justify-between pl-[20px] pr-[20px] md:pl-[112px] md:pr-[112px] h-[76px] max-w-[1440px] mx-auto w-full">
+      <nav className="flex items-center justify-between px-4 md:px-8 h-[76px] max-w-7xl mx-auto w-full">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-1 shrink-0">
           <Image
-            src="/logo.png"
+            src="/logo.svg"
             alt="Open Profile"
             width={170}
             height={32}

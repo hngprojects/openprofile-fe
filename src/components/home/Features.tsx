@@ -57,15 +57,13 @@ function FeatureCard({
         delay: delay / 1000,
       }}
       className="
-    group
-    flex flex-col gap-4
-    rounded-2xl
-    p-6
-    transition-all duration-300 ease-out
-    hover:bg-white/5
-    hover:-translate-y-2
-    hover:shadow-[0_10px_40px_rgba(0,0,0,0.25)]
-  "
+  flex flex-col
+  gap-3
+  rounded-2xl
+  p-3
+  sm:p-4
+  md:p-6
+"
     >
       <div className="shrink-0">
         <Image
@@ -75,20 +73,30 @@ function FeatureCard({
           height={50}
           className="
       object-contain
-      transition-transform duration-300
-      group-hover:scale-110
     "
         />
       </div>
 
       <h3
-        className="text-white text-xl font-bold leading-snug"
+        className="
+  text-lg
+  sm:text-xl
+  font-bold
+  leading-snug
+  text-white
+"
         style={{ fontFamily: "'Inter', sans-serif" }}
       >
         {feature.title}
       </h3>
 
-      <p className="text-teal-100/70 text-sm leading-relaxed">
+      <p
+        className="
+  text-sm
+  leading-7
+  text-teal-100/70
+"
+      >
         {feature.description}
       </p>
     </motion.div>
@@ -98,7 +106,7 @@ function FeatureCard({
 export function Features() {
   return (
     <section
-      className="relative w-full overflow-hidden py-24"
+      className="relative w-full overflow-hidden py-16 md:py-24"
       style={{ backgroundColor: "#0d3d3a" }}
       aria-labelledby="features-heading"
     >
@@ -121,14 +129,32 @@ export function Features() {
 
         <h2
           id="features-heading"
-          className="text-4xl md:text-5xl font-extrabold text-white tracking-tight px-4 md:px-8"
-        >
+          className="
+  text-3xl
+  sm:text-4xl
+  md:text-5xl
+  font-extrabold
+  text-white
+  tracking-tight
+  leading-tight
+" >
           One link, clear Proof, faster opportunities
         </h2>
       </motion.div>
 
-      <div className="max-w-7xl mx-auto px-4 md:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-14">
+      <div className="max-w-7xl mx-auto px-5 sm:px-6 md:px-8">
+        <div
+          className="
+  grid
+  grid-cols-1
+  md:grid-cols-2
+  gap-y-4
+  sm:gap-y-6
+  md:gap-y-14
+  gap-x-6
+  md:gap-x-16
+"
+        >
           {features.map((feature, i) => (
             <FeatureCard
               key={feature.id}
@@ -144,14 +170,21 @@ export function Features() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.8 }}
-        className="flex justify-center mt-20"
+        className="flex justify-center mt-12 md:mt-20 px-4"
       >
         <Link
           href="/signup"
           className="
-      rounded-lg bg-white
-      px-8 py-3.5
-      text-sm font-semibold text-teal-700
+  w-full
+  sm:w-auto
+  rounded-lg
+  bg-white
+  px-6
+  sm:px-8
+  py-3.5
+  text-sm
+  font-semibold
+  text-teal-700
       transition-all duration-200
       hover:bg-teal-50
       hover:scale-105
