@@ -1,5 +1,6 @@
 "use client";
 import { useActionState, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { AuthLayout } from "@/components/auth/AuthLayout";
 import { Input } from "@/components/ui/input";
@@ -9,6 +10,7 @@ import { forgotPassword, type AuthState } from "@/app/actions/auth";
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export default function ForgotPasswordPage() {
+  const router = useRouter();
   const [state, formAction, pending] = useActionState(
     forgotPassword,
     undefined as AuthState
@@ -19,8 +21,9 @@ export default function ForgotPasswordPage() {
   const isValid = EMAIL_RE.test(email);
 
   useEffect(() => {
-    if (state?.error) toast.error(state.error);
-  }, [state]);
+    if (state?.redirectTo) router.push(state.redirectTo);
+    else if (state?.error) toast.error(state.error);
+  }, [state, router]);
 
   return (
     <AuthLayout>

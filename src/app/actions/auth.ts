@@ -1,9 +1,8 @@
 "use server";
-import { redirect } from "next/navigation";
 import { createSession, deleteSession } from "@/lib/session";
 import { apiFetch, extractTokensFromResponse } from "@/lib/api";
 
-export type AuthState = { error?: string } | undefined;
+export type AuthState = { error?: string; redirectTo?: string } | undefined;
 
 export async function emailSignup(
   _prev: AuthState,
@@ -34,7 +33,7 @@ export async function emailSignup(
     };
   }
 
-  redirect(`/verify-email?email=${encodeURIComponent(email)}`);
+  return { redirectTo: `/verify-email?email=${encodeURIComponent(email)}` };
 }
 
 export async function emailLogin(
@@ -64,13 +63,13 @@ export async function emailLogin(
   }
   await createSession({ accessToken, refreshToken });
 
-  redirect("/dashboard");
+  return { redirectTo: "/dashboard" };
 }
 
 export async function logout() {
   await apiFetch("/api/auth/logout", { method: "POST" });
   await deleteSession();
-  redirect("/login");
+  return { redirectTo: "/login" };
 }
 
 export async function forgotPassword(
@@ -90,7 +89,7 @@ export async function forgotPassword(
     return { error: data.message ?? "Failed to send reset email." };
   }
 
-  redirect(`/forgot-password/verify?email=${encodeURIComponent(email)}`);
+  return { redirectTo: `/forgot-password/verify?email=${encodeURIComponent(email)}` };
 }
 
 export async function resetPassword(
@@ -112,7 +111,7 @@ export async function resetPassword(
     return { error: data.message ?? "Password reset failed." };
   }
 
-  redirect("/forgot-password/success");
+  return { redirectTo: "/forgot-password/success" };
 }
 
 export async function verifyEmailOtp(
@@ -134,7 +133,7 @@ export async function verifyEmailOtp(
     return { error: data.message ?? "Verification failed." };
   }
 
-  redirect("/verify-email/success");
+  return { redirectTo: "/verify-email/success" };
 }
 
 export async function getCurrentUser() {

@@ -1,5 +1,6 @@
 "use client";
 import { useActionState, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -20,6 +21,7 @@ type Props = {
 };
 
 export function AuthForm({ mode, action, googleAuthUrl }: Props) {
+  const router = useRouter();
   const [state, formAction, pending] = useActionState(action, undefined);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -35,8 +37,9 @@ export function AuthForm({ mode, action, googleAuthUrl }: Props) {
     : email.length > 0 && password.length > 0;
 
   useEffect(() => {
-    if (state?.error) toast.error(state.error);
-  }, [state]);
+    if (state?.redirectTo) router.push(state.redirectTo);
+    else if (state?.error) toast.error(state.error);
+  }, [state, router]);
 
   const inputClass =
     "h-11 bg-[#FAFAFA] border border-[#EDEDED] shadow-none placeholder:text-[#747474]";

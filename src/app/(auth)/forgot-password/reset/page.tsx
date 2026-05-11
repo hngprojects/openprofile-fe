@@ -1,6 +1,6 @@
 "use client";
 import { useActionState, useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import { AuthLayout } from "@/components/auth/AuthLayout";
 import { Button } from "@/components/ui/button";
@@ -12,6 +12,7 @@ import {
 import { resetPassword, type AuthState } from "@/app/actions/auth";
 
 export default function ResetPasswordPage() {
+  const router = useRouter();
   const [state, formAction, pending] = useActionState(
     resetPassword,
     undefined as AuthState
@@ -26,8 +27,9 @@ export default function ResetPasswordPage() {
     allPasswordRulesMet(password) && confirm.length > 0 && password === confirm;
 
   useEffect(() => {
-    if (state?.error) toast.error(state.error);
-  }, [state]);
+    if (state?.redirectTo) router.push(state.redirectTo);
+    else if (state?.error) toast.error(state.error);
+  }, [state, router]);
 
   return (
     <AuthLayout>
