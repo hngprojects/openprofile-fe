@@ -35,7 +35,7 @@ export default function RootLayout({
         className={`min-h-full flex flex-col ${afacad.variable} ${dancing.variable}`}
       >
         {children}
-        <Toaster richColors position="top-right" />
+        <Toaster richColors position="top-right" duration={2500} />
       </body>
     </html>
   );

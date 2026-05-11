@@ -46,7 +46,13 @@ export async function apiFetch(path: string, options: ApiOptions = {}) {
     ...(body !== undefined ? { body: JSON.stringify(body) } : {}),
   };
 
-  let res = await fetch(`${env.API_BASE_URL}${path}`, requestConfig);
+  let res = await fetch(`${env.API_BASE_URL}${path}`, requestConfig).catch(
+    (e: unknown) => {
+      throw new Error(
+        `API unreachable at ${env.API_BASE_URL}${path}: ${e instanceof Error ? e.message : String(e)}`
+      );
+    }
+  );
 
   // If unauthorized, attempt to refresh the token using the refresh token
   if (
