@@ -9,13 +9,15 @@ export function AuthLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen bg-[#FAFAFA] flex flex-col">
       <div className="flex justify-center pt-6">
-        <Image
-          src="/auth/logo.png"
-          alt="Open.Profile"
-          width={140}
-          height={32}
-          priority
-        />
+        <a href="/#">
+          <Image
+            src="/auth/logo.png"
+            alt="Open.Profile"
+            width={140}
+            height={32}
+            priority
+          />
+        </a>
       </div>
 
       <div className="flex-1 flex items-center justify-center relative px-4 py-10">

@@ -100,7 +100,7 @@ export default function Impression() {
         whileInView="show"
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="relative flex items-center justify-center w-full max-w-[528px] mx-auto overflow-hidden"
+        className="hidden lg:flex relative items-center justify-center w-full max-w-[528px] mx-auto overflow-hidden"
         style={{ aspectRatio: `${OUTER_W} / ${OUTER_H}` }}
       >
         {/* SVG — dashes + user icon only, centered inside outer container */}
