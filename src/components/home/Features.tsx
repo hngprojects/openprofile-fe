@@ -56,9 +56,9 @@ function FeatureCard({
         delay: delay / 1000,
       }}
       className="
-  flex flex-col gap-4
+  flex flex-col gap-3
   rounded-2xl
-  p-6
+  p-3 md:p-6
 "
     >
       <div className="flex-shrink-0">
@@ -120,7 +120,7 @@ export function Features() {
       </motion.div>
 
       <div className="max-w-7xl mx-auto px-4 md:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-14">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-y-2 md:gap-y-14 gap-x-16">
           {features.map((feature, i) => (
             <FeatureCard
               key={feature.id}
