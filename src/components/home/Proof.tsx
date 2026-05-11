@@ -105,19 +105,19 @@ export function Proof() {
 
         <motion.div
           variants={containerVariants}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 w-full"
+          className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-5 gap-4 w-full"
         >
           {testimonials.map((testimonial, index) => (
             <motion.div
               key={index}
               variants={itemVariants}
-              className={`bg-white rounded-[16px] p-6 px-4 flex flex-col justify-between ${testimonial.className}`}
+              className={`bg-white rounded-[16px] p-6 px-4 flex flex-col justify-between ${testimonial.className} ${index === 0 || index === 5 ? "hidden md:flex" : ""}`}
             >
-              <div className="mb-8">
+              <div className="mb-4 md:mb-8">
                 {testimonial.text.split("\n\n").map((para, i) => (
                   <p
                     key={i}
-                    className={`text-[14px] md:text-[15px] leading-[1.6] text-[#454545] font-normal ${
+                    className={`text-[11px] md:text-[15px] leading-[1.5] text-[#454545] font-normal ${
                       i === 0 && testimonial.text.includes("\n\n") ? "mb-6" : ""
                     }`}
                   >
@@ -132,14 +132,14 @@ export function Proof() {
 
               <div className="flex items-center justify-between mt-auto">
                 <div>
-                  <h4 className="text-[15px] font-bold text-[#050505] mb-0.5">
+                  <h4 className="text-[12px] md:text-[15px] font-bold text-[#050505] mb-0.5">
                     {testimonial.name}
                   </h4>
-                  <p className="text-[13px] text-[#737373] font-medium">
+                  <p className="text-[11px] md:text-[13px] text-[#737373] font-medium">
                     {testimonial.role}
                   </p>
                 </div>
-                <div className="relative w-12 h-12 rounded-full overflow-hidden shrink-0">
+                <div className="relative w-8 h-8 md:w-12 md:h-12 rounded-full overflow-hidden shrink-0">
                   <Image
                     src={testimonial.image}
                     alt={testimonial.name}

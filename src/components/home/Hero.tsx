@@ -92,11 +92,11 @@ export function Hero() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="open.profile/"
-              className="flex-1 h-[50px] px-[12px] bg-[#FAFAFA] border border-[#C9C9C9] rounded-[5.57px] text-[16px] leading-[24px] text-[#454545] placeholder:text-[#454545] outline-none focus:ring-2 focus:ring-[#087583]/40 transition"
+              className="flex-1 h-[50px] py-4 sm:py-0 px-[12px] bg-[#FAFAFA] border border-[#C9C9C9] rounded-[5.57px] text-[16px] leading-[24px] text-[#454545] placeholder:text-[#454545] outline-none focus:ring-2 focus:ring-[#087583]/40 transition"
               style={{ fontFamily: "'Afacad', sans-serif" }}
             />
             <button
-              className="h-[50px] px-[16px] bg-[#087583] hover:bg-[#065E69] rounded-[8px] text-white text-[16px] leading-[24px] whitespace-nowrap transition-colors"
+              className="w-full sm:w-auto h-[56px] sm:h-[50px] px-[16px] bg-[#087583] hover:bg-[#065E69] rounded-[8px] text-white text-[16px] leading-[24px] whitespace-nowrap transition-colors"
               style={{ fontFamily: "'Afacad', sans-serif" }}
             >
               Search a Profile
@@ -170,8 +170,9 @@ export function Hero() {
           <div className="flex gap-2 w-full">
             {[0, 1, 2].map((offset, i) => {
               const p = getProfile(offset);
+              const isMiddle = i === 1;
               return (
-                <div key={i} className="relative flex flex-col justify-end flex-1 rounded-[9px] overflow-hidden" style={{ height: "280px" }}>
+                <div key={i} className="relative flex flex-col justify-end rounded-[9px] overflow-hidden" style={{ height: "320px", flex: isMiddle ? "1.5" : "1" }}>
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={p.name}
@@ -182,16 +183,16 @@ export function Hero() {
                       className="absolute inset-0"
                     >
                       <Image src={p.mobileImg} alt={p.name} fill priority quality={100} unoptimized sizes="33vw" className="object-cover object-center" />
-                      <div className="absolute inset-0" style={{ background: "linear-gradient(360deg, rgba(0,0,0,0.9) 19.96%, rgba(102,102,102,0) 42.85%)" }} />
-                      <div className="absolute bottom-0 left-0 z-10 p-[10px_12px] flex flex-col gap-0.5">
-                        <div className="flex items-center gap-1">
-                          <span className="font-bold text-[13px] leading-[18px] text-[#FEFEFE]" style={{ fontFamily: "'Afacad', sans-serif" }}>{p.name}</span>
-                          <CircleCheck className="w-3.5 h-3.5 shrink-0" style={{ color: "#98FAC3" }} />
-                        </div>
-                        <span className="font-medium text-[11px] leading-[16px] text-[#E6E6E6]" style={{ fontFamily: "'Afacad', sans-serif" }}>{p.role}</span>
-                      </div>
                     </motion.div>
                   </AnimatePresence>
+                  <div className="absolute inset-0" style={{ background: "linear-gradient(360deg, rgba(0,0,0,0.9) 19.96%, rgba(102,102,102,0) 42.85%)" }} />
+                  <div className="absolute bottom-0 left-0 z-10 p-[10px_12px] flex flex-col gap-0.5">
+                    <div className="flex items-center gap-1">
+                      <span className="font-bold text-[13px] leading-[18px] text-[#FEFEFE] whitespace-nowrap" style={{ fontFamily: "'Afacad', sans-serif" }}>{p.name}</span>
+                      <CircleCheck className="w-3.5 h-3.5 shrink-0" style={{ color: "#98FAC3" }} />
+                    </div>
+                    <span className="font-medium text-[11px] leading-[16px] text-[#E6E6E6] whitespace-nowrap" style={{ fontFamily: "'Afacad', sans-serif" }}>{p.role}</span>
+                  </div>
                 </div>
               );
             })}
