@@ -4,126 +4,150 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { X } from "lucide-react";
 
 export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <header
-      className="w-full bg-white border-b border-[#EDEDED]"
-      style={{ opacity: 0.8 }}
-    >
-      <nav className="flex items-center justify-between pl-[20px] pr-[20px] md:pl-[112px] md:pr-[112px] h-[76px] max-w-[1440px] mx-auto w-full">
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-1 shrink-0">
-          <Image
-            src="/logo.png"
-            alt="Open Profile"
-            width={170}
-            height={32}
-            className="h-[32px] w-auto"
-          />
-        </Link>
-
-        {/* Desktop nav links */}
-        <div className="hidden md:flex items-center gap-4">
-          <Link
-            href="#how-it-works"
-            className="text-primary font-medium text-[17px] leading-[26px] font-[Afacad] hover:text-brand transition-colors"
-          >
-            How it works
-          </Link>
-          <Link
-            href="#pricing"
-            className="text-primary font-medium text-[16px] leading-[24px] font-[Afacad] hover:text-brand transition-colors"
-          >
-            Pricing
-          </Link>
-          <Link
-            href="#faq"
-            className="text-primary font-medium text-[16px] leading-[24px] font-[Afacad] hover:text-brand transition-colors"
-          >
-            FAQ
-          </Link>
-        </div>
-
-        {/* Desktop CTA buttons */}
-        <div className="hidden md:flex items-center gap-3">
-          {/* Login */}
-          <Link
-            href="/login"
-            className="flex items-center justify-center px-[14px] py-[8px] h-[36px] bg-[#FAFAFA] rounded-[8px] text-brand font-semibold text-[13px] leading-[18px] font-[Inter] hover:bg-[#E5F4F6] transition-colors"
-          >
-            Login
+    <>
+      <header className="w-full bg-white border-b border-[#EDEDED]">
+        <nav className="flex items-center justify-between pl-[20px] pr-[20px] md:pl-[112px] md:pr-[112px] h-[76px] max-w-[1440px] mx-auto w-full">
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-1 shrink-0">
+            <Image
+              src="/logo.png"
+              alt="Open Profile"
+              width={170}
+              height={32}
+              className="h-[32px] w-auto"
+            />
           </Link>
 
-          {/* Get Started */}
-          <Link
-            href="/signup"
-            className="flex items-center justify-center px-[16px] py-[12px] h-[44px] bg-brand rounded-[8px] text-[#FEFEFE] font-medium text-[15px] leading-[22px] font-[Afacad] hover:bg-[#065E69] transition-colors whitespace-nowrap"
+          {/* Desktop nav links */}
+          <div className="hidden md:flex items-center gap-4">
+            <Link
+              href="#how-it-works"
+              className="text-[#050505] font-medium text-[17px] leading-[26px] hover:text-[#087583] transition-colors"
+              style={{ fontFamily: "'Afacad', sans-serif" }}
+            >
+              How it works
+            </Link>
+            <Link
+              href="#pricing"
+              className="text-[#050505] font-medium text-[16px] leading-[24px] hover:text-[#087583] transition-colors"
+              style={{ fontFamily: "'Afacad', sans-serif" }}
+            >
+              Pricing
+            </Link>
+            <Link
+              href="#faq"
+              className="text-[#050505] font-medium text-[16px] leading-[24px] hover:text-[#087583] transition-colors"
+              style={{ fontFamily: "'Afacad', sans-serif" }}
+            >
+              FAQ
+            </Link>
+          </div>
+
+          {/* Desktop CTA */}
+          <div className="hidden md:flex items-center gap-3">
+            <Link
+              href="/login"
+              className="flex items-center justify-center px-[14px] py-[8px] h-[36px] bg-[#FAFAFA] rounded-[8px] text-[#087583] font-semibold text-[13px] hover:bg-[#E5F4F6] transition-colors"
+              style={{ fontFamily: "'Inter', sans-serif" }}
+            >
+              Login
+            </Link>
+            <Link
+              href="/signup"
+              className="flex items-center justify-center px-[16px] py-[12px] h-[44px] bg-[#087583] rounded-[8px] text-[#FEFEFE] font-medium text-[15px] hover:bg-[#065E69] transition-colors whitespace-nowrap"
+              style={{ fontFamily: "'Afacad', sans-serif" }}
+            >
+              Get Started
+            </Link>
+          </div>
+
+          {/* Mobile hamburger */}
+          <button
+            className="md:hidden p-2 flex flex-col gap-1.5 z-50"
+            onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label="Toggle menu"
           >
-            Get Started
-          </Link>
-        </div>
+            <span className={`block h-0.5 w-5 bg-[#050505] transition-transform duration-200 ${mobileOpen ? "rotate-45 translate-y-2" : ""}`} />
+            <span className={`block h-0.5 w-5 bg-[#050505] transition-opacity duration-200 ${mobileOpen ? "opacity-0" : ""}`} />
+            <span className={`block h-0.5 w-5 bg-[#050505] transition-transform duration-200 ${mobileOpen ? "-rotate-45 -translate-y-2" : ""}`} />
+          </button>
+        </nav>
+      </header>
 
-        {/* Mobile hamburger */}
-        <button
-          className="md:hidden p-2 flex flex-col gap-1.5"
-          onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label="Toggle menu"
-        >
-          <span
-            className={`block h-0.5 w-5 bg-primary transition-transform duration-200 ${mobileOpen ? "rotate-45 translate-y-2" : ""}`}
-          />
-          <span
-            className={`block h-0.5 w-5 bg-primary transition-opacity duration-200 ${mobileOpen ? "opacity-0" : ""}`}
-          />
-          <span
-            className={`block h-0.5 w-5 bg-primary transition-transform duration-200 ${mobileOpen ? "-rotate-45 -translate-y-2" : ""}`}
-          />
-        </button>
-      </nav>
-
-      {/* Mobile dropdown */}
+      {/* Mobile fullscreen overlay */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="md:hidden overflow-hidden bg-white border-t border-[#EDEDED]"
+            initial={{ opacity: 0, x: "100%" }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: "100%" }}
+            transition={{ duration: 0.25, ease: "easeInOut" }}
+            className="fixed inset-0 bg-white z-50 flex flex-col md:hidden"
           >
-            <div className="flex flex-col px-6 py-5 gap-5">
-              {["How it works", "Pricing", "FAQ"].map((item) => (
+            {/* Header row */}
+            <div className="flex items-center justify-between px-6 h-[76px] border-b border-[#EDEDED]">
+              <span
+                className="text-[#087583] font-semibold text-[18px]"
+                style={{ fontFamily: "'Afacad', sans-serif" }}
+              >
+                Menu
+              </span>
+              <button
+                onClick={() => setMobileOpen(false)}
+                className="p-2 text-[#050505]"
+                aria-label="Close menu"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Nav links */}
+            <div className="flex flex-col px-6 pt-8 gap-8 flex-1">
+              {[
+                { label: "How it works", href: "#how-it-works" },
+                { label: "Pricing", href: "#pricing" },
+                { label: "FAQ", href: "#faq" },
+              ].map((item) => (
                 <Link
-                  key={item}
-                  href={`#${item.toLowerCase().replace(/\s+/g, "-")}`}
+                  key={item.label}
+                  href={item.href}
                   onClick={() => setMobileOpen(false)}
-                  className="text-primary font-medium text-[16px] font-[Afacad] hover:text-[#087583] transition-colors"
+                  className="text-[#050505] font-medium text-[18px]"
+                  style={{ fontFamily: "'Afacad', sans-serif" }}
                 >
-                  {item}
+                  {item.label}
                 </Link>
               ))}
-              <div className="flex gap-3 pt-1">
-                <Link
-                  href="/login"
-                  className="flex-1 h-10 bg-[#FAFAFA] rounded-[8px] text-brand font-semibold text-sm border border-[#EDEDED] flex items-center justify-center"
-                >
-                  Login
-                </Link>
+            </div>
 
-                <Link
-                  href="/signup"
-                  className="flex-1 h-10 bg-brand rounded-[8px] text-white font-medium text-sm flex items-center justify-center"
-                >
-                  Get Started
-                </Link>
-              </div>
+            {/* Bottom CTA buttons */}
+            <div className="flex flex-col gap-3 px-6 pb-10">
+              <Link
+                href="/login"
+                onClick={() => setMobileOpen(false)}
+                className="w-full h-[52px] bg-[#F5F5F5] rounded-[10px] text-[#087583] font-semibold text-[16px] flex items-center justify-center border border-[#EDEDED]"
+                style={{ fontFamily: "'Afacad', sans-serif" }}
+              >
+                Login
+              </Link>
+              <Link
+                href="/signup"
+                onClick={() => setMobileOpen(false)}
+                className="w-full h-[52px] bg-[#087583] rounded-[10px] text-white font-medium text-[16px] flex items-center justify-center"
+                style={{ fontFamily: "'Afacad', sans-serif" }}
+              >
+                Get Started
+              </Link>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </header>
+    </>
   );
 }
