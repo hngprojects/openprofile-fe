@@ -10,10 +10,7 @@ interface Step {
   titleColor: "teal" | "dark";
   description: string;
   icon: string;
-  iconStyle: "filled" | "outline";
   ghostIcon: string;
-  /** px distance from the top of the content area */
-  topOffset: number;
 }
 
 const steps: Step[] = [
@@ -25,8 +22,6 @@ const steps: Step[] = [
     description:
       "Sign up in seconds with email, Google, or LinkedIn. Craft your bio, and link your work.",
     icon: "/journey/User.svg",
-    iconStyle: "filled",
-    topOffset: 40,
   },
   {
     id: "verify-identity",
@@ -35,72 +30,118 @@ const steps: Step[] = [
     titleColor: "dark",
     description:
       "Verify your email and connect social accounts. Build credibility with verification badges.",
-    icon: "/journey/Check.svg",
-    iconStyle: "outline",
-    topOffset: 180,
+    icon: "/journey/check.svg",
   },
   {
     id: "share-link",
     ghostIcon: "/journey/step03.svg",
-    title: "Share Your Link And Get Discoverd",
+    title: "Share Your Link And Get Discovered",
     titleColor: "dark",
     description:
       "Share your link, appear in searches, and grow your network. Not found? Invite them to join.",
-    icon: "/journey/Cross.svg",
-    iconStyle: "outline",
-    topOffset: 130,
+    icon: "/journey/cross.svg",
   },
 ];
 
-function StepIcon({ icon }: { icon: string }) {
+function StepIcon({
+  icon,
+  stepId,
+  className,
+}: {
+  icon: string;
+  stepId: string;
+  className?: string;
+}) {
   return (
-    <div className="relative z-10">
+    <div className="relative z-20 mb-10 w-[78px] h-[78px] flex items-center justify-center">
       <Image
         src={icon}
         alt="step icon"
-        width={50}
-        height={50}
-        className="object-contain"
+        width={78}
+        height={78}
+        className={`
+          object-contain
+          ${stepId === "create-profile" ? "scale-[0.78]" : "scale-[1.15]"}
+          ${className}
+        `}
       />
     </div>
   );
 }
 
-function StepCard({ step }: { step: Step }) {
+function StepCard({
+  step,
+  ghostClass,
+  align,
+}: {
+  step: Step;
+  ghostClass: string;
+  align?: "left" | "center" | "right";
+}) {
   return (
-    <div className="relative max-w-[240px]">
-      {/* Ghost number */}
-      <div className="absolute opacity-100 pointer-events-none">
+    <div
+      className={`
+        relative
+        w-full
+        max-w-[330px]
+        ${align === "center" ? "mx-auto" : align === "right" ? "ml-auto" : ""}
+      `}
+    >
+      {/* Ghost Number */}
+      <div className={`absolute pointer-events-none opacity-100 ${ghostClass}`}>
         <Image
           src={step.ghostIcon}
           alt="step number"
-          width={120}
-          height={120}
-          className="object-contain"
+          width={170}
+          height={170}
+          className="object-contain scale-100 min-w-[170px]"
         />
       </div>
 
+      {/* Icon */}
+      <StepIcon
+        icon={step.icon}
+        stepId={step.id}
+        className={
+          step.id === "create-profile"
+            ? "ml-[160px] mt-[220px]"
+            : step.id === "verify-identity"
+              ? "ml-[480px] -mt-[300px]"
+              : "ml-[190px] -mt-[30px]"
+        }
+      />
+
       {/* Content */}
-      <div className="relative z-10 flex flex-col gap-3">
-        {/* Title */}
+      <div
+        className={`
+          relative
+          z-10
+          ${
+            step.id === "create-profile"
+              ? "-mt-[120px] -ml-[160px]"
+              : step.id === "verify-identity"
+                ? "-mt-[40px] -ml-[10px]"
+                : step.id === "share-link"
+                  ? "-mt[-10px] ml-[-60px]"
+                  : ""
+          }
+        `}
+      >
         <h3
-          className={`text-2xl font-bold leading-snug ${
-            step.titleColor === "teal" ? "text-teal-700" : "text-gray-900"
-          }`}
-          style={{ fontFamily: "'Inter', sans-serif" }}
+          className={`
+            text-[34px]
+            leading-[1.1]
+            font-bold
+            tracking-[-0.03em]
+            ${step.titleColor === "teal" ? "text-[#00798C]" : "text-[#202020]"}
+          `}
         >
           {step.title}
         </h3>
 
-        {/* Description */}
-        <p className="text-sm text-gray-500 leading-relaxed">
+        <p className="mt-5 text-[18px] leading-[34px] text-[#6B7280]">
           {step.description}
         </p>
-
-        {/* Icon */}
-        <div className="mt-2">
-          <StepIcon icon={step.icon} />
-        </div>
       </div>
     </div>
   );
@@ -108,126 +149,117 @@ function StepCard({ step }: { step: Step }) {
 
 export function Journey() {
   return (
-    <section
-      className="relative w-full overflow-hidden bg-gray-50
-    py-24"
-      aria-labelledby="open-profile-heading"
-    >
-      <div className="max-w-7xl mx-auto px-4 md:px-8">
-        {/* ── Header ── */}
+    <section className="relative w-full overflow-hidden bg-[#F7F7F7] py-24 lg:py-32">
+      <div className="mx-auto max-w-[1440px] px-6 lg:px-12">
+        {/* HEADER */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="relative z-10 flex flex-col items-center gap-3 text-center"
+          className="flex flex-col items-center text-center"
         >
           {/* Badge */}
-          <motion.span
-            initial={{ opacity: 0, y: -12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="
-    inline-flex items-center gap-1.5
-    rounded-full border border-teal-200 bg-teal-50
-    px-3 py-1 text-xs font-semibold text-teal-700
-  "
-          >
-            <Image
-              src="/journey/bolt.svg"
-              alt="bolt icon"
-              width={14}
-              height={14}
-            />
-            Your Journey Starts Here
-          </motion.span>
+          <div className="flex items-center gap-2">
+            <Image src="/journey/Bolt.svg" alt="bolt" width={14} height={14} />
+
+            <span className="text-sm font-semibold text-[#00798C]">
+              Your Journey Starts Here
+            </span>
+          </div>
 
           {/* Heading */}
-          <motion.h2
-            id="open-profile-heading"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+          <h2
             className="
-    max-w-4xl text-3xl md:text-5xl
-    font-extrabold tracking-tight text-gray-900
-  "
-            style={{ fontFamily: "'Inter', sans-serif" }}
+              mt-6
+              max-w-[900px]
+              text-[34px]
+              md:text-[58px]
+              font-extrabold
+              leading-[1.05]
+              tracking-[-0.04em]
+              text-[#111111]
+            "
           >
             Create the profile people should find first
-          </motion.h2>
+          </h2>
         </motion.div>
 
-        <div
-          className="
-    relative mx-auto mt-12
-    w-full max-w-7xl
-    overflow-visible
-    h-[464px]
-    rounded-lg
-  "
-        >
-          {/* Wave SVG — fills the container, z-0 so cards sit on top */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1 }}
-            style={{
-              position: "absolute",
-              width: "816px",
-              height: "178px",
-              left: "251px",
-              top: "106px",
-            }}
-          >
+        {/* DESKTOP */}
+        <div className="relative hidden lg:block h-[620px] mt-28">
+          {/* WAVE */}
+          <div className="absolute left-1/2 top-[120px] -translate-x-1/2 w-[980px] h-[240px]">
             <Image
-              src="/journey/wave.svg"
-              alt="wave background"
+              src="/journey/Wave.svg"
+              alt="wave"
               fill
+              className="object-contain"
               priority
-              className="object-none"
+            />
+          </div>
+
+          {/* STEP 1 */}
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="absolute left-[80px] top-[120px]"
+          >
+            <StepCard
+              step={steps[0]}
+              ghostClass="-top-[95px] left-[120px]"
+              align="left"
             />
           </motion.div>
 
-          {/* ── Step cards — absolutely positioned ── */}
-          <div className="relative z-10 w-full h-full">
-            <div className="absolute inset-0 z-10">
-              {/* STEP 1 */}
-              <motion.div
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="absolute left-[248px] top-[205px]"
-              >
-                <StepCard step={steps[0]} />
-              </motion.div>
-              {/* STEP 2 */}
-              <motion.div
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-                className="absolute left-[721px] top-[89px]"
-              >
-                <StepCard step={steps[1]} />
-              </motion.div>
+          {/* STEP 2 */}
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="absolute left-1/2 top-[260px] -translate-x-1/2"
+          >
+            <StepCard
+              step={steps[1]}
+              ghostClass="top-[10px] left-[265px]"
+              align="center"
+            />
+          </motion.div>
 
-              {/* STEP 3 */}
-              <motion.div
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.6 }}
-                className="absolute left-[1037px] top-[155px]"
-              >
-                <StepCard step={steps[2]} />
-              </motion.div>
-            </div>
-          </div>
+          {/* STEP 3 */}
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="absolute right-[-10px] top-[220px]"
+          >
+            <StepCard
+              step={steps[2]}
+              ghostClass="-top[-10px] right-[-70px]"
+              align="right"
+            />
+          </motion.div>
+        </div>
+
+        {/* MOBILE */}
+        <div className="flex flex-col gap-20 lg:hidden mt-20">
+          {steps.map((step, index) => (
+            <motion.div
+              key={step.id}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{
+                duration: 0.5,
+                delay: index * 0.2,
+              }}
+            >
+              <StepCard step={step} ghostClass="-top-[80px] right-0" />
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>

@@ -3,6 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 
 const features = [
   {
@@ -64,7 +65,7 @@ function FeatureCard({
   md:p-6
 "
     >
-      <div className="flex-shrink-0">
+      <div className="shrink-0">
         <Image
           src={feature.icon}
           alt={feature.title}
@@ -128,6 +129,7 @@ export function Features() {
 
         <h2
           id="features-heading"
+<<<<<<< feat/feature-section
           className="
   text-3xl
   sm:text-4xl
@@ -137,6 +139,9 @@ export function Features() {
   tracking-tight
   leading-tight
 "
+=======
+          className="text-4xl md:text-5xl font-extrabold text-white tracking-tight px-4 md:px-8"
+>>>>>>> dev
         >
           One link, clear Proof, faster opportunities
         </h2>
@@ -172,7 +177,8 @@ export function Features() {
         transition={{ duration: 0.6, delay: 0.8 }}
         className="flex justify-center mt-12 md:mt-20 px-4"
       >
-        <button
+        <Link
+          href="/signup"
           className="
   w-full
   sm:w-auto
@@ -193,7 +199,7 @@ export function Features() {
           style={{ fontFamily: "'Inter', sans-serif" }}
         >
           Create Your Profile Now
-        </button>
+        </Link>
       </motion.div>
     </section>
   );
