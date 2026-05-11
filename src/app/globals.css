@@ -52,6 +52,7 @@
   --font-afacad: "Afacad", "Inter", sans-serif;
   --font-sfpror: "sfProR", "Inter", sans-serif;
   --font-inter: "Inter", "sans-serif";
+  --font-sans: var(--font-afacad);
 
   /* colors */
   --color-primary: #050505;
@@ -135,7 +136,7 @@
 }
 
 body {
-  font-family: "sfProR", inter;
+  font-family: var(--font-afacad);
 }
 
 @layer base {

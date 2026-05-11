@@ -10,16 +10,19 @@ const profiles = [
     name: "James Smith",
     role: "Junior Product Designer",
     img: "/hero/large-profile1.jpg",
+    mobileImg: "/hero/mobile-profilei.jpg",
   },
   {
     name: "David Mensah",
     role: "Indie Hacker • Solo Founder",
     img: "/hero/large-profile2.jpg",
+    mobileImg: "/hero/mobile-profileii.jpg",
   },
   {
     name: "Emmanuel Imoh",
     role: "Content Creator",
     img: "/hero/large-profile3.jpg",
+    mobileImg: "/hero/mobile-profileiii.jpg",
   },
 ];
 
@@ -40,7 +43,7 @@ export function Hero() {
 
   return (
     <section className="w-full bg-white overflow-hidden">
-      <div className="max-w-[1440px] mx-auto px-6 md:px-[125px] pt-[80px] pb-[40px] flex flex-col lg:flex-row items-start lg:items-center gap-10 lg:gap-4 relative">
+      <div className="max-w-7xl mx-auto px-4 md:px-8 pt-[80px] pb-[40px] flex flex-col lg:flex-row items-start lg:items-center gap-10 lg:gap-4 relative">
         {/* ───────────────── LEFT COLUMN ───────────────── */}
         <div className="flex flex-col gap-4 w-full lg:max-w-[500px] shrink-0 z-10">
           {/* Heading */}
@@ -85,7 +88,7 @@ export function Hero() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="open.profile/"
-              className="flex-1 h-[48px] px-[12px] bg-[#FAFAFA] border border-[#C9C9C9] rounded-[5.57px] text-[16px] leading-[24px] text-[#454545] placeholder:text-[#454545] outline-none focus:ring-2 focus:ring-[#087583]/40 transition"
+              className="w-full flex-1 h-[48px] py-3 px-[12px] bg-[#FAFAFA] border border-[#C9C9C9] rounded-[5.57px] text-[16px] leading-[24px] text-[#454545] placeholder:text-[#454545] outline-none focus:ring-2 focus:ring-[#087583]/40 transition"
               style={{ fontFamily: "'Afacad', sans-serif" }}
             />
             <button
@@ -99,11 +102,11 @@ export function Hero() {
           {/* Social proof */}
           <motion.div
             {...fadeUp(0.28)}
-            className="flex flex-col sm:flex-row sm:items-center gap-3"
+            className="flex flex-row items-center gap-3"
           >
             {/* Mini avatars */}
             <div
-              className="flex items-center relative"
+              className="flex items-center relative flex-shrink-0"
               style={{ height: "35px", width: "69px" }}
             >
               {miniAvatars.map((src, i) => (
@@ -139,8 +142,64 @@ export function Hero() {
           </motion.div>
         </div>
 
+        {/* ───────────────── MOBILE CARDS ───────────────── */}
+        <div className="relative flex lg:hidden gap-3 w-full overflow-hidden">
+          {/* LEFT fade */}
+          <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: "60px", background: "linear-gradient(to right, #ffffff 0%, #ffffff 40%, rgba(255,255,255,0) 100%)", zIndex: 20, pointerEvents: "none" }} />
+          {/* RIGHT fade */}
+          <div style={{ position: "absolute", right: 0, top: 0, bottom: 0, width: "60px", background: "linear-gradient(to left, #ffffff 0%, #ffffff 40%, rgba(255,255,255,0) 100%)", zIndex: 20, pointerEvents: "none" }} />
+          {profiles.map((p, i) => (
+            <motion.div
+              key={p.name}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.3 + i * 0.1 }}
+              className="relative flex flex-col justify-end rounded-[9px] overflow-hidden shrink-0"
+              style={{
+                width: i === 1 ? "38%" : "28%",
+                aspectRatio: "0.57",
+              }}
+            >
+              <Image
+                src={p.mobileImg}
+                alt={p.name}
+                fill
+                priority
+                quality={100}
+                unoptimized
+                sizes="38vw"
+                className="object-cover object-center"
+              />
+              <div
+                className="absolute inset-0"
+                style={{
+                  background:
+                    "linear-gradient(360deg, rgba(0,0,0,0.9) 19.96%, rgba(102,102,102,0) 42.85%)",
+                }}
+              />
+              <div className="relative z-10 p-[10px_12px] flex flex-col gap-0.5">
+                <div className="flex items-center gap-1">
+                  <span
+                    className="font-bold text-[12px] leading-[16px] text-[#FEFEFE] whitespace-nowrap"
+                    style={{ fontFamily: "'Afacad', sans-serif" }}
+                  >
+                    {p.name}
+                  </span>
+                  <CircleCheck className="w-3 h-3 shrink-0" style={{ color: "#98FAC3" }} />
+                </div>
+                <span
+                  className="font-medium text-[10px] leading-[14px] text-[#E6E6E6] whitespace-nowrap"
+                  style={{ fontFamily: "'Afacad', sans-serif" }}
+                >
+                  {p.role}
+                </span>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
         {/* ───────────────── RIGHT COLUMN ───────────────── */}
-        <div className="relative flex-1 w-full overflow-visible -ml-[10px]">
+        <div className="relative hidden lg:flex flex-1 w-full overflow-visible -ml-[10px]">
           {/* LEFT fade */}
           <div
             style={{
@@ -235,7 +294,7 @@ export function Hero() {
       </div>
 
    
-      <div className="hidden lg:block px-[125px] pt-[40px] pb-[80px]">
+      <div className="hidden lg:block max-w-7xl mx-auto px-4 md:px-8 pt-[40px] pb-[80px]">
         <div className="border-t border-[#C9C9C9]" />
       </div>
     </section>
