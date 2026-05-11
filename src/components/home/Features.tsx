@@ -129,7 +129,6 @@ export function Features() {
 
         <h2
           id="features-heading"
-<<<<<<< feat/feature-section
           className="
   text-3xl
   sm:text-4xl
@@ -139,9 +138,6 @@ export function Features() {
   tracking-tight
   leading-tight
 "
-=======
-          className="text-4xl md:text-5xl font-extrabold text-white tracking-tight px-4 md:px-8"
->>>>>>> dev
         >
           One link, clear Proof, faster opportunities
         </h2>
