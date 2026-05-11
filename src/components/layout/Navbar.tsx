@@ -21,7 +21,7 @@ export function Navbar() {
       <header className={`fixed top-0 left-0 right-0 z-50 w-full border-b border-[#EDEDED] transition-colors duration-300 ${scrolled ? "bg-white/70 backdrop-blur-md" : "bg-white"}`}>
         <nav className="flex items-center justify-between pl-[20px] pr-[20px] md:pl-[112px] md:pr-[112px] h-[76px] max-w-[1440px] mx-auto w-full">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-1 shrink-0">
+          <Link href="/#" className="flex items-center gap-1 shrink-0">
             <Image
               src="/logo.png"
               alt="Open Profile"

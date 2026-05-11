@@ -52,7 +52,7 @@ function MobileStepCard({ step }: { step: Step }) {
         alt="step number"
         width={140}
         height={140}
-        className="absolute right-0 top-[-60px] opacity-100"
+        className="absolute right-0 top-[-30px] opacity-100"
       />
 
       {/* Icon */}
@@ -74,6 +74,7 @@ function MobileStepCard({ step }: { step: Step }) {
             font-semisemibold
             leading-[1.1]
             tracking-[-0.03em]
+            pb-4
             ${step.titleColor === "teal" ? "text-[#00798C]" : "text-[#202020]"}
           `}
         >
@@ -392,7 +393,7 @@ export function Journey() {
         </div>
 
         {/* MOBILE */}
-        <div className="mt-20 flex flex-col gap-20 lg:hidden">
+        <div className="mt-20 flex flex-col gap-24 lg:hidden">
           {steps.map((step, index) => (
             <motion.div
               key={step.id}
