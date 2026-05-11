@@ -43,95 +43,36 @@ const steps: Step[] = [
   },
 ];
 
-function StepIcon({
-  icon,
-  stepId,
-  className,
-}: {
-  icon: string;
-  stepId: string;
-  className?: string;
-}) {
+function MobileStepCard({ step }: { step: Step }) {
   return (
-    <div className="relative z-20 mb-10 w-[78px] h-[78px] flex items-center justify-center">
-      <Image
-        src={icon}
-        alt="step icon"
-        width={78}
-        height={78}
-        className={`
-          object-contain
-          ${stepId === "create-profile" ? "scale-[0.78]" : "scale-[1.15]"}
-          ${className}
-        `}
-      />
-    </div>
-  );
-}
-
-function StepCard({
-  step,
-  ghostClass,
-  align,
-}: {
-  step: Step;
-  ghostClass: string;
-  align?: "left" | "center" | "right";
-}) {
-  return (
-    <div
-      className={`
-        relative
-        w-full
-        max-w-[330px]
-        ${align === "center" ? "mx-auto" : align === "right" ? "ml-auto" : ""}
-      `}
-    >
+    <div className="relative mx-auto w-full max-w-[340px]">
       {/* Ghost Number */}
-      <div className={`absolute pointer-events-none opacity-100 ${ghostClass}`}>
+      <Image
+        src={step.ghostIcon}
+        alt="step number"
+        width={140}
+        height={140}
+        className="absolute right-0 top-[-60px] opacity-100"
+      />
+
+      {/* Icon */}
+      <div className="relative z-20 mb-8">
         <Image
-          src={step.ghostIcon}
-          alt="step number"
-          width={170}
-          height={170}
-          className="object-contain scale-100 min-w-[170px]"
+          src={step.icon}
+          alt="step icon"
+          width={78}
+          height={78}
+          className="object-contain"
         />
       </div>
 
-      {/* Icon */}
-      <StepIcon
-        icon={step.icon}
-        stepId={step.id}
-        className={
-          step.id === "create-profile"
-            ? "ml-[160px] mt-[220px]"
-            : step.id === "verify-identity"
-              ? "ml-[480px] -mt-[300px]"
-              : "ml-[190px] -mt-[30px]"
-        }
-      />
-
       {/* Content */}
-      <div
-        className={`
-          relative
-          z-10
-          ${
-            step.id === "create-profile"
-              ? "-mt-[120px] -ml-[160px]"
-              : step.id === "verify-identity"
-                ? "-mt-[40px] -ml-[10px]"
-                : step.id === "share-link"
-                  ? "-mt[-10px] ml-[-60px]"
-                  : ""
-          }
-        `}
-      >
+      <div className="relative z-10">
         <h3
           className={`
-            text-[34px]
+            text-[32px]
+            font-semisemibold
             leading-[1.1]
-            font-bold
             tracking-[-0.03em]
             ${step.titleColor === "teal" ? "text-[#00798C]" : "text-[#202020]"}
           `}
@@ -139,7 +80,7 @@ function StepCard({
           {step.title}
         </h3>
 
-        <p className="mt-5 text-[18px] leading-[34px] text-[#6B7280]">
+        <p className="mt-5 text-[17px] leading-[32px] text-[#6B7280]">
           {step.description}
         </p>
       </div>
@@ -149,7 +90,7 @@ function StepCard({
 
 export function Journey() {
   return (
-    <section className="relative w-full overflow-hidden bg-[#F7F7F7] py-24 lg:py-32">
+    <section className="relative w-full overflow-hidden bg-[#FBFBFB] py-20">
       <div className="mx-auto max-w-[1440px] px-6 lg:px-12">
         {/* HEADER */}
         <motion.div
@@ -163,7 +104,7 @@ export function Journey() {
           <div className="flex items-center gap-2">
             <Image src="/journey/Bolt.svg" alt="bolt" width={14} height={14} />
 
-            <span className="text-sm font-semibold text-[#00798C]">
+            <span className="text-sm font-semisemisemibold text-[#00798C]">
               Your Journey Starts Here
             </span>
           </div>
@@ -174,8 +115,8 @@ export function Journey() {
               mt-6
               max-w-[900px]
               text-[34px]
-              md:text-[58px]
-              font-extrabold
+              md:text-[40px]
+              font-semibold
               leading-[1.05]
               tracking-[-0.04em]
               text-[#111111]
@@ -186,66 +127,275 @@ export function Journey() {
         </motion.div>
 
         {/* DESKTOP */}
-        <div className="relative hidden lg:block h-[620px] mt-28">
-          {/* WAVE */}
-          <div className="absolute left-1/2 top-[120px] -translate-x-1/2 w-[980px] h-[240px]">
+        <div className="relative hidden lg:block lg:h-[480px] xl:h-[560px]">
+          {/* Wave */}
+          <div
+            className="
+              absolute
+              left-1/2
+              lg:top-[160px]
+              xl:top-[180px]
+              -translate-x-1/2
+              w-[85%]
+              xl:w-[75%]
+              max-w-[1150px]
+              min-w-[900px]
+            "
+          >
             <Image
               src="/journey/Wave.svg"
               alt="wave"
-              fill
-              className="object-contain"
+              width={1150}
+              height={280}
+              className="h-auto w-full"
               priority
             />
           </div>
 
           {/* STEP 1 */}
           <motion.div
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="absolute left-[80px] top-[120px]"
+            className="
+              absolute
+              lg:left-[2%]
+              xl:left-[4%]
+              lg:top-[150px]
+              xl:top-[170px]
+              lg:w-[260px]
+              xl:w-[320px]
+            "
           >
-            <StepCard
-              step={steps[0]}
-              ghostClass="-top-[95px] left-[120px]"
-              align="left"
+            {/* Ghost */}
+            <Image
+              src={steps[0].ghostIcon}
+              alt="step number"
+              width={180}
+              height={180}
+              className="
+                absolute
+                lg:-top-[80px]
+                xl:-top-[95px]
+                lg:left-[-10px]
+                xl:left-[0px]
+                opacity-100
+              "
             />
+
+            {/* Icon */}
+            <div
+              className="
+                absolute
+                lg:-left-[20px]
+                xl:left-[95px]
+                lg:top-[125px]
+                xl:top-[130px]
+                z-20
+              "
+            >
+              <Image
+                src={steps[0].icon}
+                alt="step icon"
+                width={43}
+                height={43}
+              />
+            </div>
+
+            {/* Content */}
+            <div className="relative z-10">
+              <h3
+                className="
+                  lg:text-[28px]
+                  xl:text-[32px]
+                  font-semibold
+                  leading-[1.05]
+                  tracking-[-0.04em]
+                  text-[#00798C]
+                "
+              >
+                {steps[0].title}
+              </h3>
+
+              <p
+                className="
+                  mt-5
+                  lg:text-[15px]
+                  xl:text-[18px]
+                  leading-[1.8]
+                  xl:leading-[2]
+                  text-[#6B7280]
+                "
+              >
+                {steps[0].description}
+              </p>
+            </div>
           </motion.div>
 
           {/* STEP 2 */}
           <motion.div
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="absolute left-1/2 top-[260px] -translate-x-1/2"
+            className="
+              absolute
+              left-1/2
+              lg:top-[340px]
+              xl:top-[380px]
+              lg:w-[300px]
+              xl:w-[360px]
+              -translate-x-1/2
+            "
           >
-            <StepCard
-              step={steps[1]}
-              ghostClass="top-[10px] left-[265px]"
-              align="center"
+            {/* Ghost */}
+            <Image
+              src={steps[1].ghostIcon}
+              alt="step number"
+              width={180}
+              height={180}
+              className="
+                absolute
+                lg:-top-[90px]
+                xl:-top-[100px]
+                lg:left-[220px]
+                xl:left-[250px]
+              "
             />
+
+            {/* Icon */}
+            <div
+              className="
+                absolute
+                lg:-top-[210px]
+                xl:-top-[230px]
+                lg:left-[220px]
+                xl:left-[250px]
+                z-20
+              "
+            >
+              <Image
+                src={steps[1].icon}
+                alt="step icon"
+                width={78}
+                height={78}
+              />
+            </div>
+
+            {/* Content */}
+            <div className="relative z-10 lg:pl-[20px] xl:pl-[40px] pt-[10px]">
+              <h3
+                className="
+                  lg:text-[28px]
+                  xl:text-[32px]
+                  font-semibold
+                  leading-[1.05]
+                  tracking-[-0.04em]
+                  text-[#454545]
+                "
+              >
+                {steps[1].title}
+              </h3>
+
+              <p
+                className="
+                  mt-5
+                  lg:text-[15px]
+                  xl:text-[18px]
+                  leading-[1.8]
+                  xl:leading-[2]
+                  text-[#6B7280]
+                "
+              >
+                {steps[1].description}
+              </p>
+            </div>
           </motion.div>
 
           {/* STEP 3 */}
           <motion.div
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
-            className="absolute right-[-10px] top-[220px]"
+            className="
+              absolute
+              lg:right-[1%]
+              xl:right-[3%]
+              lg:top-[310px]
+              xl:top-[350px]
+              lg:w-[280px]
+              xl:w-[360px]
+            "
           >
-            <StepCard
-              step={steps[2]}
-              ghostClass="-top[-10px] right-[-70px]"
-              align="right"
+            {/* Ghost */}
+            <Image
+              src={steps[2].ghostIcon}
+              alt="step number"
+              width={180}
+              height={180}
+              className="
+                absolute
+                lg:-top-[40px]
+                xl:-top-[50px]
+                lg:-right-[30px]
+                xl:-right-[40px]
+              "
             />
+
+            {/* Icon */}
+            <div
+              className="
+                absolute
+                lg:-top-[110px]
+                xl:-top-[105px]
+                lg:-right-[20px]
+                xl:right-[90px]
+                z-20
+              "
+            >
+              <Image
+                src={steps[2].icon}
+                alt="step icon"
+                width={78}
+                height={78}
+              />
+            </div>
+
+            {/* Content */}
+            <div className="relative z-10 lg:pt-[30px] xl:pt-[40px]">
+              <h3
+                className="
+                  lg:text-[28px]
+                  xl:text-[32px]
+                  font-semibold
+                  leading-[1.05]
+                  tracking-[-0.04em]
+                  text-[#202020]
+                "
+              >
+                {steps[2].title}
+              </h3>
+
+              <p
+                className="
+                  mt-5
+                  lg:text-[15px]
+                  xl:text-[18px]
+                  leading-[1.8]
+                  xl:leading-[2]
+                  text-[#6B7280]
+                "
+              >
+                {steps[2].description}
+              </p>
+            </div>
           </motion.div>
         </div>
 
         {/* MOBILE */}
-        <div className="flex flex-col gap-20 lg:hidden mt-20">
+        <div className="mt-20 flex flex-col gap-20 lg:hidden">
           {steps.map((step, index) => (
             <motion.div
               key={step.id}
@@ -257,7 +407,7 @@ export function Journey() {
                 delay: index * 0.2,
               }}
             >
-              <StepCard step={step} ghostClass="-top-[80px] right-0" />
+              <MobileStepCard step={step} />
             </motion.div>
           ))}
         </div>
