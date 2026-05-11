@@ -3,6 +3,31 @@ import { env } from "@/env/server";
 import { getSession, createSession, deleteSession } from "@/lib/session";
 import { unauthorized } from "next/navigation";
 
+export function extractTokensFromResponse(headers: Headers) {
+  const cookies: string[] =
+    typeof (headers as unknown as { getSetCookie?: () => string[] })
+      .getSetCookie === "function"
+      ? (headers as unknown as { getSetCookie: () => string[] }).getSetCookie()
+      : (headers.get("set-cookie") ?? "")
+          .split(/,(?=[^ ])/)
+          .map((s) => s.trim());
+
+  const find = (names: string[]) => {
+    for (const cookie of cookies) {
+      for (const name of names) {
+        const m = cookie.match(new RegExp(`^${name}=([^;]+)`, "i"));
+        if (m) return decodeURIComponent(m[1]);
+      }
+    }
+    return undefined;
+  };
+
+  return {
+    accessToken: find(["access_token", "accessToken"]),
+    refreshToken: find(["refresh_token", "refreshToken"]),
+  };
+}
+
 type ApiOptions = Omit<RequestInit, "body"> & { body?: unknown };
 
 export async function apiFetch(path: string, options: ApiOptions = {}) {
@@ -40,7 +65,7 @@ export async function apiFetch(path: string, options: ApiOptions = {}) {
 
       try {
         await createSession({ accessToken, refreshToken });
-      } catch (e) {
+      } catch (_e) {
         // In Server Components, createSession will throw because cookies cannot be modified.
         // We throw unauthorized() to trigger the Next.js boundary instead.
         unauthorized();
@@ -59,7 +84,7 @@ export async function apiFetch(path: string, options: ApiOptions = {}) {
     } else {
       try {
         await deleteSession();
-      } catch (e) {
+      } catch (_e) {
         unauthorized();
       }
     }

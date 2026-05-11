@@ -1,11 +1,15 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Afacad, Dancing_Script } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { env } from "@/env/client";
 import { Toaster } from "sonner";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
+const afacad = Afacad({ subsets: ["latin"], variable: "--font-afacad" });
+const dancing = Dancing_Script({
+  subsets: ["latin"],
+  variable: "--font-dancing",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
@@ -13,7 +17,8 @@ export const metadata: Metadata = {
     default: env.NEXT_PUBLIC_APP_NAME,
     template: `%s · ${env.NEXT_PUBLIC_APP_NAME}`,
   },
-  description: "OpenProfile — build a verified profile that tells the world exactly who you are.",
+  description:
+    "OpenProfile — build a verified profile that tells the world exactly who you are.",
 };
 
 export default function RootLayout({
@@ -24,9 +29,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn("h-full antialiased font-sans", inter.variable)}
+      className={cn("h-full antialiased font-afacad", afacad.variable)}
     >
-      <body className="min-h-full flex flex-col">
+      <body
+        className={`min-h-full flex flex-col ${afacad.variable} ${dancing.variable}`}
+      >
         {children}
         <Toaster richColors position="top-right" />
       </body>
