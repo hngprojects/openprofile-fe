@@ -76,7 +76,6 @@ jobs:
           password: ${{ secrets.EC2_PASSWORD }}
           script: |
             cp /var/www/openprofile-fe/envfile/.env.staging /var/www/openprofile-fe/staging/.env
-
       - name: Install dependencies and build
         uses: appleboy/ssh-action@v1.0.3
         with:
@@ -87,7 +86,6 @@ jobs:
             cd /var/www/openprofile-fe/staging
             pnpm install --config.ignore-scripts=true
             pnpm build
-
       - name: Start app with PM2
         uses: appleboy/ssh-action@v1.0.3
         with:
@@ -98,7 +96,6 @@ jobs:
             cd /var/www/openprofile-fe/staging
             pm2 restart openprofile-staging-fe || PORT=3001 pm2 start "pnpm start" --name openprofile-staging-fe
             pm2 save
-
   deploy-main:
     name: Deploy — Main
     needs: ci
@@ -127,7 +124,6 @@ jobs:
           password: ${{ secrets.EC2_PASSWORD }}
           script: |
             cp /var/www/openprofile-fe/envfile/.env.prod /var/www/openprofile-fe/main/.env
-
       - name: Install dependencies and build
         uses: appleboy/ssh-action@v1.0.3
         with:
@@ -138,7 +134,6 @@ jobs:
             cd /var/www/openprofile-fe/main
             pnpm install --config.ignore-scripts=true
             pnpm build
-
       - name: Start app with PM2
         uses: appleboy/ssh-action@v1.0.3
         with:
