@@ -2,6 +2,9 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
+import { UserIcon } from "../icons/UserIcon";
+import { QuestionIcon } from "../icons/QuestionIcon";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -97,7 +100,7 @@ export default function Impression() {
         whileInView="show"
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="relative flex items-center justify-center w-full max-w-[528px] mx-auto"
+        className="relative flex items-center justify-center w-full max-w-[528px] mx-auto overflow-hidden"
         style={{ aspectRatio: `${OUTER_W} / ${OUTER_H}` }}
       >
         {/* SVG — dashes + user icon only, centered inside outer container */}
@@ -142,19 +145,8 @@ export default function Impression() {
                 strokeWidth="2"
               />
               {/* user icon */}
-              <foreignObject
-                x={SVG_W / 2 - 20}
-                y={SVG_H / 2 - 20}
-                width="40"
-                height="40"
-              >
-                <Image
-                  src="/impression/icon-user.svg"
-                  alt="user"
-                  width={40}
-                  height={40}
-                />
-              </foreignObject>
+              <UserIcon x={SVG_W / 2 - 20} y={SVG_H / 2 - 20} />
+
               {/* red question badge */}
               <circle
                 cx={SVG_W / 2 + 20}
@@ -164,19 +156,8 @@ export default function Impression() {
                 stroke="white"
                 strokeWidth="2"
               />
-              <foreignObject
-                x={SVG_W / 2 + 14}
-                y={SVG_H / 2 + 14}
-                width="12"
-                height="12"
-              >
-                <Image
-                  src="/impression/icon-question.svg"
-                  alt="question"
-                  width={12}
-                  height={12}
-                />
-              </foreignObject>
+              {/* question icon */}
+              <QuestionIcon x={SVG_W / 2 + 14} y={SVG_H / 2 + 14} />
             </motion.g>
           </svg>
         </div>
@@ -184,7 +165,7 @@ export default function Impression() {
         {/* social cards — HTML divs absolutely positioned at corners */}
 
         {/* top row */}
-        <div className="absolute top-0 left-0 right-0 flex items-start justify-between pl-[19px]">
+        <div className="absolute top-0 left-0 right-0 flex items-start justify-between sm:pl-[19px] gap-4">
           {socials.slice(0, 2).map(({ label, sub, bg, icon }, i) => (
             <motion.div
               key={label}
@@ -210,7 +191,7 @@ export default function Impression() {
         </div>
 
         {/* bottom row */}
-        <div className="absolute bottom-0 left-0 right-0 flex items-end justify-between pr-0.5 pb-1.5">
+        <div className="absolute bottom-0 left-0 right-0 flex items-end justify-between sm:pr-0.5 sm:pb-1.5 gap-4">
           {socials.slice(2).map(({ label, sub, bg, icon }, i) => (
             <motion.div
               key={label}
@@ -283,19 +264,22 @@ export default function Impression() {
           </motion.p>
         </div>
 
-        <motion.button
-          type="button"
-          whileHover={{ scale: 1.03 }}
-          whileTap={{ scale: 0.97 }}
+        <motion.div
           variants={fadeUp}
           initial="hidden"
           whileInView="show"
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.5 }}
-          className="font-medium text-[#FEFEFE] bg-[#087583] h-12 rounded-[8px] px-4 cursor-pointer"
+          whileHover={{ scale: 1.03 }}
+          whileTap={{ scale: 0.97 }}
         >
-          Create Your Profile Now
-        </motion.button>
+          <Link
+            href="/signup"
+            className="font-medium text-[#FEFEFE] bg-brand h-12 rounded-[8px] px-4 cursor-pointer flex items-center justify-center"
+          >
+            Create Your Profile Now
+          </Link>
+        </motion.div>
       </motion.div>
     </div>
   );

@@ -1,6 +1,5 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { Hero } from "@/components/home/Hero";
-// import { ProfilePreview } from "@/components/home/ProfilePreview";
 import { Proof } from "@/components/home/Proof";
 import { FAQ } from "@/components/home/FAQ";
 import { Pricing } from "@/components/home/Pricing";

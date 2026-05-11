@@ -82,7 +82,7 @@ export default function Target() {
       </motion.div>
 
       {/* cards grid */}
-      <div className="mt-10 grid gap-6 grid-cols-[repeat(auto-fit,minmax(300px,1fr))] items-center justify-center">
+      <div className="mt-10 grid gap-6 grid-cols-1 lg:grid-cols-3 items-center justify-center">
         {audiences.map(
           ({ bg, right, icon, checkIcon, title, description, items }, i) => (
             <motion.div

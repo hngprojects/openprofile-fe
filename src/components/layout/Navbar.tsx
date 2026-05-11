@@ -29,19 +29,19 @@ export function Navbar() {
         <div className="hidden md:flex items-center gap-4">
           <Link
             href="#how-it-works"
-            className="text-[#050505] font-medium text-[17px] leading-[26px] font-[Afacad] hover:text-[#087583] transition-colors"
+            className="text-primary font-medium text-[17px] leading-[26px] font-[Afacad] hover:text-brand transition-colors"
           >
             How it works
           </Link>
           <Link
             href="#pricing"
-            className="text-[#050505] font-medium text-[16px] leading-[24px] font-[Afacad] hover:text-[#087583] transition-colors"
+            className="text-primary font-medium text-[16px] leading-[24px] font-[Afacad] hover:text-brand transition-colors"
           >
             Pricing
           </Link>
           <Link
             href="#faq"
-            className="text-[#050505] font-medium text-[16px] leading-[24px] font-[Afacad] hover:text-[#087583] transition-colors"
+            className="text-primary font-medium text-[16px] leading-[24px] font-[Afacad] hover:text-brand transition-colors"
           >
             FAQ
           </Link>
@@ -50,14 +50,20 @@ export function Navbar() {
         {/* Desktop CTA buttons */}
         <div className="hidden md:flex items-center gap-3">
           {/* Login */}
-          <button className="flex items-center justify-center px-[14px] py-[8px] h-[36px] bg-[#FAFAFA] rounded-[8px] text-[#087583] font-semibold text-[13px] leading-[18px] font-[Afacad] hover:bg-[#E5F4F6] transition-colors">
+          <Link
+            href="/login"
+            className="flex items-center justify-center px-[14px] py-[8px] h-[36px] bg-[#FAFAFA] rounded-[8px] text-brand font-semibold text-[13px] leading-[18px] font-[Inter] hover:bg-[#E5F4F6] transition-colors"
+          >
             Login
-          </button>
+          </Link>
 
           {/* Get Started */}
-          <button className="flex items-center justify-center px-[16px] py-[12px] h-[44px] bg-[#087583] rounded-[8px] text-[#FEFEFE] font-medium text-[15px] leading-[22px] font-[Afacad] hover:bg-[#065E69] transition-colors whitespace-nowrap">
+          <Link
+            href="/signup"
+            className="flex items-center justify-center px-[16px] py-[12px] h-[44px] bg-brand rounded-[8px] text-[#FEFEFE] font-medium text-[15px] leading-[22px] font-[Afacad] hover:bg-[#065E69] transition-colors whitespace-nowrap"
+          >
             Get Started
-          </button>
+          </Link>
         </div>
 
         {/* Mobile hamburger */}
@@ -67,13 +73,13 @@ export function Navbar() {
           aria-label="Toggle menu"
         >
           <span
-            className={`block h-0.5 w-5 bg-[#050505] transition-transform duration-200 ${mobileOpen ? "rotate-45 translate-y-2" : ""}`}
+            className={`block h-0.5 w-5 bg-primary transition-transform duration-200 ${mobileOpen ? "rotate-45 translate-y-2" : ""}`}
           />
           <span
-            className={`block h-0.5 w-5 bg-[#050505] transition-opacity duration-200 ${mobileOpen ? "opacity-0" : ""}`}
+            className={`block h-0.5 w-5 bg-primary transition-opacity duration-200 ${mobileOpen ? "opacity-0" : ""}`}
           />
           <span
-            className={`block h-0.5 w-5 bg-[#050505] transition-transform duration-200 ${mobileOpen ? "-rotate-45 -translate-y-2" : ""}`}
+            className={`block h-0.5 w-5 bg-primary transition-transform duration-200 ${mobileOpen ? "-rotate-45 -translate-y-2" : ""}`}
           />
         </button>
       </nav>
@@ -94,18 +100,25 @@ export function Navbar() {
                   key={item}
                   href={`#${item.toLowerCase().replace(/\s+/g, "-")}`}
                   onClick={() => setMobileOpen(false)}
-                  className="text-[#050505] font-medium text-[16px] font-[Afacad] hover:text-[#087583] transition-colors"
+                  className="text-primary font-medium text-[16px] font-[Afacad] hover:text-[#087583] transition-colors"
                 >
                   {item}
                 </Link>
               ))}
               <div className="flex gap-3 pt-1">
-                <button className="flex-1 h-10 bg-[#FAFAFA] rounded-[8px] text-[#087583] font-semibold text-sm border border-[#EDEDED]">
+                <Link
+                  href="/login"
+                  className="flex-1 h-10 bg-[#FAFAFA] rounded-[8px] text-brand font-semibold text-sm border border-[#EDEDED] flex items-center justify-center"
+                >
                   Login
-                </button>
-                <button className="flex-1 h-10 bg-[#087583] rounded-[8px] text-white font-medium text-sm">
+                </Link>
+
+                <Link
+                  href="/signup"
+                  className="flex-1 h-10 bg-brand rounded-[8px] text-white font-medium text-sm flex items-center justify-center"
+                >
                   Get Started
-                </button>
+                </Link>
               </div>
             </div>
           </motion.div>

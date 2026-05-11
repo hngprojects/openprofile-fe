@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export function CTA() {
   return (
@@ -22,7 +23,7 @@ export function CTA() {
                 size="lg"
                 className="rounded-[12px] p-6"
               >
-                Create Your Profile Now
+                <Link href="/signup"> Create Your Profile Now</Link>
               </Button>
             </div>
           </div>

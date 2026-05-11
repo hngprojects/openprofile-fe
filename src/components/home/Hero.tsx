@@ -40,7 +40,7 @@ export function Hero() {
 
   return (
     <section className="w-full bg-white overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 md:px-8 pt-[80px] pb-[60px] flex flex-col lg:flex-row items-start lg:items-start gap-10 lg:gap-4 relative min-h-[685px]">
+      <div className="max-w-[1440px] mx-auto px-6 md:px-[125px] pt-[80px] pb-[40px] flex flex-col lg:flex-row items-start lg:items-center gap-10 lg:gap-4 relative">
         {/* ───────────────── LEFT COLUMN ───────────────── */}
         <div className="flex flex-col gap-4 w-full lg:max-w-[500px] shrink-0 z-10">
           {/* Heading */}
@@ -49,13 +49,12 @@ export function Hero() {
             className="font-semibold text-[42px] sm:text-[50px] md:text-[56px] leading-[1.12] tracking-[-1px] text-[#050505]"
             style={{ fontFamily: "'Afacad', sans-serif" }}
           >
-            Create {/* One */}
+            Create{" "}
             <span className="relative inline-block mx-2">
-              {/* Decorative symbol */}
+              {/* \ | / above One */}
               <span className="absolute -top-5 left-1/2 -translate-x-1/2 text-[#087583] text-xl leading-none tracking-wider whitespace-nowrap">
                 \ | /
               </span>
-
               <span
                 className="italic text-[#087583]"
                 style={{ fontFamily: "'Dancing Script', cursive" }}
@@ -89,7 +88,6 @@ export function Hero() {
               className="flex-1 h-[48px] px-[12px] bg-[#FAFAFA] border border-[#C9C9C9] rounded-[5.57px] text-[16px] leading-[24px] text-[#454545] placeholder:text-[#454545] outline-none focus:ring-2 focus:ring-[#087583]/40 transition"
               style={{ fontFamily: "'Afacad', sans-serif" }}
             />
-
             <button
               className="h-[48px] px-[16px] bg-[#087583] hover:bg-[#065E69] rounded-[8px] text-white text-[16px] leading-[24px] whitespace-nowrap transition-colors"
               style={{ fontFamily: "'Afacad', sans-serif" }}
@@ -135,9 +133,7 @@ export function Hero() {
               style={{ fontFamily: "'Afacad', sans-serif" }}
             >
               Join over{" "}
-              {/* <span className="font-semibold text-[#050505]">
-                2000+
-              </span>{" "} */}
+              {/* <span className="font-semibold text-[#050505]">2000+</span>{" "} */}
               Creators and freelancers that trusts us all over the world.
             </p>
           </motion.div>
@@ -145,6 +141,36 @@ export function Hero() {
 
         {/* ───────────────── RIGHT COLUMN ───────────────── */}
         <div className="relative flex-1 w-full overflow-visible -ml-[10px]">
+          {/* LEFT fade */}
+          <div
+            style={{
+              position: "absolute",
+              left: 0,
+              top: 0,
+              bottom: "-20px",
+              width: "160px",
+              background:
+                "linear-gradient(to right, #ffffff 0%, #ffffff 40%, rgba(255,255,255,0) 100%)",
+              zIndex: 20,
+              pointerEvents: "none",
+            }}
+          />
+
+          {/* RIGHT fade */}
+          <div
+            style={{
+              position: "absolute",
+              right: 0,
+              top: 0,
+              bottom: "-20px",
+              width: "160px",
+              background:
+                "linear-gradient(to left, #ffffff 0%, #ffffff 40%, rgba(255,255,255,0) 100%)",
+              zIndex: 20,
+              pointerEvents: "none",
+            }}
+          />
+
           {/* Cards */}
           <motion.div
             initial={{ opacity: 0, x: 40 }}
@@ -159,12 +185,8 @@ export function Hero() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.55, delay: 0.3 + i * 0.1 }}
                 className="relative flex flex-col justify-end shrink-0 rounded-[9px] overflow-hidden"
-                style={{
-                  width: "210px",
-                  height: "365px",
-                }}
+                style={{ width: "210px", height: "365px" }}
               >
-                {/* Image */}
                 <Image
                   src={p.img}
                   alt={p.name}
@@ -185,41 +207,7 @@ export function Hero() {
                   }}
                 />
 
-                {/* IMAGE 1 FADE */}
-                {i === 0 && (
-                  <div
-                    style={{
-                      position: "absolute",
-                      left: "-2px",
-                      top: 0,
-                      bottom: 0,
-                      width: "48%",
-                      background:
-                        "linear-gradient(to right, #FFFFFF 0%, #FFFFFF 46%, rgba(255,255,255,0.96) 62%, rgba(255,255,255,0.72) 82%, rgba(255,255,255,0) 100%)",
-                      zIndex: 20,
-                      pointerEvents: "none",
-                    }}
-                  />
-                )}
-
-                {/* IMAGE 3 FADE */}
-                {i === 2 && (
-                  <div
-                    style={{
-                      position: "absolute",
-                      right: 0,
-                      top: 0,
-                      bottom: 0,
-                      width: "50%",
-                      background:
-                        "linear-gradient(to left, #FFFFFF 0%, #FFFFFF 34%, rgba(255,255,255,0.92) 58%, rgba(255,255,255,0.55) 80%, rgba(255,255,255,0) 100%)",
-                      zIndex: 20,
-                      pointerEvents: "none",
-                    }}
-                  />
-                )}
-
-                {/* Content */}
+                {/* Name + role */}
                 <div className="relative z-10 p-[15px_18px] flex flex-col gap-1">
                   <div className="flex items-center gap-1">
                     <span
@@ -228,13 +216,11 @@ export function Hero() {
                     >
                       {p.name}
                     </span>
-
                     <CircleCheck
                       className="w-5 h-5 shrink-0"
                       style={{ color: "#98FAC3" }}
                     />
                   </div>
-
                   <span
                     className="font-medium text-[14px] leading-[24px] text-[#E6E6E6]"
                     style={{ fontFamily: "'Afacad', sans-serif" }}
@@ -246,9 +232,11 @@ export function Hero() {
             ))}
           </motion.div>
         </div>
+      </div>
 
-        {/* Bottom divider */}
-        <div className="absolute bottom-0 left-4 md:left-8 right-4 md:right-8 border-t border-[#C9C9C9] hidden lg:block" />
+   
+      <div className="hidden lg:block px-[125px] pt-[40px] pb-[80px]">
+        <div className="border-t border-[#C9C9C9]" />
       </div>
     </section>
   );
