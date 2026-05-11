@@ -35,12 +35,10 @@ export default function Home() {
           </div>
         </section>
       </div>
-
-      <Proof />
-
       <Journey />
 
       <Features />
+      <Proof />
 
       <FAQ />
 
