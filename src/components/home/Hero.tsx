@@ -41,10 +41,8 @@ export function Hero() {
   return (
     <section className="w-full bg-white overflow-hidden">
       <div className="max-w-[1440px] mx-auto px-6 md:px-[125px] pt-[60px] md:pt-[80px] pb-[40px] flex flex-col lg:flex-row items-start lg:items-center gap-8 lg:gap-4 relative">
-
         {/* ───────────────── LEFT COLUMN ───────────────── */}
         <div className="flex flex-col gap-4 w-full lg:max-w-[500px] shrink-0 z-10">
-
           {/* Heading */}
           <motion.h1
             {...fadeUp(0.05)}
@@ -131,14 +129,14 @@ export function Hero() {
               className="font-normal text-[14px] md:text-[16px] leading-[24px] text-[#454545]"
               style={{ fontFamily: "'Afacad', sans-serif" }}
             >
-              Join over Creators and freelancers that trusts us all over the world.
+              Join over Creators and freelancers that trusts us all over the
+              world.
             </p>
           </motion.div>
         </div>
 
         {/* ───────────────── RIGHT COLUMN — desktop only ───────────────── */}
         <div className="relative flex-1 w-full overflow-visible -ml-[10px] hidden lg:block">
-
           {/* LEFT fade */}
           <div
             style={{
@@ -147,7 +145,8 @@ export function Hero() {
               top: 0,
               bottom: "-20px",
               width: "160px",
-              background: "linear-gradient(to right, #ffffff 0%, #ffffff 40%, rgba(255,255,255,0) 100%)",
+              background:
+                "linear-gradient(to right, #ffffff 0%, #ffffff 40%, rgba(255,255,255,0) 100%)",
               zIndex: 20,
               pointerEvents: "none",
             }}
@@ -161,7 +160,8 @@ export function Hero() {
               top: 0,
               bottom: "-20px",
               width: "220px",
-              background: "linear-gradient(to left, #ffffff 0%, #ffffff 50%, rgba(255,255,255,0) 100%)",
+              background:
+                "linear-gradient(to left, #ffffff 0%, #ffffff 50%, rgba(255,255,255,0) 100%)",
               zIndex: 20,
               pointerEvents: "none",
             }}
@@ -227,7 +227,6 @@ export function Hero() {
 
         {/* ───────────────── MOBILE CARDS ───────────────── */}
         <div className="lg:hidden relative w-full">
-
           {/* LEFT fade — on wrapper so no card border lines */}
           <div
             style={{
@@ -260,7 +259,7 @@ export function Hero() {
 
           {/* 3 cards filling full mobile width */}
           <div className="flex gap-2 w-full">
-            {profiles.map((p, i) => (
+            {profiles.map((p) => (
               <div
                 key={p.name}
                 className="relative flex flex-col justify-end flex-1 rounded-[9px] overflow-hidden"
@@ -304,10 +303,8 @@ export function Hero() {
             ))}
           </div>
         </div>
-
       </div>
 
-   
       <div className="hidden lg:block px-[125px] pt-[40px] pb-[80px]">
         <div className="border-t border-[#C9C9C9]" />
       </div>
