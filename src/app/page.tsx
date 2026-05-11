@@ -5,6 +5,8 @@ import { Proof } from "@/components/home/Proof";
 import { FAQ } from "@/components/home/FAQ";
 import { Pricing } from "@/components/home/Pricing";
 import { CTA } from "@/components/home/CTA";
+import { Journey } from "@/components/home/Journey";
+import { Features } from "@/components/home/Features";
 import Footer from "@/components/layout/Footer";
 import Impression from "@/components/home/Impression";
 import Target from "@/components/home/Target";
@@ -30,6 +32,10 @@ export default function Home() {
       </section>
 
       <Proof />
+
+      <Journey />
+
+      <Features />
 
       <FAQ />
 
