@@ -41,7 +41,6 @@ export function Hero() {
   return (
     <section className="w-full bg-white overflow-hidden">
       <div className="max-w-[1440px] mx-auto px-6 md:px-[125px] pt-[80px] pb-[40px] flex flex-col lg:flex-row items-start lg:items-center gap-10 lg:gap-4 relative">
-
         {/* ───────────────── LEFT COLUMN ───────────────── */}
         <div className="flex flex-col gap-4 w-full lg:max-w-[500px] shrink-0 z-10">
           {/* Heading */}
@@ -142,7 +141,6 @@ export function Hero() {
 
         {/* ───────────────── RIGHT COLUMN ───────────────── */}
         <div className="relative flex-1 w-full overflow-visible -ml-[10px]">
-
           {/* LEFT fade */}
           <div
             style={{
@@ -151,7 +149,8 @@ export function Hero() {
               top: 0,
               bottom: "-20px",
               width: "160px",
-              background: "linear-gradient(to right, #ffffff 0%, #ffffff 40%, rgba(255,255,255,0) 100%)",
+              background:
+                "linear-gradient(to right, #ffffff 0%, #ffffff 40%, rgba(255,255,255,0) 100%)",
               zIndex: 20,
               pointerEvents: "none",
             }}
@@ -165,7 +164,8 @@ export function Hero() {
               top: 0,
               bottom: "-20px",
               width: "160px",
-              background: "linear-gradient(to left, #ffffff 0%, #ffffff 40%, rgba(255,255,255,0) 100%)",
+              background:
+                "linear-gradient(to left, #ffffff 0%, #ffffff 40%, rgba(255,255,255,0) 100%)",
               zIndex: 20,
               pointerEvents: "none",
             }}
@@ -232,14 +232,12 @@ export function Hero() {
             ))}
           </motion.div>
         </div>
-
       </div>
 
       {/* Divider — more space below than above */}
       <div className="hidden lg:block px-[125px] pt-[40px] pb-[80px]">
         <div className="border-t border-[#C9C9C9]" />
       </div>
-
     </section>
   );
 }
