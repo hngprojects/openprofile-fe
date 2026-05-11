@@ -7,7 +7,7 @@ export type AuthState = { error?: string } | undefined;
 
 export async function emailSignup(
   _prev: AuthState,
-  formData: FormData,
+  formData: FormData
 ): Promise<AuthState> {
   const fullName = formData.get("name") as string;
   const email = formData.get("email") as string;
@@ -23,8 +23,15 @@ export async function emailSignup(
 
   if (!res.ok) {
     const data = await res.json().catch(() => ({}));
-    console.error("[signup] status:", res.status, "body:", JSON.stringify(data));
-    return { error: data.message ?? data.error ?? data.detail ?? "Signup failed." };
+    console.error(
+      "[signup] status:",
+      res.status,
+      "body:",
+      JSON.stringify(data)
+    );
+    return {
+      error: data.message ?? data.error ?? data.detail ?? "Signup failed.",
+    };
   }
 
   redirect(`/verify-email?email=${encodeURIComponent(email)}`);
@@ -32,7 +39,7 @@ export async function emailSignup(
 
 export async function emailLogin(
   _prev: AuthState,
-  formData: FormData,
+  formData: FormData
 ): Promise<AuthState> {
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
@@ -51,7 +58,9 @@ export async function emailLogin(
 
   const { accessToken, refreshToken } = extractTokensFromResponse(res.headers);
   if (!accessToken || !refreshToken) {
-    return { error: "Login succeeded but no session was returned. Please try again." };
+    return {
+      error: "Login succeeded but no session was returned. Please try again.",
+    };
   }
   await createSession({ accessToken, refreshToken });
 
@@ -66,7 +75,7 @@ export async function logout() {
 
 export async function forgotPassword(
   _prev: AuthState,
-  formData: FormData,
+  formData: FormData
 ): Promise<AuthState> {
   const email = formData.get("email") as string;
   if (!email) return { error: "Email is required." };
@@ -86,7 +95,7 @@ export async function forgotPassword(
 
 export async function resetPassword(
   _prev: AuthState,
-  formData: FormData,
+  formData: FormData
 ): Promise<AuthState> {
   const token = formData.get("token") as string;
   const password = formData.get("password") as string;
@@ -108,7 +117,7 @@ export async function resetPassword(
 
 export async function verifyEmailOtp(
   _prev: AuthState,
-  formData: FormData,
+  formData: FormData
 ): Promise<AuthState> {
   const email = formData.get("email") as string;
   const otp = formData.get("otp") as string;

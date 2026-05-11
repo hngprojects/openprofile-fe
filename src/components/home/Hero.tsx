@@ -44,7 +44,6 @@ export function Hero() {
 
         {/* ───────────────── LEFT COLUMN ───────────────── */}
         <div className="flex flex-col gap-4 w-full lg:max-w-[500px] shrink-0 z-10">
-
           {/* Heading */}
           <motion.h1
             {...fadeUp(0.05)}
@@ -199,14 +198,14 @@ export function Hero() {
                   className="object-cover object-center"
                 />
 
-        {/* Dark overlay */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(360deg, rgba(0,0,0,0.9) 19.96%, rgba(102,102,102,0) 42.85%)",
-          }}
-        />
+                {/* Dark overlay */}
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    background:
+                      "linear-gradient(360deg, rgba(0,0,0,0.9) 19.96%, rgba(102,102,102,0) 42.85%)",
+                  }}
+                />
 
                 {/* Name + role */}
                 <div className="relative z-10 p-[15px_18px] flex flex-col gap-1">

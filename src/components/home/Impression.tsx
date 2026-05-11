@@ -252,7 +252,7 @@ export default function Impression() {
             whileInView="show"
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="text-[28px] md:text-[34px] lg:text-[40px] leading-9 md:leading-11 lg:leading-12 tracking-[-1px] font-semibold font-sfpror"
+            className="text-[28px] md:text-[34px] lg:text-[40px] leading-9 md:leading-11 lg:leading-12 tracking-[-1px] font-semibold font-afacad"
           >
             Your Links Are Scattered.{" "}
             <span className="text-[#087583]">
@@ -266,7 +266,7 @@ export default function Impression() {
             whileInView="show"
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className="text-[15px] md:text-[16px] lg:text-[18px] leading-6 lg:leading-6.5 flex flex-col font-sfpror gap-4 md:gap-6"
+            className="text-[15px] md:text-[16px] lg:text-[18px] leading-6 lg:leading-6.5 flex flex-col font-afacad gap-4 md:gap-6"
           >
             <span>
               Your projects may be on GitHub. Your designs may be on Behance.

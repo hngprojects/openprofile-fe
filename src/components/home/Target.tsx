@@ -55,7 +55,7 @@ const fadeUp = {
 
 export default function Target() {
   return (
-    <div className="text-primary font-sfpror w-full mx-4 sm:mx-6 md:mx-8 py-16 max-w-7xl">
+    <div className="text-primary font-afacad w-full mx-4 sm:mx-6 md:mx-8 py-16 max-w-7xl">
       {/* header */}
       <motion.div
         variants={fadeUp}
@@ -71,7 +71,7 @@ export default function Target() {
             width={16}
             height={16}
           />
-          <p className="font-medium text-[12px] leading-4 text-brand">
+          <p className="font-medium text-[12px] leading-4 text-brand font-sfpror">
             Target Audience
           </p>
         </div>
