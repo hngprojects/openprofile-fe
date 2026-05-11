@@ -40,7 +40,7 @@ export function Hero() {
 
   return (
     <section className="w-full bg-white overflow-hidden">
-      <div className="max-w-[1440px] mx-auto px-6 md:px-[125px] pt-[80px] pb-[60px] flex flex-col lg:flex-row items-start lg:items-start gap-10 lg:gap-4 relative min-h-[685px]">
+      <div className="max-w-7xl mx-auto px-4 md:px-8 pt-[80px] pb-[60px] flex flex-col lg:flex-row items-start lg:items-start gap-10 lg:gap-4 relative min-h-[685px]">
         {/* ───────────────── LEFT COLUMN ───────────────── */}
         <div className="flex flex-col gap-4 w-full lg:max-w-[500px] shrink-0 z-10">
           {/* Heading */}
@@ -248,7 +248,7 @@ export function Hero() {
         </div>
 
         {/* Bottom divider */}
-        <div className="absolute bottom-0 left-[125px] right-[125px] border-t border-[#C9C9C9] hidden lg:block" />
+        <div className="absolute bottom-0 left-4 md:left-8 right-4 md:right-8 border-t border-[#C9C9C9] hidden lg:block" />
       </div>
     </section>
   );
