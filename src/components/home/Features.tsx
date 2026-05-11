@@ -120,7 +120,7 @@ export function Features() {
 
         <h2
           id="features-heading"
-          className="text-4xl md:text-5xl font-extrabold text-white tracking-tight"
+          className="text-[32px] md:text-[40px] font-semibold text-white tracking-tight"
         >
           One link, clear Proof, faster opportunities
         </h2>
