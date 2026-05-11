@@ -22,14 +22,10 @@ export function PasswordField({
   autoComplete = "current-password",
 }: Props) {
   const [show, setShow] = useState(false);
-  const [hovered, setHovered] = useState(false);
+  const [focused, setFocused] = useState(false);
 
   return (
-    <div
-      className="flex flex-col gap-1.5"
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-    >
+    <div className="flex flex-col gap-1.5">
       <label className="text-sm font-medium text-[#454545]">Password</label>
       <div className="relative">
         <Input
@@ -40,6 +36,8 @@ export function PasswordField({
           autoComplete={autoComplete}
           value={value}
           onChange={(e) => onChange(e.target.value)}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
           className="h-11 pr-10 bg-[#FAFAFA] border border-[#EDEDED] shadow-none placeholder:text-[#747474] transition-all duration-200 hover:border-[#ABABAB] hover:bg-white hover:shadow-sm"
         />
         <button
@@ -97,10 +95,10 @@ export function PasswordField({
           return (
             <div
               style={{
-                maxHeight: hovered ? "160px" : "0px",
-                opacity: hovered ? 1 : 0,
+                maxHeight: focused ? "160px" : "0px",
+                opacity: focused ? 1 : 0,
                 overflow: "hidden",
-                paddingTop: hovered ? "20px" : "0px",
+                paddingTop: focused ? "20px" : "0px",
                 transition:
                   "max-height 0.3s ease, opacity 0.3s ease, padding-top 0.3s ease",
               }}
