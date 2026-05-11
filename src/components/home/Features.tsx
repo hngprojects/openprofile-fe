@@ -56,15 +56,10 @@ function FeatureCard({
         delay: delay / 1000,
       }}
       className="
-    group
-    flex flex-col gap-4
-    rounded-2xl
-    p-6
-    transition-all duration-300 ease-out
-    hover:bg-white/5
-    hover:-translate-y-2
-    hover:shadow-[0_10px_40px_rgba(0,0,0,0.25)]
-  "
+  flex flex-col gap-4
+  rounded-2xl
+  p-6
+"
     >
       <div className="flex-shrink-0">
         <Image
@@ -74,8 +69,6 @@ function FeatureCard({
           height={50}
           className="
       object-contain
-      transition-transform duration-300
-      group-hover:scale-110
     "
         />
       </div>
