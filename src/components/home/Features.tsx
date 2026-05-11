@@ -137,8 +137,7 @@ export function Features() {
   text-white
   tracking-tight
   leading-tight
-"
-        >
+" >
           One link, clear Proof, faster opportunities
         </h2>
       </motion.div>
