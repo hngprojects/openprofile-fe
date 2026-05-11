@@ -234,7 +234,7 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Divider — more space below than above */}
+   
       <div className="hidden lg:block px-[125px] pt-[40px] pb-[80px]">
         <div className="border-t border-[#C9C9C9]" />
       </div>
