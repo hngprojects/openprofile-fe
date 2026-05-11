@@ -7,7 +7,7 @@ export default function SignupPage() {
     <AuthForm
       mode="signup"
       action={emailSignup}
-      googleAuthUrl={`${env.NEXT_PUBLIC_API_URL ?? ""}/auth/google`}
+      googleAuthUrl={`${env.NEXT_PUBLIC_API_URL ?? ""}/api/auth/google`}
     />
   );
 }

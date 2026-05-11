@@ -1,4 +1,4 @@
-import { NextResponse, type NextProxy } from "next/server";
+import { NextResponse, type NextRequest } from "next/server";
 
 const SECURITY_HEADERS: Record<string, string> = {
   "X-Frame-Options": "DENY",
@@ -9,7 +9,7 @@ const SECURITY_HEADERS: Record<string, string> = {
 
 const PROTECTED_PREFIX = ["/dashboard", "/profile", "/settings"];
 
-export const proxy: NextProxy = async (request) => {
+export async function proxy(request: NextRequest) {
   const requestId = request.headers.get("x-request-id") ?? crypto.randomUUID();
 
   const requestHeaders = new Headers(request.headers);
@@ -24,7 +24,6 @@ export const proxy: NextProxy = async (request) => {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  // Redirect authenticated users away from login/signup
   if ((pathname === "/login" || pathname === "/signup") && token) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }
@@ -39,7 +38,7 @@ export const proxy: NextProxy = async (request) => {
   response.headers.set("x-request-id", requestId);
 
   return response;
-};
+}
 
 export const config = {
   matcher: [

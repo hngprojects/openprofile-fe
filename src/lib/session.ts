@@ -4,9 +4,14 @@ import { cookies } from "next/headers";
 const COOKIE_NAME = "session";
 const EXPIRES_IN = 7 * 24 * 60 * 60 * 1000; // 7 days
 
-export async function createSession(token: string) {
+export type SessionData = {
+  accessToken: string;
+  refreshToken: string;
+};
+
+export async function createSession(data: SessionData) {
   const store = await cookies();
-  store.set(COOKIE_NAME, token, {
+  store.set(COOKIE_NAME, JSON.stringify(data), {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
@@ -20,9 +25,15 @@ export async function deleteSession() {
   store.delete(COOKIE_NAME);
 }
 
-export async function getSessionToken() {
+export async function getSession(): Promise<SessionData | null> {
   const store = await cookies();
-  return store.get(COOKIE_NAME)?.value ?? null;
+  const raw = store.get(COOKIE_NAME)?.value;
+  if (!raw) return null;
+  try {
+    return JSON.parse(raw) as SessionData;
+  } catch {
+    return null;
+  }
 }
 
 export function decrypt(token: string) {
