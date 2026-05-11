@@ -3,6 +3,8 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { UserIcon } from "../icons/UserIcon";
+import { QuestionIcon } from "../icons/QuestionIcon";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -143,19 +145,8 @@ export default function Impression() {
                 strokeWidth="2"
               />
               {/* user icon */}
-              <foreignObject
-                x={SVG_W / 2 - 20}
-                y={SVG_H / 2 - 20}
-                width="40"
-                height="40"
-              >
-                <Image
-                  src="/impression/icon-user.svg"
-                  alt="user"
-                  width={40}
-                  height={40}
-                />
-              </foreignObject>
+              <UserIcon x={SVG_W / 2 - 20} y={SVG_H / 2 - 20} />
+
               {/* red question badge */}
               <circle
                 cx={SVG_W / 2 + 20}
@@ -165,19 +156,8 @@ export default function Impression() {
                 stroke="white"
                 strokeWidth="2"
               />
-              <foreignObject
-                x={SVG_W / 2 + 14}
-                y={SVG_H / 2 + 14}
-                width="12"
-                height="12"
-              >
-                <Image
-                  src="/impression/icon-question.svg"
-                  alt="question"
-                  width={12}
-                  height={12}
-                />
-              </foreignObject>
+              {/* question icon */}
+              <QuestionIcon x={SVG_W / 2 + 14} y={SVG_H / 2 + 14} />
             </motion.g>
           </svg>
         </div>
