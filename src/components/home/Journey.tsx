@@ -83,7 +83,7 @@ function StepCard({
       className={`
         relative
         w-full
-        max-w-[330px]
+        lg:max-w-[330px]
         ${align === "center" ? "mx-auto" : align === "right" ? "ml-auto" : ""}
       `}
     >
@@ -102,13 +102,12 @@ function StepCard({
       <StepIcon
         icon={step.icon}
         stepId={step.id}
-        className={
+        className={`hidden md:block
           step.id === "create-profile"
-            ? "ml-[160px] mt-[220px]"
+            ? "lg:ml-[160px] lg:mt-[220px]"
             : step.id === "verify-identity"
-              ? "ml-[480px] -mt-[300px]"
-              : "ml-[190px] -mt-[30px]"
-        }
+              ? "lg:ml-[480px] lg:-mt-[300px]"
+              : "lg:ml-[190px] lg:-mt-[30px]"`}
       />
 
       {/* Content */}
@@ -118,11 +117,11 @@ function StepCard({
           z-10
           ${
             step.id === "create-profile"
-              ? "-mt-[120px] -ml-[160px]"
+              ? "lg:-mt-[120px] lg:-ml-[160px]"
               : step.id === "verify-identity"
-                ? "-mt-[40px] -ml-[10px]"
+                ? "lg:-mt-[40px] lg:-ml-[10px]"
                 : step.id === "share-link"
-                  ? "-mt[-10px] ml-[-60px]"
+                  ? "lg:-mt[-10px] lg:ml-[-60px]"
                   : ""
           }
         `}
@@ -139,7 +138,7 @@ function StepCard({
           {step.title}
         </h3>
 
-        <p className="mt-5 text-[18px] leading-[34px] text-[#6B7280]">
+        <p className="mt-5 text-[18px] leading-[34px] text-[#6B7280] mb-7">
           {step.description}
         </p>
       </div>
@@ -149,7 +148,7 @@ function StepCard({
 
 export function Journey() {
   return (
-    <section className="relative w-full overflow-hidden bg-[#F7F7F7] py-24 lg:py-32">
+    <section className="relative w-full overflow-hidden bg-[#F7F7F7] py-18 lg:py-32">
       <div className="mx-auto max-w-[1440px] px-6 lg:px-12">
         {/* HEADER */}
         <motion.div
@@ -244,8 +243,7 @@ export function Journey() {
           </motion.div>
         </div>
 
-        {/* MOBILE */}
-        <div className="flex flex-col gap-20 lg:hidden mt-20">
+        <div className="flex flex-col gap-20 lg:hidden mt-28">
           {steps.map((step, index) => (
             <motion.div
               key={step.id}
@@ -257,7 +255,10 @@ export function Journey() {
                 delay: index * 0.2,
               }}
             >
-              <StepCard step={step} ghostClass="-top-[80px] right-0" />
+              <StepCard
+                step={step}
+                ghostClass="-top-[80px] right-0 mt-10 lg:mt-0"
+              />
             </motion.div>
           ))}
         </div>
