@@ -22,14 +22,10 @@ export function PasswordField({
   autoComplete = "current-password",
 }: Props) {
   const [show, setShow] = useState(false);
-  const [hovered, setHovered] = useState(false);
+  const [focused, setFocused] = useState(false);
 
   return (
-    <div
-      className="flex flex-col gap-1.5"
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-    >
+    <div className="flex flex-col gap-1.5">
       <label className="text-sm font-medium text-[#454545]">Password</label>
       <div className="relative">
         <Input
@@ -40,7 +36,9 @@ export function PasswordField({
           autoComplete={autoComplete}
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className="h-11 pr-10 bg-[#FAFAFA] border border-[#EDEDED] shadow-none placeholder:text-[#747474]"
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
+          className="h-11 pr-10 bg-[#FAFAFA] border border-[#EDEDED] shadow-none placeholder:text-[#747474] transition-all duration-200 hover:border-[#ABABAB] hover:bg-white hover:shadow-sm"
         />
         <button
           type="button"
@@ -83,7 +81,6 @@ export function PasswordField({
       </div>
 
       {showRules &&
-        hovered &&
         (() => {
           const metCount = rules.filter((r) => r.test(value)).length;
           const allMet = metCount === rules.length;
@@ -96,44 +93,55 @@ export function PasswordField({
                 : "Okay, but could be stronger. Must contain:";
 
           return (
-            <div className="flex flex-col pt-[20px]">
-              {!allMet && (
-                <p className="text-xs text-[#454545] mb-[16px]">{label}</p>
-              )}
-              <div className="flex flex-col gap-[12px]">
-                {rules.map((rule) => {
-                  const met = rule.test(value);
-                  return (
-                    <div key={rule.label} className="flex items-center gap-2">
-                      <div
-                        style={{ borderRadius: "2px" }}
-                        className={`w-4 h-4 border flex items-center justify-center transition-colors ${met ? "border-[#171717]" : "border-gray-300"}`}
-                      >
-                        {met && (
-                          <svg
-                            width="10"
-                            height="10"
-                            viewBox="0 0 10 10"
-                            fill="none"
-                          >
-                            <path
-                              d="M1.5 5l2.5 2.5 4.5-4.5"
-                              stroke="#171717"
-                              strokeWidth="1.5"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </svg>
-                        )}
+            <div
+              style={{
+                maxHeight: focused ? "160px" : "0px",
+                opacity: focused ? 1 : 0,
+                overflow: "hidden",
+                paddingTop: focused ? "20px" : "0px",
+                transition:
+                  "max-height 0.3s ease, opacity 0.3s ease, padding-top 0.3s ease",
+              }}
+            >
+              <div className="flex flex-col">
+                {!allMet && (
+                  <p className="text-xs text-[#454545] mb-[16px]">{label}</p>
+                )}
+                <div className="flex flex-col gap-[12px]">
+                  {rules.map((rule) => {
+                    const met = rule.test(value);
+                    return (
+                      <div key={rule.label} className="flex items-center gap-2">
+                        <div
+                          style={{ borderRadius: "2px" }}
+                          className={`w-4 h-4 border flex items-center justify-center transition-colors ${met ? "border-[#171717]" : "border-gray-300"}`}
+                        >
+                          {met && (
+                            <svg
+                              width="10"
+                              height="10"
+                              viewBox="0 0 10 10"
+                              fill="none"
+                            >
+                              <path
+                                d="M1.5 5l2.5 2.5 4.5-4.5"
+                                stroke="#171717"
+                                strokeWidth="1.5"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
+                            </svg>
+                          )}
+                        </div>
+                        <span
+                          className={`text-xs ${met ? "text-[#171717]" : "text-[#747474]"}`}
+                        >
+                          {rule.label}
+                        </span>
                       </div>
-                      <span
-                        className={`text-xs ${met ? "text-[#171717]" : "text-[#747474]"}`}
-                      >
-                        {rule.label}
-                      </span>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
+                </div>
               </div>
             </div>
           );
