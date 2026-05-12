@@ -27,7 +27,10 @@ export default function ResetPasswordPage() {
     e.preventDefault();
     setPending(true);
     try {
-      const result = await resetPassword(undefined, new FormData(e.currentTarget));
+      const result = await resetPassword(
+        undefined,
+        new FormData(e.currentTarget)
+      );
       if (result?.redirectTo) router.push(result.redirectTo);
       else if (result?.error) toast.error(result.error);
     } catch (err) {

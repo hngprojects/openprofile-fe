@@ -6,7 +6,11 @@ function extractError(data: Record<string, unknown>, fallback: string): string {
   const msg = data.message;
   if (Array.isArray(msg)) {
     return msg
-      .map((m) => (typeof m === "object" && m !== null ? (m as Record<string, unknown>).error ?? JSON.stringify(m) : String(m)))
+      .map((m) =>
+        typeof m === "object" && m !== null
+          ? ((m as Record<string, unknown>).error ?? JSON.stringify(m))
+          : String(m)
+      )
       .join(" ");
   }
   if (typeof msg === "string") return msg;
@@ -34,7 +38,12 @@ export async function emailSignup(
 
   if (!res.ok) {
     const data = await res.json().catch(() => ({}));
-    console.error("[signup] status:", res.status, "body:", JSON.stringify(data));
+    console.error(
+      "[signup] status:",
+      res.status,
+      "body:",
+      JSON.stringify(data)
+    );
     return { error: extractError(data, "Signup failed.") };
   }
 
@@ -64,8 +73,12 @@ export async function emailLogin(
 
   // tokens may be in the body or in Set-Cookie headers
   let { accessToken, refreshToken } = extractTokensFromResponse(res.headers);
-  if (!accessToken) accessToken = data.accessToken ?? data.access_token ?? data.data?.accessToken;
-  if (!refreshToken) refreshToken = data.refreshToken ?? data.refresh_token ?? data.data?.refreshToken;
+  if (!accessToken)
+    accessToken =
+      data.accessToken ?? data.access_token ?? data.data?.accessToken;
+  if (!refreshToken)
+    refreshToken =
+      data.refreshToken ?? data.refresh_token ?? data.data?.refreshToken;
 
   if (!accessToken || !refreshToken) {
     return {
@@ -100,7 +113,9 @@ export async function forgotPassword(
     return { error: extractError(data, "Failed to send reset email.") };
   }
 
-  return { redirectTo: `/forgot-password/verify?email=${encodeURIComponent(email)}` };
+  return {
+    redirectTo: `/forgot-password/verify?email=${encodeURIComponent(email)}`,
+  };
 }
 
 export async function resetPassword(

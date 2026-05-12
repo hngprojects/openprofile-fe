@@ -6,7 +6,10 @@ const rules = [
   { label: "At least 8 characters", test: (p: string) => p.length >= 8 },
   { label: "At least one number", test: (p: string) => /\d/.test(p) },
   { label: "At least one uppercase", test: (p: string) => /[A-Z]/.test(p) },
-  { label: "At least one special character", test: (p: string) => /[^A-Za-z0-9]/.test(p) },
+  {
+    label: "At least one special character",
+    test: (p: string) => /[^A-Za-z0-9]/.test(p),
+  },
 ];
 
 type Props = {
@@ -37,7 +40,9 @@ export function PasswordField({
           placeholder="Enter your password"
           required={required}
           autoComplete={autoComplete}
-          {...(value !== undefined ? { value, onChange: (e) => onChange(e.target.value) } : {})}
+          {...(value !== undefined
+            ? { value, onChange: (e) => onChange(e.target.value) }
+            : {})}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
           className="h-11 pr-10 bg-[#FAFAFA] border border-[#EDEDED] shadow-none placeholder:text-[#747474] transition-all duration-200 hover:border-[#ABABAB] hover:bg-white hover:shadow-sm"
