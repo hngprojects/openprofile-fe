@@ -18,6 +18,7 @@ type SectionContentProp = {
     title: string;
     content: string;
     details: string[];
+    extraDetails?: string;
   };
 };
 
@@ -53,6 +54,8 @@ export default function PrivacyPolicy() {
         "You are responsible for activities under your account",
         "You will not impersonate others or create misleading accounts",
       ],
+      extraDetails:
+        "We reserve the right to suspend or terminate accounts that violate these Terms.",
     },
     "3": {
       title: "Use of the Platform",
@@ -65,6 +68,8 @@ export default function PrivacyPolicy() {
         "Scrape or misuse platform data",
         "Violate applicable laws or regulations",
       ],
+      extraDetails:
+        "Open Profile may remove content or restrict access where necessary",
     },
     "4": {
       title: "Public Profile and User Content",
@@ -75,6 +80,8 @@ export default function PrivacyPolicy() {
         "Search engines may index your content",
         "Other users may share your profile",
       ],
+      extraDetails:
+        "You retain ownership of your content, but you grant Open Profile a non-exclusive license to host, display, and distribute content necessary to operate the Service.You are solely responsible for the content you publish",
     },
     "5": {
       title: "Intellectual Property",
@@ -95,6 +102,8 @@ export default function PrivacyPolicy() {
         "Security concerns",
         "Legal compliance requirements",
       ],
+      extraDetails:
+        "Termination may occur without prior notice where necessary.",
     },
     "7": {
       title: "Disclaimers and Limitation of Liability",
@@ -106,6 +115,8 @@ export default function PrivacyPolicy() {
         "Complete security",
         "Uninterrupted access",
       ],
+      extraDetails:
+        "To the fullest extent permitted by law, Open Profile shall not be liable for indirect, incidental, or consequential damages arising from use of the Service.",
     },
     "8": {
       title: "Changes to These Terms",
@@ -208,29 +219,33 @@ export default function PrivacyPolicy() {
                         </h2>
                       </div>
 
-                      <p className="text-slate-700 leading-relaxed mb-4">
+                      <p className="text-primary leading-relaxed mb-4">
                         {sectionContent[section.id].content}
                       </p>
 
-                      {Array.isArray(sectionContent[section.id].details) ? (
-                        <ul className="space-y-2 ml-4">
+                      {Array.isArray(sectionContent[section.id].details) &&
+                      Array.from(sectionContent[section.id].details).length >
+                        1 ? (
+                        <ul
+                          className={`space-y-2  ${section.id != "9" ? "list-disc" : "ml-4"}`}
+                        >
                           {sectionContent[section.id].details.map(
                             (item, idx) => (
-                              <li
-                                key={idx}
-                                className="flex items-start gap-3 text-slate-700"
-                              >
-                                <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-teal-100 text-teal-600 text-xs font-bold shrink-0 mt-1">
-                                  ✓
-                                </span>
+                              <li key={idx} className="text-primary">
                                 <span>{item}</span>
                               </li>
                             )
                           )}
                         </ul>
                       ) : (
-                        <p className="text-slate-700 leading-relaxed italic text-sm">
+                        <p className="text-primary leading-relaxed">
                           {sectionContent[section.id].details}
+                        </p>
+                      )}
+
+                      {sectionContent[section.id].extraDetails && (
+                        <p className="text-primary leading-relaxed mb-4 mt-3">
+                          {sectionContent[section.id].extraDetails}
                         </p>
                       )}
                     </div>
