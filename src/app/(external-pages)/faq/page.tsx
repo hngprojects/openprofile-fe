@@ -155,8 +155,8 @@ export default function Page() {
         <div className="max-w-7xl mx-auto">
           <div className="relative bg-brand rounded-[8px] md:rounded-[32px] overflow-hidden flex items-center w-full max-w-6xl mx-auto justify-between px-4 lg:px-16 py-10 lg:py-18">
             <div className="relative z-10 max-w-105 space-y-6">
-              <div className="flex flex-col items-center justify-center gap-2">
-                <p className="text-[32px] md:text-[32px] font-semibold text-[#FEFEFE] leading-[1.2] tracking-tight md:whitespace-nowrap">
+              <div className="flex flex-col gap-2">
+                <p className="text-[32px] font-semibold text-[#FEFEFE] leading-[1.2] tracking-tight md:whitespace-nowrap">
                   Be the profile people find first
                 </p>
                 <p className="md:text-[15px] text-[#FEFEFE] font-normal leading-relaxed">
