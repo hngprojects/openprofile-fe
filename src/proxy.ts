@@ -18,7 +18,7 @@ export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   const isProtected = PROTECTED_PREFIX.some((p) => pathname.startsWith(p));
-  const token = request.cookies.get("session")?.value;
+  const token = request.cookies.get("session_v2")?.value;
 
   if (isProtected && !token) {
     return NextResponse.redirect(new URL("/login", request.url));
