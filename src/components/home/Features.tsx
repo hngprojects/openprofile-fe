@@ -124,7 +124,9 @@ export function Features() {
             width={16}
             height={16}
           />
-          <p className="font-medium text-[12px] leading-4 text-brand font-sfpror">Powerful Features</p>
+          <p className="font-medium text-[12px] leading-4 text-brand font-sfpror">
+            Powerful Features
+          </p>
         </span>
 
         <h2

@@ -21,7 +21,10 @@ export default function ForgotPasswordPage() {
     e.preventDefault();
     setPending(true);
     try {
-      const result = await forgotPassword(undefined, new FormData(e.currentTarget));
+      const result = await forgotPassword(
+        undefined,
+        new FormData(e.currentTarget)
+      );
       if (result?.redirectTo) router.push(result.redirectTo);
       else if (result?.error) toast.error(result.error);
     } catch (err) {

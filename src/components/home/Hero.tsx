@@ -43,11 +43,15 @@ export function Hero() {
   const [current, setCurrent] = useState(0);
 
   useEffect(() => {
-    const id = setInterval(() => setCurrent((c) => (c + 1) % profiles.length), 3000);
+    const id = setInterval(
+      () => setCurrent((c) => (c + 1) % profiles.length),
+      3000
+    );
     return () => clearInterval(id);
   }, []);
 
-  const getProfile = (offset: number) => profiles[(current + offset) % profiles.length];
+  const getProfile = (offset: number) =>
+    profiles[(current + offset) % profiles.length];
 
   return (
     <section className="w-full bg-white overflow-hidden">
@@ -65,7 +69,10 @@ export function Hero() {
               <span className="absolute -top-5 left-1/2 -translate-x-1/2 text-[#087583] text-xl leading-none tracking-wider whitespace-nowrap">
                 \ | /
               </span>
-              <span className="italic text-[#087583]" style={{ fontFamily: "'Dancing Script', cursive" }}>
+              <span
+                className="italic text-[#087583]"
+                style={{ fontFamily: "'Dancing Script', cursive" }}
+              >
                 One
               </span>
             </span>{" "}
@@ -104,20 +111,41 @@ export function Hero() {
           </motion.div>
 
           {/* Social proof */}
-          <motion.div {...fadeUp(0.28)} className="flex flex-row items-center gap-3">
-            <div className="relative shrink-0" style={{ height: "35px", width: "69px" }}>
+          <motion.div
+            {...fadeUp(0.28)}
+            className="flex flex-row items-center gap-3"
+          >
+            <div
+              className="relative shrink-0"
+              style={{ height: "35px", width: "69px" }}
+            >
               {miniAvatars.map((src, i) => (
                 <div
                   key={i}
                   className="absolute rounded-full overflow-hidden border-[2.52px] border-white"
-                  style={{ width: "35px", height: "35px", left: `${i * 17}px`, zIndex: i + 1 }}
+                  style={{
+                    width: "35px",
+                    height: "35px",
+                    left: `${i * 17}px`,
+                    zIndex: i + 1,
+                  }}
                 >
-                  <Image src={src} alt={`User ${i + 1}`} fill sizes="35px" className="object-cover" />
+                  <Image
+                    src={src}
+                    alt={`User ${i + 1}`}
+                    fill
+                    sizes="35px"
+                    className="object-cover"
+                  />
                 </div>
               ))}
             </div>
-            <p className="font-normal text-[14px] md:text-[16px] leading-[24px] text-[#454545]" style={{ fontFamily: "'Afacad', sans-serif" }}>
-              Join over Creators and freelancers that trusts us all over the world.
+            <p
+              className="font-normal text-[14px] md:text-[16px] leading-[24px] text-[#454545]"
+              style={{ fontFamily: "'Afacad', sans-serif" }}
+            >
+              Join over Creators and freelancers that trusts us all over the
+              world.
             </p>
           </motion.div>
         </div>
@@ -125,15 +153,43 @@ export function Hero() {
         {/* ───────────────── RIGHT COLUMN — desktop only ───────────────── */}
         <div className="relative flex-1 w-full overflow-visible -ml-[10px] hidden lg:block">
           {/* LEFT fade */}
-          <div style={{ position: "absolute", left: 0, top: 0, bottom: "-20px", width: "160px", background: "linear-gradient(to right, #ffffff 0%, #ffffff 40%, rgba(255,255,255,0) 100%)", zIndex: 20, pointerEvents: "none" }} />
+          <div
+            style={{
+              position: "absolute",
+              left: 0,
+              top: 0,
+              bottom: "-20px",
+              width: "160px",
+              background:
+                "linear-gradient(to right, #ffffff 0%, #ffffff 40%, rgba(255,255,255,0) 100%)",
+              zIndex: 20,
+              pointerEvents: "none",
+            }}
+          />
           {/* RIGHT fade */}
-          <div style={{ position: "absolute", right: "-40px", top: 0, bottom: "-20px", width: "220px", background: "linear-gradient(to left, #ffffff 0%, #ffffff 50%, rgba(255,255,255,0) 100%)", zIndex: 20, pointerEvents: "none" }} />
+          <div
+            style={{
+              position: "absolute",
+              right: "-40px",
+              top: 0,
+              bottom: "-20px",
+              width: "220px",
+              background:
+                "linear-gradient(to left, #ffffff 0%, #ffffff 50%, rgba(255,255,255,0) 100%)",
+              zIndex: 20,
+              pointerEvents: "none",
+            }}
+          />
 
           <div className="flex gap-4 items-start justify-center w-full translate-x-[8px]">
             {[0, 1, 2].map((offset, i) => {
               const p = getProfile(offset);
               return (
-                <div key={i} className="relative shrink-0 rounded-[9px] overflow-hidden" style={{ width: "210px", height: "365px" }}>
+                <div
+                  key={i}
+                  className="relative shrink-0 rounded-[9px] overflow-hidden"
+                  style={{ width: "210px", height: "365px" }}
+                >
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={p.name}
@@ -143,14 +199,42 @@ export function Hero() {
                       transition={{ duration: 0.5, ease: "easeInOut" }}
                       className="absolute inset-0"
                     >
-                      <Image src={p.img} alt={p.name} fill priority quality={100} unoptimized sizes="210px" className="object-cover object-center" />
-                      <div className="absolute inset-0" style={{ background: "linear-gradient(360deg, rgba(0,0,0,0.9) 19.96%, rgba(102,102,102,0) 42.85%)" }} />
+                      <Image
+                        src={p.img}
+                        alt={p.name}
+                        fill
+                        priority
+                        quality={100}
+                        unoptimized
+                        sizes="210px"
+                        className="object-cover object-center"
+                      />
+                      <div
+                        className="absolute inset-0"
+                        style={{
+                          background:
+                            "linear-gradient(360deg, rgba(0,0,0,0.9) 19.96%, rgba(102,102,102,0) 42.85%)",
+                        }}
+                      />
                       <div className="absolute bottom-0 left-0 z-10 p-[15px_18px] flex flex-col gap-1">
                         <div className="flex items-center gap-1">
-                          <span className="font-bold text-[20px] leading-[26px] text-[#FEFEFE]" style={{ fontFamily: "'Afacad', sans-serif" }}>{p.name}</span>
-                          <CircleCheck className="w-5 h-5 shrink-0" style={{ color: "#98FAC3" }} />
+                          <span
+                            className="font-bold text-[20px] leading-[26px] text-[#FEFEFE]"
+                            style={{ fontFamily: "'Afacad', sans-serif" }}
+                          >
+                            {p.name}
+                          </span>
+                          <CircleCheck
+                            className="w-5 h-5 shrink-0"
+                            style={{ color: "#98FAC3" }}
+                          />
                         </div>
-                        <span className="font-medium text-[14px] leading-[24px] text-[#E6E6E6]" style={{ fontFamily: "'Afacad', sans-serif" }}>{p.role}</span>
+                        <span
+                          className="font-medium text-[14px] leading-[24px] text-[#E6E6E6]"
+                          style={{ fontFamily: "'Afacad', sans-serif" }}
+                        >
+                          {p.role}
+                        </span>
                       </div>
                     </motion.div>
                   </AnimatePresence>
@@ -163,16 +247,44 @@ export function Hero() {
         {/* ───────────────── MOBILE CARDS ───────────────── */}
         <div className="lg:hidden relative w-full">
           {/* LEFT fade */}
-          <div style={{ position: "absolute", left: 0, top: 0, bottom: "-20px", width: "80px", background: "linear-gradient(to right, #ffffff 0%, #ffffff 30%, rgba(255,255,255,0) 100%)", zIndex: 20, pointerEvents: "none" }} />
+          <div
+            style={{
+              position: "absolute",
+              left: 0,
+              top: 0,
+              bottom: "-20px",
+              width: "80px",
+              background:
+                "linear-gradient(to right, #ffffff 0%, #ffffff 30%, rgba(255,255,255,0) 100%)",
+              zIndex: 20,
+              pointerEvents: "none",
+            }}
+          />
           {/* RIGHT fade */}
-          <div style={{ position: "absolute", right: 0, top: 0, bottom: "-20px", width: "80px", background: "linear-gradient(to left, #ffffff 0%, #ffffff 30%, rgba(255,255,255,0) 100%)", zIndex: 20, pointerEvents: "none" }} />
+          <div
+            style={{
+              position: "absolute",
+              right: 0,
+              top: 0,
+              bottom: "-20px",
+              width: "80px",
+              background:
+                "linear-gradient(to left, #ffffff 0%, #ffffff 30%, rgba(255,255,255,0) 100%)",
+              zIndex: 20,
+              pointerEvents: "none",
+            }}
+          />
 
           <div className="flex gap-2 w-full">
             {[0, 1, 2].map((offset, i) => {
               const p = getProfile(offset);
               const isMiddle = i === 1;
               return (
-                <div key={i} className="relative flex flex-col justify-end rounded-[9px] overflow-hidden" style={{ height: "320px", flex: isMiddle ? "1.5" : "1" }}>
+                <div
+                  key={i}
+                  className="relative flex flex-col justify-end rounded-[9px] overflow-hidden"
+                  style={{ height: "320px", flex: isMiddle ? "1.5" : "1" }}
+                >
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={p.name}
@@ -182,16 +294,44 @@ export function Hero() {
                       transition={{ duration: 0.5, ease: "easeInOut" }}
                       className="absolute inset-0"
                     >
-                      <Image src={p.mobileImg} alt={p.name} fill priority quality={100} unoptimized sizes="33vw" className="object-cover object-center" />
+                      <Image
+                        src={p.mobileImg}
+                        alt={p.name}
+                        fill
+                        priority
+                        quality={100}
+                        unoptimized
+                        sizes="33vw"
+                        className="object-cover object-center"
+                      />
                     </motion.div>
                   </AnimatePresence>
-                  <div className="absolute inset-0" style={{ background: "linear-gradient(360deg, rgba(0,0,0,0.9) 19.96%, rgba(102,102,102,0) 42.85%)" }} />
+                  <div
+                    className="absolute inset-0"
+                    style={{
+                      background:
+                        "linear-gradient(360deg, rgba(0,0,0,0.9) 19.96%, rgba(102,102,102,0) 42.85%)",
+                    }}
+                  />
                   <div className="absolute bottom-0 left-0 z-10 p-[10px_12px] flex flex-col gap-0.5">
                     <div className="flex items-center gap-1">
-                      <span className="font-bold text-[13px] leading-[18px] text-[#FEFEFE] whitespace-nowrap" style={{ fontFamily: "'Afacad', sans-serif" }}>{p.name}</span>
-                      <CircleCheck className="w-3.5 h-3.5 shrink-0" style={{ color: "#98FAC3" }} />
+                      <span
+                        className="font-bold text-[13px] leading-[18px] text-[#FEFEFE] whitespace-nowrap"
+                        style={{ fontFamily: "'Afacad', sans-serif" }}
+                      >
+                        {p.name}
+                      </span>
+                      <CircleCheck
+                        className="w-3.5 h-3.5 shrink-0"
+                        style={{ color: "#98FAC3" }}
+                      />
                     </div>
-                    <span className="font-medium text-[11px] leading-[16px] text-[#E6E6E6] whitespace-nowrap" style={{ fontFamily: "'Afacad', sans-serif" }}>{p.role}</span>
+                    <span
+                      className="font-medium text-[11px] leading-[16px] text-[#E6E6E6] whitespace-nowrap"
+                      style={{ fontFamily: "'Afacad', sans-serif" }}
+                    >
+                      {p.role}
+                    </span>
                   </div>
                 </div>
               );
