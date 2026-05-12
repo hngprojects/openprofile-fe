@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Footer from "@/components/layout/Footer";
 
-export default function page() {
+export default function Page() {
   const faqData = [
     {
       question: "Is OpenProfile free to Use ?",
@@ -108,17 +108,24 @@ export default function page() {
     <div>
       <Navbar />
 
-      <div className="bg-[#DBEFF2] space-y-1 py-10 mt-19 flex items-center justify-center flex-col text-center lg:py-17">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        className="bg-[#DBEFF2] space-y-1 py-10 mt-19 flex items-center justify-center flex-col text-center lg:py-17"
+      >
         <p className="font-semibold tracking-[-1.51px] leading-18 text-[36px] lg:text-[60px] lg:leading-18">
           Frequently asked questions
         </p>
-
         <p className="text-[18px] leading-6.5 text-[#454545] max-w-82.5 lg:max-w-full">
           Still have questions? Our support team is here to assist.
         </p>
-      </div>
+      </motion.div>
 
       <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
         variants={containerVariants}
         className="mx-auto mt-10 lg:pt-16 lg:pb-20"
       >
@@ -129,16 +136,13 @@ export default function page() {
         >
           {faqData.map((item, index) => (
             <motion.div key={index} variants={itemVariants}>
-              <AccordionItem
-                value={`item-${index}`}
-                className="border-[#E5E5E5]"
-              >
+              <AccordionItem value={`item-${index}`}>
                 <AccordionTrigger
-                  className={`hover:no-underline px-0 border-t px-6 ${index === 0 ? "border-t-0" : ""}`}
+                  className={`hover:no-underline text-[20px] border-t px-6 ${index === 0 ? "border-t-0" : ""}`}
                 >
                   <span className="pr-4">{item.question}</span>
                 </AccordionTrigger>
-                <AccordionContent className="text-[15px] text-[#525252] leading-relaxed pb-6 px-6">
+                <AccordionContent className="text-[18px] text-[#525252] leading-relaxed pb-6 px-6">
                   {item.answer}
                 </AccordionContent>
               </AccordionItem>
@@ -155,24 +159,21 @@ export default function page() {
                 <p className="text-[32px] md:text-[32px] font-semibold text-[#FEFEFE] leading-[1.2] tracking-tight md:whitespace-nowrap">
                   Be the profile people find first
                 </p>
-
                 <p className="md:text-[15px] text-[#FEFEFE] font-normal leading-relaxed">
                   Create one searchable profile that shows who you are, what you
                   do and why people should trust you
                 </p>
               </div>
-
-              <div className="">
+              <div>
                 <Button
                   variant="secondary"
                   size="lg"
                   className="rounded-[12px] p-6"
                 >
-                  <Link href="/signup"> Create Your Profile Now</Link>
+                  <Link href="/signup">Create Your Profile Now</Link>
                 </Button>
               </div>
             </div>
-
             <div className="hidden md:block absolute right-0 md:w-[320px] md:h-65 lg:w-100 lg:h-82.5">
               <Image src="/cta/cta.svg" className="object-cover" alt="" fill />
             </div>
