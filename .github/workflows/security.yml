@@ -34,10 +34,10 @@ jobs:
           format: sarif
           output: trivy-results.sarif
           severity: CRITICAL,HIGH
-          exit-code: 0           # don't fail the pipeline; let GitHub surface it
+          exit-code: 1         
 
       - name: Upload SARIF to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v3
-        if: always()
+        if: failure()
         with:
           sarif_file: trivy-results.sarif
