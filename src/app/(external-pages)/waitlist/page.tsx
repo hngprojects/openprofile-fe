@@ -1,5 +1,6 @@
 import { WaitlistHero } from "@/components/waitlist/WaitlistHero";
 import { WaitlistFAQ } from "@/components/waitlist/WaitlistFAQ";
+import { WaitlistCTA } from "@/components/waitlist/WaitlistCTA";
 import Target from "@/components/home/Target";
 
 export default function WaitlistPage() {
@@ -12,6 +13,7 @@ export default function WaitlistPage() {
         </div>
       </section>
       <WaitlistFAQ />
+      <WaitlistCTA />
     </main>
   );
 }

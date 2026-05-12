@@ -60,7 +60,7 @@ export function WaitlistFAQ() {
   };
 
   return (
-    <section className="w-full bg-white py-16 md:py-24">
+    <section className="w-full bg-[#FAFAFA] py-16 md:py-24">
       <motion.div
         initial="hidden"
         whileInView="visible"
