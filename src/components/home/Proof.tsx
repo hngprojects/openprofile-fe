@@ -92,8 +92,15 @@ export function Proof() {
           variants={itemVariants}
           className="rounded-[24px] bg-[#F2FDFE] pl-3.5 pr-5.5 w-fit flex items-center gap-1 mx-auto h-7.5 mb-8"
         >
-          <Image src="/target_assets/icon-flash.svg" alt="" width={16} height={16} />
-          <p className="font-medium text-[12px] leading-4 text-brand font-sfpror">Social Proof</p>
+          <Image
+            src="/target_assets/icon-flash.svg"
+            alt=""
+            width={16}
+            height={16}
+          />
+          <p className="font-medium text-[12px] leading-4 text-brand font-sfpror">
+            Social Proof
+          </p>
         </motion.div>
 
         <motion.h2

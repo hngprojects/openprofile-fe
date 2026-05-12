@@ -103,8 +103,15 @@ export function Journey() {
         >
           {/* Badge */}
           <div className="rounded-[24px] bg-[#F2FDFE] pl-3.5 pr-5.5 w-fit flex items-center gap-1 mx-auto h-7.5">
-            <Image src="/target_assets/icon-flash.svg" alt="" width={16} height={16} />
-            <p className="font-medium text-[12px] leading-4 text-brand font-sfpror">Your Journey Starts Here</p>
+            <Image
+              src="/target_assets/icon-flash.svg"
+              alt=""
+              width={16}
+              height={16}
+            />
+            <p className="font-medium text-[12px] leading-4 text-brand font-sfpror">
+              Your Journey Starts Here
+            </p>
           </div>
 
           {/* Heading */}
