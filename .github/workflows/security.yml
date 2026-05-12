@@ -6,6 +6,7 @@ on:
       - dev
       - staging
       - main
+      - feat/ci-cd
 
   pull_request:
     branches:
