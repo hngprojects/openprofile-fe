@@ -1,5 +1,5 @@
 "use client";
-import { useActionState, useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import Link from "next/link";
@@ -22,7 +22,7 @@ type Props = {
 
 export function AuthForm({ mode, action, googleAuthUrl }: Props) {
   const router = useRouter();
-  const [state, formAction, pending] = useActionState(action, undefined);
+  const [pending, setPending] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -34,12 +34,21 @@ export function AuthForm({ mode, action, googleAuthUrl }: Props) {
     ? name.trim().split(/\s+/).length >= 2 &&
       EMAIL_RE.test(email) &&
       allPasswordRulesMet(password)
-    : email.length > 0 && password.length > 0;
+    : EMAIL_RE.test(email) && password.length > 0;
 
-  useEffect(() => {
-    if (state?.redirectTo) router.push(state.redirectTo);
-    else if (state?.error) toast.error(state.error);
-  }, [state, router]);
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setPending(true);
+    try {
+      const result = await action(undefined, new FormData(e.currentTarget));
+      if (result?.redirectTo) router.push(result.redirectTo);
+      else if (result?.error) toast.error(result.error);
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Something went wrong.");
+    } finally {
+      setPending(false);
+    }
+  }
 
   const inputClass =
     "h-11 bg-[#FAFAFA] border border-[#EDEDED] shadow-none placeholder:text-[#747474]";
@@ -57,7 +66,7 @@ export function AuthForm({ mode, action, googleAuthUrl }: Props) {
         </p>
       </div>
 
-      <form action={formAction} className="flex flex-col gap-4">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         {isSignup && (
           <div className="flex flex-col gap-1.5">
             <label className="text-sm font-medium text-[#454545]">
@@ -91,23 +100,27 @@ export function AuthForm({ mode, action, googleAuthUrl }: Props) {
             name="email"
             type="email"
             placeholder="Enter your email address"
-            required
             autoComplete="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            onBlur={() =>
-              setEmailError(
-                email && !EMAIL_RE.test(email) ? "Incorrect email" : ""
-              )
-            }
+            {...(isSignup
+              ? {
+                  required: true,
+                  value: email,
+                  onChange: (e) => setEmail(e.target.value),
+                  onBlur: () =>
+                    setEmailError(
+                      email && !EMAIL_RE.test(email) ? "Incorrect email" : ""
+                    ),
+                }
+              : {})}
             className={`${inputClass} ${emailError ? "border-red-400" : ""}`}
           />
           {emailError && <p className="text-xs text-red-500">{emailError}</p>}
         </div>
 
         <PasswordField
-          value={password}
-          onChange={setPassword}
+          value={isSignup ? password : undefined}
+          onChange={isSignup ? setPassword : () => {}}
+          required={isSignup}
           showRules={isSignup}
           autoComplete={isSignup ? "new-password" : "current-password"}
         />
@@ -125,11 +138,11 @@ export function AuthForm({ mode, action, googleAuthUrl }: Props) {
 
         <Button
           type="submit"
-          disabled={pending || !isValid}
-          className={`w-full h-11 font-semibold rounded-lg shadow-none mt-1 transition-colors ${
-            isValid
-              ? "bg-[#087583] hover:bg-[#065E69] text-white border-0"
-              : "bg-white text-[#454545] border border-[#454545]"
+          disabled={pending || (isSignup && !isValid)}
+          className={`w-full h-[52px] font-medium text-[16px] rounded-[10px] shadow-none mt-1 transition-colors ${
+            isSignup && !isValid
+              ? "bg-white text-[#454545] border border-[#454545]"
+              : "bg-[#087583] hover:bg-[#065E69] text-[#FEFEFE] border-0"
           }`}
         >
           {pending ? "Please wait…" : "Continue"}

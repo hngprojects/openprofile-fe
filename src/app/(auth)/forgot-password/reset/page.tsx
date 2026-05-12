@@ -1,5 +1,5 @@
 "use client";
-import { useActionState, useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import { AuthLayout } from "@/components/auth/AuthLayout";
@@ -9,14 +9,11 @@ import {
   PasswordField,
   allPasswordRulesMet,
 } from "@/components/auth/PasswordField";
-import { resetPassword, type AuthState } from "@/app/actions/auth";
+import { resetPassword } from "@/app/actions/auth";
 
 export default function ResetPasswordPage() {
   const router = useRouter();
-  const [state, formAction, pending] = useActionState(
-    resetPassword,
-    undefined as AuthState
-  );
+  const [pending, setPending] = useState(false);
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [confirmError, setConfirmError] = useState("");
@@ -26,10 +23,19 @@ export default function ResetPasswordPage() {
   const isValid =
     allPasswordRulesMet(password) && confirm.length > 0 && password === confirm;
 
-  useEffect(() => {
-    if (state?.redirectTo) router.push(state.redirectTo);
-    else if (state?.error) toast.error(state.error);
-  }, [state, router]);
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setPending(true);
+    try {
+      const result = await resetPassword(undefined, new FormData(e.currentTarget));
+      if (result?.redirectTo) router.push(result.redirectTo);
+      else if (result?.error) toast.error(result.error);
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Something went wrong.");
+    } finally {
+      setPending(false);
+    }
+  }
 
   return (
     <AuthLayout>
@@ -40,7 +46,7 @@ export default function ResetPasswordPage() {
         </p>
       </div>
 
-      <form action={formAction} className="flex flex-col gap-4">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <input type="hidden" name="token" value={token} />
 
         <PasswordField

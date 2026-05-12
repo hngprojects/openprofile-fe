@@ -1,29 +1,35 @@
 "use client";
-import { useActionState, useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { AuthLayout } from "@/components/auth/AuthLayout";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { forgotPassword, type AuthState } from "@/app/actions/auth";
+import { forgotPassword } from "@/app/actions/auth";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export default function ForgotPasswordPage() {
   const router = useRouter();
-  const [state, formAction, pending] = useActionState(
-    forgotPassword,
-    undefined as AuthState
-  );
+  const [pending, setPending] = useState(false);
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
 
   const isValid = EMAIL_RE.test(email);
 
-  useEffect(() => {
-    if (state?.redirectTo) router.push(state.redirectTo);
-    else if (state?.error) toast.error(state.error);
-  }, [state, router]);
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setPending(true);
+    try {
+      const result = await forgotPassword(undefined, new FormData(e.currentTarget));
+      if (result?.redirectTo) router.push(result.redirectTo);
+      else if (result?.error) toast.error(result.error);
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Something went wrong.");
+    } finally {
+      setPending(false);
+    }
+  }
 
   return (
     <AuthLayout>
@@ -34,7 +40,7 @@ export default function ForgotPasswordPage() {
         </p>
       </div>
 
-      <form action={formAction} className="flex flex-col gap-4">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <div className="flex flex-col gap-1.5">
           <label className="text-sm font-medium text-[#454545]">
             Email Address

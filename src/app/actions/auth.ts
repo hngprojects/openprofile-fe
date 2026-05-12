@@ -2,6 +2,18 @@
 import { createSession, deleteSession } from "@/lib/session";
 import { apiFetch, extractTokensFromResponse } from "@/lib/api";
 
+function extractError(data: Record<string, unknown>, fallback: string): string {
+  const msg = data.message;
+  if (Array.isArray(msg)) {
+    return msg
+      .map((m) => (typeof m === "object" && m !== null ? (m as Record<string, unknown>).error ?? JSON.stringify(m) : String(m)))
+      .join(" ");
+  }
+  if (typeof msg === "string") return msg;
+  if (typeof data.error === "string") return data.error;
+  return fallback;
+}
+
 export type AuthState = { error?: string; redirectTo?: string } | undefined;
 
 export async function emailSignup(
@@ -22,15 +34,8 @@ export async function emailSignup(
 
   if (!res.ok) {
     const data = await res.json().catch(() => ({}));
-    console.error(
-      "[signup] status:",
-      res.status,
-      "body:",
-      JSON.stringify(data)
-    );
-    return {
-      error: data.message ?? data.error ?? data.detail ?? "Signup failed.",
-    };
+    console.error("[signup] status:", res.status, "body:", JSON.stringify(data));
+    return { error: extractError(data, "Signup failed.") };
   }
 
   return { redirectTo: `/verify-email?email=${encodeURIComponent(email)}` };
@@ -52,10 +57,16 @@ export async function emailLogin(
 
   if (!res.ok) {
     const data = await res.json().catch(() => ({}));
-    return { error: data.message ?? "Invalid credentials." };
+    return { error: extractError(data, "Invalid credentials.") };
   }
 
-  const { accessToken, refreshToken } = extractTokensFromResponse(res.headers);
+  const data = await res.json().catch(() => ({}));
+
+  // tokens may be in the body or in Set-Cookie headers
+  let { accessToken, refreshToken } = extractTokensFromResponse(res.headers);
+  if (!accessToken) accessToken = data.accessToken ?? data.access_token ?? data.data?.accessToken;
+  if (!refreshToken) refreshToken = data.refreshToken ?? data.refresh_token ?? data.data?.refreshToken;
+
   if (!accessToken || !refreshToken) {
     return {
       error: "Login succeeded but no session was returned. Please try again.",
@@ -86,7 +97,7 @@ export async function forgotPassword(
 
   if (!res.ok) {
     const data = await res.json().catch(() => ({}));
-    return { error: data.message ?? "Failed to send reset email." };
+    return { error: extractError(data, "Failed to send reset email.") };
   }
 
   return { redirectTo: `/forgot-password/verify?email=${encodeURIComponent(email)}` };
@@ -108,7 +119,7 @@ export async function resetPassword(
 
   if (!res.ok) {
     const data = await res.json().catch(() => ({}));
-    return { error: data.message ?? "Password reset failed." };
+    return { error: extractError(data, "Password reset failed.") };
   }
 
   return { redirectTo: "/forgot-password/success" };
@@ -130,7 +141,7 @@ export async function verifyEmailOtp(
 
   if (!res.ok) {
     const data = await res.json().catch(() => ({}));
-    return { error: data.message ?? "Verification failed." };
+    return { error: extractError(data, "Verification failed.") };
   }
 
   return { redirectTo: "/verify-email/success" };
