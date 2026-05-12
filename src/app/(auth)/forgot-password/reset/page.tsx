@@ -1,6 +1,6 @@
 "use client";
-import { useActionState, useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import { AuthLayout } from "@/components/auth/AuthLayout";
 import { Button } from "@/components/ui/button";
@@ -9,13 +9,11 @@ import {
   PasswordField,
   allPasswordRulesMet,
 } from "@/components/auth/PasswordField";
-import { resetPassword, type AuthState } from "@/app/actions/auth";
+import { resetPassword } from "@/app/actions/auth";
 
 export default function ResetPasswordPage() {
-  const [state, formAction, pending] = useActionState(
-    resetPassword,
-    undefined as AuthState
-  );
+  const router = useRouter();
+  const [pending, setPending] = useState(false);
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [confirmError, setConfirmError] = useState("");
@@ -25,20 +23,34 @@ export default function ResetPasswordPage() {
   const isValid =
     allPasswordRulesMet(password) && confirm.length > 0 && password === confirm;
 
-  useEffect(() => {
-    if (state?.error) toast.error(state.error);
-  }, [state]);
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setPending(true);
+
+    const formData = new FormData();
+    formData.append("resetToken", token);
+    formData.append("newPassword", password);
+    try {
+      const result = await resetPassword(undefined, formData);
+      if (result?.redirectTo) router.push(result.redirectTo);
+      else if (result?.error) toast.error(result.error);
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Something went wrong.");
+    } finally {
+      setPending(false);
+    }
+  }
 
   return (
     <AuthLayout>
       <div className="text-center mb-2">
-        <h1 className="text-2xl font-bold text-[#050505]">Reset Password</h1>
+        <h1 className="text-2xl font-bold text-primary">Reset Password</h1>
         <p className="text-sm text-gray-500 mt-1">
           Choose a new password for your account
         </p>
       </div>
 
-      <form action={formAction} className="flex flex-col gap-4">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <input type="hidden" name="token" value={token} />
 
         <PasswordField
@@ -77,7 +89,7 @@ export default function ResetPasswordPage() {
         <Button
           type="submit"
           disabled={!isValid || pending}
-          className="w-full h-11 font-semibold rounded-lg shadow-none transition-opacity bg-[#087583] hover:bg-[#065E69] text-white border-0 disabled:opacity-50"
+          className="w-full h-11 font-semibold rounded-lg shadow-none transition-opacity bg-brand hover:bg-[#065E69] text-white border-0 disabled:opacity-50"
         >
           {pending ? "Resetting…" : "Continue"}
         </Button>

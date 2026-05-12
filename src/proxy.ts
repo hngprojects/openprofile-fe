@@ -7,7 +7,14 @@ const SECURITY_HEADERS: Record<string, string> = {
   "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
 };
 
-const PROTECTED_PREFIX = ["/dashboard", "/profile", "/settings"];
+const PROTECTED_PREFIX = ["/dashboard", "/onboarding", "/profile", "/settings"];
+
+const AUTH_PATHS_ONLY = [
+  "/login",
+  "/signup",
+  "/verify-email",
+  "/forgot-password",
+];
 
 export async function proxy(request: NextRequest) {
   const requestId = request.headers.get("x-request-id") ?? crypto.randomUUID();
@@ -18,13 +25,17 @@ export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   const isProtected = PROTECTED_PREFIX.some((p) => pathname.startsWith(p));
-  const token = request.cookies.get("session")?.value;
+  const token = request.cookies.get("session_v2")?.value;
+
+  const isAuthPath = AUTH_PATHS_ONLY.some((p) => pathname.startsWith(p));
 
   if (isProtected && !token) {
-    return NextResponse.redirect(new URL("/login", request.url));
+    const loginUrl = new URL("/login", request.url);
+    loginUrl.searchParams.set("returnTo", pathname);
+    return NextResponse.redirect(loginUrl);
   }
 
-  if ((pathname === "/login" || pathname === "/signup") && token) {
+  if (isAuthPath && token) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 

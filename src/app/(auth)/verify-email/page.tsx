@@ -1,28 +1,39 @@
 "use client";
-import { useActionState, useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import { AuthLayout } from "@/components/auth/AuthLayout";
 import { AuthPageHeader } from "@/components/auth/AuthPageHeader";
 import { OtpInput } from "@/components/auth/OtpInput";
 import { ResendTimer } from "@/components/auth/ResendTimer";
 import { Button } from "@/components/ui/button";
-import { verifyEmailOtp, type AuthState } from "@/app/actions/auth";
+import { verifyEmailOtp } from "@/app/actions/auth";
 
 export default function VerifyEmailPage() {
+  const router = useRouter();
   const [code, setCode] = useState<string[]>([]);
-  const [state, formAction, pending] = useActionState(
-    verifyEmailOtp,
-    undefined as AuthState
-  );
+  const [pending, setPending] = useState(false);
   const params = useSearchParams();
   const email = params.get("email") ?? "";
 
   const isComplete = code.length === 6 && code.every(Boolean);
 
-  useEffect(() => {
-    if (state?.error) toast.error(state.error);
-  }, [state]);
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setPending(true);
+    try {
+      const result = await verifyEmailOtp(
+        undefined,
+        new FormData(e.currentTarget)
+      );
+      if (result?.redirectTo) router.replace(result.redirectTo);
+      else if (result?.error) toast.error(result.error);
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Something went wrong.");
+    } finally {
+      setPending(false);
+    }
+  }
 
   return (
     <AuthLayout>
@@ -31,7 +42,7 @@ export default function VerifyEmailPage() {
         subtitle={`We sent a temporary code to ${email}`}
       />
 
-      <form action={formAction} className="flex flex-col gap-3">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-3">
         <input type="hidden" name="email" value={email} />
         <input type="hidden" name="otp" value={code.join("")} />
         <label className="text-sm font-medium text-[#454545]">Enter code</label>

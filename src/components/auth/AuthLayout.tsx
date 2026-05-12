@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 export function AuthLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
@@ -9,7 +10,7 @@ export function AuthLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen bg-[#FAFAFA] flex flex-col">
       <div className="flex justify-center pt-6">
-        <a href="/#">
+        <Link href="/">
           <Image
             src="/auth/logo.png"
             alt="Open.Profile"
@@ -17,7 +18,7 @@ export function AuthLayout({ children }: { children: React.ReactNode }) {
             height={32}
             priority
           />
-        </a>
+        </Link>
       </div>
 
       <div className="flex-1 flex items-center justify-center relative px-4 py-10">

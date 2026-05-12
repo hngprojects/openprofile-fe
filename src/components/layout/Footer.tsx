@@ -62,7 +62,7 @@ export default function Footer() {
                 </li>
                 <li>
                   <Link
-                    href="#"
+                    href="/faq"
                     className="text-[#E2E4E9] hover:text-white transition-colors text-[13px] font-normal"
                   >
                     FAQ
@@ -100,7 +100,7 @@ export default function Footer() {
                 </li>
                 <li>
                   <Link
-                    href="#"
+                    href="/contact"
                     className="text-[#E2E4E9] hover:text-white transition-colors text-[13px] font-normal"
                   >
                     Contact
@@ -114,7 +114,7 @@ export default function Footer() {
               <ul className="space-y-4">
                 <li>
                   <Link
-                    href="#"
+                    href="/privacy-policy"
                     className="text-[#E2E4E9] hover:text-white transition-colors text-[13px] font-normal"
                   >
                     Privacy Policy
@@ -122,7 +122,7 @@ export default function Footer() {
                 </li>
                 <li>
                   <Link
-                    href="#"
+                    href="/terms"
                     className="text-[#E2E4E9] hover:text-white transition-colors text-[13px] font-normal"
                   >
                     Terms of Service

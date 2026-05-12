@@ -1,7 +1,7 @@
 import "server-only";
 import { cookies } from "next/headers";
 
-const COOKIE_NAME = "session";
+const COOKIE_NAME = "session_v2";
 const EXPIRES_IN = 7 * 24 * 60 * 60 * 1000; // 7 days
 
 export type SessionData = {
