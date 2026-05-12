@@ -5,7 +5,12 @@ import { Navbar } from "@/components/layout/Navbar";
 import { CTA } from "@/components/home/CTA";
 import Footer from "@/components/layout/Footer";
 import { Mail, Phone, MapPin, ChevronDown } from "lucide-react";
-import { FaXTwitter, FaLinkedinIn, FaDribbble, FaBehance } from "react-icons/fa6";
+import {
+  FaXTwitter,
+  FaLinkedinIn,
+  FaDribbble,
+  FaBehance,
+} from "react-icons/fa6";
 
 const socials = [
   { label: "X", href: "#", icon: <FaXTwitter size={22} /> },
@@ -37,7 +42,10 @@ export default function ContactPage() {
   // Close dropdown on outside click
   useEffect(() => {
     function handleClick(e: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(e.target as Node)
+      ) {
         setOpen(false);
       }
     }
@@ -56,7 +64,8 @@ export default function ContactPage() {
               Get in Touch With Us
             </h1>
             <p className="text-[14px] md:text-[15px] text-[#6B7280]">
-              No matter where you are, Open Profile brings solutions closer to you.
+              No matter where you are, Open Profile brings solutions closer to
+              you.
             </p>
           </div>
 
@@ -68,24 +77,48 @@ export default function ContactPage() {
                 <h2 className="text-[18px] font-semibold mb-6">Contact Us</h2>
                 <ul className="space-y-5">
                   <li className="flex items-start gap-3">
-                    <Mail size={18} style={{ color: "#087583" }} className="mt-0.5 shrink-0" />
+                    <Mail
+                      size={18}
+                      style={{ color: "#087583" }}
+                      className="mt-0.5 shrink-0"
+                    />
                     <div>
-                      <p className="text-[13px] font-medium text-[#050505]">Email Address</p>
-                      <p className="text-[13px] text-[#5C5E64]">openprofile@email.com</p>
+                      <p className="text-[13px] font-medium text-[#050505]">
+                        Email Address
+                      </p>
+                      <p className="text-[13px] text-[#5C5E64]">
+                        openprofile@email.com
+                      </p>
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <Phone size={18} style={{ color: "#087583" }} className="mt-0.5 shrink-0" />
+                    <Phone
+                      size={18}
+                      style={{ color: "#087583" }}
+                      className="mt-0.5 shrink-0"
+                    />
                     <div>
-                      <p className="text-[13px] font-medium text-[#050505]">Phone number</p>
-                      <p className="text-[13px] text-[#5C5E64]">+1 234 567 8900</p>
+                      <p className="text-[13px] font-medium text-[#050505]">
+                        Phone number
+                      </p>
+                      <p className="text-[13px] text-[#5C5E64]">
+                        +1 234 567 8900
+                      </p>
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <MapPin size={18} style={{ color: "#087583" }} className="mt-0.5 shrink-0" />
+                    <MapPin
+                      size={18}
+                      style={{ color: "#087583" }}
+                      className="mt-0.5 shrink-0"
+                    />
                     <div>
-                      <p className="text-[13px] font-medium text-[#050505]">Our Office Address</p>
-                      <p className="text-[13px] text-[#5C5E64]">New York, USA</p>
+                      <p className="text-[13px] font-medium text-[#050505]">
+                        Our Office Address
+                      </p>
+                      <p className="text-[13px] text-[#5C5E64]">
+                        New York, USA
+                      </p>
                     </div>
                   </li>
                 </ul>
@@ -116,7 +149,10 @@ export default function ContactPage() {
               <h2 className="text-[18px] font-semibold mb-6">Send a Message</h2>
               <form className="space-y-5">
                 <div className="space-y-1.5">
-                  <label htmlFor="name" className="text-[13px] font-medium text-[#050505]">
+                  <label
+                    htmlFor="name"
+                    className="text-[13px] font-medium text-[#050505]"
+                  >
                     Name <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -130,7 +166,10 @@ export default function ContactPage() {
                 </div>
 
                 <div className="space-y-1.5">
-                  <label htmlFor="email" className="text-[13px] font-medium text-[#050505]">
+                  <label
+                    htmlFor="email"
+                    className="text-[13px] font-medium text-[#050505]"
+                  >
                     Email <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -145,14 +184,20 @@ export default function ContactPage() {
 
                 {/* Custom industry dropdown */}
                 <div className="space-y-1.5">
-                  <label className="text-[13px] font-medium text-[#050505]">Industry</label>
+                  <label className="text-[13px] font-medium text-[#050505]">
+                    Industry
+                  </label>
                   <div className="relative" ref={dropdownRef}>
                     <button
                       type="button"
                       onClick={() => setOpen((o) => !o)}
                       className="w-full flex items-center justify-between px-4 py-3 rounded-[8px] border border-[#E5E7EB] text-[13px] bg-white focus:outline-none focus:ring-2 focus:ring-[#065E69] transition"
                     >
-                      <span className={industry ? "text-[#050505]" : "text-[#9CA3AF]"}>
+                      <span
+                        className={
+                          industry ? "text-[#050505]" : "text-[#9CA3AF]"
+                        }
+                      >
                         {industry || "Select..."}
                       </span>
                       <ChevronDown
@@ -163,16 +208,23 @@ export default function ContactPage() {
 
                     <div
                       className={`absolute z-10 mt-1 w-full bg-white border border-[#E5E7EB] rounded-[8px] shadow-lg overflow-hidden transition-all duration-200 origin-top ${
-                        open ? "opacity-100 scale-y-100" : "opacity-0 scale-y-0 pointer-events-none"
+                        open
+                          ? "opacity-100 scale-y-100"
+                          : "opacity-0 scale-y-0 pointer-events-none"
                       }`}
                     >
                       {industries.map((i) => (
                         <button
                           key={i}
                           type="button"
-                          onClick={() => { setIndustry(i); setOpen(false); }}
+                          onClick={() => {
+                            setIndustry(i);
+                            setOpen(false);
+                          }}
                           className={`w-full text-left px-4 py-2.5 text-[13px] hover:bg-[#F0FAFB] transition-colors ${
-                            industry === i ? "text-[#065E69] font-medium" : "text-[#050505]"
+                            industry === i
+                              ? "text-[#065E69] font-medium"
+                              : "text-[#050505]"
                           }`}
                         >
                           {i}
@@ -183,7 +235,10 @@ export default function ContactPage() {
                 </div>
 
                 <div className="space-y-1.5">
-                  <label htmlFor="message" className="text-[13px] font-medium text-[#050505]">
+                  <label
+                    htmlFor="message"
+                    className="text-[13px] font-medium text-[#050505]"
+                  >
                     Message <span className="text-red-500">*</span>
                   </label>
                   <textarea
