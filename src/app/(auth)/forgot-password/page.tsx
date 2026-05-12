@@ -21,7 +21,13 @@ export default function ForgotPasswordPage() {
     e.preventDefault();
     setPending(true);
     try {
-      const result = await forgotPassword(undefined, new FormData(e.currentTarget));
+      const result = await forgotPassword(
+        undefined,
+        new FormData(e.currentTarget)
+      );
+      toast.success(
+        "If an account with that email exists, a reset code has been sent."
+      );
       if (result?.redirectTo) router.push(result.redirectTo);
       else if (result?.error) toast.error(result.error);
     } catch (err) {
@@ -34,7 +40,7 @@ export default function ForgotPasswordPage() {
   return (
     <AuthLayout>
       <div className="text-center mb-2">
-        <h1 className="text-2xl font-bold text-[#050505]">Forgot Password</h1>
+        <h1 className="text-2xl font-bold text-primary">Forgot Password</h1>
         <p className="text-sm text-gray-500 mt-1">
           Enter your email address and we&apos;ll send you a reset code
         </p>
@@ -64,7 +70,7 @@ export default function ForgotPasswordPage() {
         <Button
           type="submit"
           disabled={!isValid || pending}
-          className="w-full h-11 font-semibold rounded-lg shadow-none transition-opacity bg-[#087583] hover:bg-[#065E69] text-white border-0 disabled:opacity-50"
+          className="w-full h-11 font-semibold rounded-lg shadow-none transition-opacity bg-brand hover:bg-[#065E69] text-white border-0 disabled:opacity-50"
         >
           {pending ? "Sending…" : "Continue"}
         </Button>
