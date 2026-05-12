@@ -2,7 +2,11 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useTransition } from "react";
+import { toast } from "sonner";
+import { joinWaitlistAction } from "@/app/actions/waitlist";
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const fadeUp = (delay = 0) => ({
   initial: { opacity: 0, y: 20 },
@@ -12,6 +16,40 @@ const fadeUp = (delay = 0) => ({
 
 export function WaitlistHero() {
   const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [isPending, startTransition] = useTransition();
+
+  const handleBlur = () => {
+    if (email && !EMAIL_RE.test(email)) {
+      setEmailError("Please enter a valid email address.");
+    } else {
+      setEmailError("");
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!EMAIL_RE.test(email)) {
+      setEmailError("Please enter a valid email address.");
+      return;
+    }
+
+    startTransition(async () => {
+      const formData = new FormData();
+      formData.append("email", email);
+
+      const result = await joinWaitlistAction(undefined, formData);
+
+      if (result?.success) {
+        toast.success("Successfully joined the waitlist!");
+        setEmail("");
+        setEmailError("");
+      } else if (result?.error) {
+        toast.error(result.error);
+      }
+    });
+  };
 
   return (
     <section className="relative w-full min-h-screen md:min-h-[700px] md:h-[700px] bg-[#FAFAFA] overflow-hidden flex flex-col items-center pt-8 md:pt-12 px-6">
@@ -70,25 +108,54 @@ export function WaitlistHero() {
         </motion.p>
 
         {/* Form */}
-        <motion.div
+        <motion.form
           {...fadeUp(0.3)}
-          className="w-full max-w-[580px] flex flex-col md:flex-row gap-2.5 mb-8 px-0"
+          onSubmit={handleSubmit}
+          className="w-full max-w-[580px] flex flex-col md:flex-row gap-2.5 mb-2 px-0"
         >
-          <input
-            type="email"
-            placeholder="Enter your email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full md:flex-[2.5] h-[50px] px-4 rounded-[8px] border border-[#E5E5E5] bg-[#FAFAFA] text-[#050505] placeholder:text-[#999] outline-none focus:border-[#087583] transition-colors"
-            style={{ fontFamily: "'Afacad', sans-serif" }}
-          />
+          <div className="flex-1 flex flex-col gap-1.5 items-start">
+            <input
+              type="email"
+              name="email"
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                if (emailError) setEmailError("");
+              }}
+              onBlur={handleBlur}
+              disabled={isPending}
+              className={`w-full h-[50px] px-4 rounded-[8px] border bg-[#FAFAFA] text-[#050505] placeholder:text-[#999] outline-none transition-colors ${
+                emailError
+                  ? "border-red-400"
+                  : "border-[#E5E5E5] focus:border-[#087583]"
+              }`}
+              style={{ fontFamily: "'Afacad', sans-serif" }}
+            />
+          </div>
           <button
-            className="w-full md:w-auto h-[50px] px-8 bg-[#262626] text-white rounded-[8px] font-medium hover:bg-[#333] transition-colors whitespace-nowrap"
+            type="submit"
+            disabled={isPending}
+            className="w-full md:w-auto h-[50px] px-8 bg-[#262626] text-white rounded-[8px] font-medium hover:bg-[#333] transition-colors whitespace-nowrap disabled:opacity-50"
             style={{ fontFamily: "'Afacad', sans-serif" }}
           >
-            Join the Waitlist
+            {isPending ? "Joining..." : "Join the Waitlist"}
           </button>
-        </motion.div>
+        </motion.form>
+
+        {/* Error message */}
+        <div className="h-6 mb-2 text-left w-full max-w-[580px]">
+          {emailError && (
+            <motion.p
+              initial={{ opacity: 0, y: -5 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-xs text-red-500 font-medium"
+              style={{ fontFamily: "'Afacad', sans-serif" }}
+            >
+              {emailError}
+            </motion.p>
+          )}
+        </div>
 
         {/* Social Proof */}
         <motion.div {...fadeUp(0.4)} className="flex items-center gap-1">
