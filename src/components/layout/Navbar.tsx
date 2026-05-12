@@ -25,11 +25,12 @@ export function Navbar() {
           {/* Logo */}
           <Link href="/#" className="flex items-center gap-1 shrink-0">
             <Image
-              src="/logo.png"
+              src="/logo.svg"
               alt="Open Profile"
               width={170}
               height={32}
               className="h-[32px] w-auto"
+              style={{ width: "auto" }}
             />
           </Link>
 
