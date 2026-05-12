@@ -19,6 +19,13 @@ function extractError(data: Record<string, unknown>, fallback: string): string {
 }
 
 export type AuthState = { error?: string; redirectTo?: string } | undefined;
+export type AuthAction = {
+  status?: string;
+  resetToken?: string;
+  error?: string;
+  redirectTo?: string;
+  success?: boolean;
+};
 
 export async function emailSignup(
   _prev: AuthState,
@@ -118,18 +125,49 @@ export async function forgotPassword(
   };
 }
 
+export async function verifyResetOtp(
+  _prev: AuthState,
+  formData: FormData
+): Promise<AuthAction> {
+  const email = formData.get("email") as string;
+  const otp = formData.get("otp") as string;
+
+  if (!email || !otp)
+    return { status: "error", error: "Missing email or code." };
+
+  const res = await apiFetch("/api/auth/verify-reset-otp", {
+    method: "POST",
+    body: { email, otp },
+  });
+
+  if (!res.ok) {
+    const data = await res.json().catch(() => ({}));
+    return {
+      status: "error",
+      error: extractError(data, "Verification failed."),
+    };
+  }
+  const data = await res.json();
+
+  return {
+    status: "success",
+    resetToken: data.resetToken,
+    redirectTo: `/forgot-password/reset?token=${encodeURIComponent(data.resetToken)}&email=${encodeURIComponent(email)}`,
+  };
+}
+
 export async function resetPassword(
   _prev: AuthState,
   formData: FormData
 ): Promise<AuthState> {
-  const token = formData.get("token") as string;
-  const password = formData.get("password") as string;
+  const resetToken = formData.get("resetToken") as string;
+  const newPassword = formData.get("newPassword") as string;
 
-  if (!token || !password) return { error: "Missing required fields." };
+  if (!resetToken || !newPassword) return { error: "Missing required fields." };
 
   const res = await apiFetch("/api/auth/reset-password", {
     method: "POST",
-    body: { token, password },
+    body: { resetToken, newPassword },
   });
 
   if (!res.ok) {
@@ -138,6 +176,26 @@ export async function resetPassword(
   }
 
   return { redirectTo: "/forgot-password/success" };
+}
+export async function resendOtp(
+  _prev: AuthState,
+  formData: FormData
+): Promise<AuthAction> {
+  const email = formData.get("email") as string;
+
+  if (!email) return { error: "Email is required." };
+
+  const res = await apiFetch("/api/auth/resend-otp", {
+    method: "POST",
+    body: { email },
+  });
+
+  if (!res.ok) {
+    const data = await res.json().catch(() => ({}));
+    return { error: extractError(data, "Failed to resend OTP.") };
+  }
+
+  return res.json();
 }
 
 export async function verifyEmailOtp(

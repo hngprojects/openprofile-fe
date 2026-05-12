@@ -1,5 +1,7 @@
 "use client";
+import { resendOtp } from "@/app/actions/auth";
 import { useState, useEffect } from "react";
+import { toast } from "sonner";
 
 type Props = {
   initialSeconds?: number;
@@ -22,7 +24,18 @@ export function ResendTimer({ initialSeconds = 98, email: _email }: Props) {
   async function handleResend() {
     if (resending) return;
     setResending(true);
+    const formData = new FormData();
+    formData.append("email", _email ?? "");
     // TODO: call resend API with email
+    try {
+      const res = await resendOtp(undefined, formData);
+      if (res?.success) {
+        toast.success("OTP resent successfully.");
+      }
+    } catch (error) {
+      console.error("Failed to resend OTP:", error);
+    }
+
     setSeconds(initialSeconds);
     setResending(false);
   }
@@ -33,7 +46,7 @@ export function ResendTimer({ initialSeconds = 98, email: _email }: Props) {
       <button
         onClick={handleResend}
         disabled={resending}
-        className="text-[#087583] font-medium hover:underline cursor-pointer disabled:opacity-50"
+        className="text-brand font-medium hover:underline cursor-pointer disabled:opacity-50"
       >
         Resend Code
       </button>
