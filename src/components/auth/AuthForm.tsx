@@ -30,6 +30,9 @@ export function AuthForm({ mode, action, googleAuthUrl }: Props) {
   const [emailError, setEmailError] = useState("");
   const isSignup = mode === "signup";
 
+  const params = new URLSearchParams(window.location.search);
+  const returnTo = params.get("returnTo");
+
   const isValid: boolean = isSignup
     ? name.trim().split(/\s+/).length >= 2 &&
       EMAIL_RE.test(email) &&
@@ -41,8 +44,11 @@ export function AuthForm({ mode, action, googleAuthUrl }: Props) {
     setPending(true);
     try {
       const result = await action(undefined, new FormData(e.currentTarget));
-      if (result?.redirectTo) router.push(result.redirectTo);
-      else if (result?.error) toast.error(result.error);
+      if (result?.redirectTo) {
+        router.replace(returnTo ?? result.redirectTo);
+        return;
+      }
+      if (result?.error) toast.error(result.error);
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Something went wrong.");
     } finally {
