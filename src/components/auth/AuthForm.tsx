@@ -1,6 +1,7 @@
 "use client";
+
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -30,8 +31,8 @@ export function AuthForm({ mode, action, googleAuthUrl }: Props) {
   const [emailError, setEmailError] = useState("");
   const isSignup = mode === "signup";
 
-  const params = new URLSearchParams(window.location.search);
-  const returnTo = params.get("returnTo");
+  const searchParams = useSearchParams();
+  const returnTo = searchParams.get("returnTo");
 
   const isValid: boolean = isSignup
     ? name.trim().split(/\s+/).length >= 2 &&
@@ -45,9 +46,12 @@ export function AuthForm({ mode, action, googleAuthUrl }: Props) {
     try {
       const result = await action(undefined, new FormData(e.currentTarget));
       if (result?.redirectTo) {
-        router.replace(returnTo ?? result.redirectTo);
+        router.replace(
+          returnTo && returnTo.startsWith("/") ? returnTo : result.redirectTo
+        );
         return;
       }
+
       if (result?.error) toast.error(result.error);
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Something went wrong.");
