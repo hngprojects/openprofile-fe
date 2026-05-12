@@ -6,7 +6,7 @@ const PrivacyHero = () => {
   const [query, setQuery] = useState<string>("");
   return (
     <div className="bg-[#DBEFF2] w-screen h-80 pt-20 lg:pt-36">
-      <div className="flex flex-col max-w-2xl gap-3 lg:ml-16 p-3">
+      <div className="flex flex-col max-w-2xl gap-3 lg:ml-32 p-3">
         <div>
           <h3 className="text-3xl font-bold">Privacy Policy</h3>
           <p className="font-bold">Last updated on the 10th of May 2026</p>

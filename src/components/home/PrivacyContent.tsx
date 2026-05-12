@@ -1,6 +1,17 @@
 import React from "react";
 
-const tableOfContent = [
+interface TableOfContentItem {
+  heading: string;
+  content:
+    | string
+    | {
+        text: string;
+        list?: string[];
+        footer?: string;
+      };
+}
+
+const tableOfContent: TableOfContentItem[] = [
   {
     heading: "1. Introduction",
     content:
@@ -8,70 +19,157 @@ const tableOfContent = [
   },
   {
     heading: "2. About Open Profile",
-    content:
-      " Open Profile is a public profile and link-sharing platform that allows users to: \nCreate public digital identity pages \n Share links and social profiles \nDiscover other public profiles \nSearch for users without requiring authentication \nInteract with publicly available creator and personal content \nBecause Open Profile is designed around discoverability, certain profile information may be publicly accessible and indexed by search engines.",
+    content: {
+      text: "Open Profile is a public profile and link-sharing platform that allows users to:",
+      list: [
+        "Create public digital identity pages",
+        "Share links and social profiles",
+        "Discover other public profiles",
+        "Search for users without requiring authentication",
+        "Interact with publicly available creator and personal content",
+      ],
+      footer:
+        "Because Open Profile is designed around discoverability, certain profile information may be publicly accessible and indexed by search engines.",
+    },
   },
   {
     heading: "3. Information We Collect",
-    content:
-      "We may collect the following information when you use our Service: Information You Provide \nName \nUsername \nEmail address \nProfile photo \nBiography and public profile details\nSocial media links\nMessages or support requests\nAutomatically Collected Information\nIP address\nDevice and browser information\nUsage activity\nCookies and analytics data\nApproximate location information\nPublic Profile Information\nInformation you publish on your profile may be publicly visible and searchable.",
+    content: {
+      text: "We collect information to provide and improve our Services. This includes:",
+      list: [
+        "Name",
+        "Username",
+        "Email address",
+        "Profile photo",
+        "Biography and public profile details",
+        "Social media links",
+        "Messages or support requests ",
+        "Automatically Collected Information ",
+        "IP address ",
+        "Device and browser information ",
+        "Usage activity ",
+        "Cookies and analytics data ",
+        "Approximate location information ",
+      ],
+      footer:
+        " Public Profile Information Information you publish on your profile may be publicly visible and searchable.",
+    },
   },
   {
     heading: "4. How We Use Your Information",
-    content:
-      "We use your information to:\nCreate and manage accounts\nDisplay public profiles\nImprove platform performance\nPersonalize user experience\nCommunicate updates and support messages\nPrevent fraud, abuse, and unauthorized access",
+    content: {
+      text: "We use your information to:",
+      list: [
+        "Create and manage accounts",
+        "Display public profiles",
+        "Improve platform performance",
+        "Personalize user experience",
+        "To prevent fraud and ensure security",
+        "Communicate updates and support messages",
+        "Prevent fraud, abuse, and unauthorized access",
+        "Comply with legal obligations",
+        "",
+      ],
+      footer:
+        "We process personal information in accordance with applicable privacy and data protection laws",
+    },
   },
   {
     heading: "5. Public Profiles And Search Visibility",
-    content:
-      "Open Profile is designed to create public profiles that are discoverable by search engines. Information you include in your profile may be indexed and visible to the public. You can control the visibility of certain profile elements, but some information may still be accessible through search engines.",
+    content: {
+      text: "Open Profile is designed as a public-facing platform By creating a public profile, you understand that:",
+      list: [
+        "Your profile may appear in search results",
+        "Search engines may index your content",
+        "Other users may view and share your profile",
+        "Public content may remain temporarily cached after deletion",
+      ],
+      footer:
+        "Users should avoid publishing confidential or sensitive personal information publicly.",
+    },
   },
   {
     heading: "6. Cookies And Tracking Technologies",
-    content:
-      "We use cookies and similar tracking technologies to enhance your experience, analyze usage, and improve our Services. You can manage your cookie preferences through your browser settings.",
+    content: {
+      text: "We use cookies and similar technologies to:",
+      list: [
+        "Keep users signed in",
+        "Remember preferences",
+        "Analyze traffic and engagement",
+        "Improve security and performance",
+      ],
+      footer:
+        "Users may manage or disable cookies through their browser settings, though some features may not function properly.",
+    },
   },
   {
     heading: "7. Sharing And Disclosure of Information",
-    content:
-      "We do not sell your personal information. We may share information with third-party service providers who help us operate our platform, but they are obligated to keep your information confidential. We may also disclose information if required by law or to protect our rights.",
+    content: {
+      text: "We may share information with:",
+      list: [
+        "Service providers and hosting partners",
+        "Analytics and payment providers",
+        "Legal authorities where required by law",
+        "Business partners during mergers or acquisitions",
+        "We do not sell personal information in the traditional sense.",
+        "Public profile information may be visible to anyone using the internet.",
+      ],
+    },
   },
   {
     heading: "8. Data Protection And User Rights",
-    content:
-      "We implement security measures to protect your information from unauthorized access. You have the right to access, correct, or delete your personal information. You can also opt-out of certain communications and manage your profile visibility settings.",
+    content: {
+      text: "We implement reasonable technical and organizational safeguards to protect personal information. Depending on your location, you may have rights to:",
+      list: [
+        "Access your data",
+        "Correct inaccurate information",
+        "Request deletion of your data",
+        "Restrict or object to certain processing activities",
+        "Withdraw consent where applicable",
+        "Open Profile aims to comply with applicable laws including:",
+        "Nigeria Data Protection Act (NDPA)",
+        "General Data Protection Regulation (GDPR)",
+        "California Consumer Privacy Act (CCPA/CPRA)",
+      ],
+    },
   },
 
   {
     heading: "9. Children’s Privacy",
-    content:
-      "Open Profile is not intended for children under the age required by applicable law.We do not knowingly collect personal information from children without proper authorization or consent where required. If we discover that a child has provided personal data unlawfully, we may remove such information.",
+    content: {
+      text: "Open Profile is not intended for children under the age required by applicable law.We do not knowingly collect personal information from children without proper authorization or consent where required. If we discover that a child has provided personal data unlawfully, we may remove such information.",
+    },
   },
   {
     heading: "10. Changes To This Privacy Policy And Contact Information",
-    content:
-      "We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page. If you have any questions about this Privacy Policy, please contact us at ",
+    content: {
+      text: "We may update this Privacy Policy periodically to reflect changes in our practices, technologies, or legal obligations.Continued use of the Service after updates constitutes acceptance of the revised Privacy Policy.For questions, requests, or privacy-related concerns, contact:Open Profile Privacy Team  Email: privacy@openprofile.com  Support: support@openprofile.com",
+    },
   },
 ];
-
 const PrivacyContent = () => {
   return (
     <div>
       {tableOfContent.map((item, index) => (
-        <div className="mt-6" key={index}>
+        <div className="mt-6 space-y-4" key={index}>
           <h4 className="font-bold text-3xl">{item.heading}</h4>
-          {item.content && item.content.includes("\n") ? (
-            <ul className="list-disc pl-5">
-              {item.content
-                .split("\n")
-                .map((line) => line.trim())
-                .filter(Boolean)
-                .map((line, i) => (
-                  <li key={i}>{line}</li>
-                ))}
-            </ul>
-          ) : (
+
+          {typeof item.content === "string" ? (
             <p>{item.content}</p>
+          ) : (
+            <>
+              {item.content.text && <p>{item.content.text}</p>}
+
+              {item.content.list && (
+                <ul className="list-disc pl-5 space-y-2">
+                  {item.content.list.map((listItem, i) => (
+                    <li key={i}>{listItem}</li>
+                  ))}
+                </ul>
+              )}
+
+              {item.content.footer && <p>{item.content.footer}</p>}
+            </>
           )}
         </div>
       ))}

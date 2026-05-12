@@ -11,7 +11,7 @@ const PrivacyPolicy = () => {
     <div className="min-h-screen bg-white font-sans selection:bg-[#065E69] selection:text-white overflow-hidden text-primary">
       <Navbar />
       <PrivacyHero />
-      <div className="flex flex-col lg:flex-row lg:max-w-4xl mx-auto gap-10 py-16 px-4">
+      <div className="flex flex-col lg:flex-row lg:max-w-6xl mx-auto gap-10 py-16 px-4">
         <div className="flex-1">
           <PrivacyTable />
         </div>
