@@ -60,11 +60,7 @@ export function Navbar() {
 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-3">
-            <Link
-              href="/login"
-              className="flex items-center justify-center px-[14px] py-[8px] h-[36px] bg-[#FAFAFA] rounded-[8px] text-[#087583] font-semibold text-[13px] hover:bg-[#E5F4F6] transition-colors"
-              style={{ fontFamily: "'Inter', sans-serif" }}
-            >
+            <Link href="/login" className="flex items-center justify-center px-[16px] py-[12px] h-[44px] bg-[#FAFAFA] rounded-[8px] text-[#087583] font-semibold text-[15px] hover:bg-[#E5F4F6] transition-colors" style={{ fontFamily: "'Inter', sans-serif" }}>
               Login
             </Link>
             <Link
