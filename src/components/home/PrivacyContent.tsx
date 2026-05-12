@@ -1,4 +1,3 @@
-import { head } from "framer-motion/client";
 import React from "react";
 
 const tableOfContent = [
