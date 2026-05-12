@@ -6,8 +6,15 @@ export function Opportunities() {
     <section className="w-full max-w-6xl mx-auto px-4 md:px-8 py-20">
       <div className="relative mb-12">
         <div className="rounded-[24px] bg-[#F2FDFE] pl-3.5 pr-5.5 w-fit flex items-center gap-1 h-7.5 mb-4">
-          <Image src="/target_assets/icon-flash.svg" alt="" width={16} height={16} />
-          <p className="font-medium text-[12px] leading-4 text-brand font-sfpror">Opportunities</p>
+          <Image
+            src="/target_assets/icon-flash.svg"
+            alt=""
+            width={16}
+            height={16}
+          />
+          <p className="font-medium text-[12px] leading-4 text-brand font-sfpror">
+            Opportunities
+          </p>
         </div>
         <h2 className="text-[32px] md:text-[46px] font-bold tracking-tight text-[#050505] leading-tight">
           Scattered presence? Hard to verify?

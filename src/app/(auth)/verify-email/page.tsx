@@ -22,8 +22,11 @@ export default function VerifyEmailPage() {
     e.preventDefault();
     setPending(true);
     try {
-      const result = await verifyEmailOtp(undefined, new FormData(e.currentTarget));
-      if (result?.redirectTo) router.push(result.redirectTo);
+      const result = await verifyEmailOtp(
+        undefined,
+        new FormData(e.currentTarget)
+      );
+      if (result?.redirectTo) router.replace(result.redirectTo);
       else if (result?.error) toast.error(result.error);
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Something went wrong.");
