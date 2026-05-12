@@ -6,12 +6,14 @@ const rules = [
   { label: "At least 8 characters", test: (p: string) => p.length >= 8 },
   { label: "At least one number", test: (p: string) => /\d/.test(p) },
   { label: "At least one uppercase", test: (p: string) => /[A-Z]/.test(p) },
+  { label: "At least one special character", test: (p: string) => /[^A-Za-z0-9]/.test(p) },
 ];
 
 type Props = {
-  value: string;
+  value?: string;
   onChange: (v: string) => void;
   showRules?: boolean;
+  required?: boolean;
   autoComplete?: string;
 };
 
@@ -19,6 +21,7 @@ export function PasswordField({
   value,
   onChange,
   showRules,
+  required,
   autoComplete = "current-password",
 }: Props) {
   const [show, setShow] = useState(false);
@@ -32,10 +35,9 @@ export function PasswordField({
           name="password"
           type={show ? "text" : "password"}
           placeholder="Enter your password"
-          required
+          required={required}
           autoComplete={autoComplete}
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
+          {...(value !== undefined ? { value, onChange: (e) => onChange(e.target.value) } : {})}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
           className="h-11 pr-10 bg-[#FAFAFA] border border-[#EDEDED] shadow-none placeholder:text-[#747474] transition-all duration-200 hover:border-[#ABABAB] hover:bg-white hover:shadow-sm"
@@ -82,11 +84,12 @@ export function PasswordField({
 
       {showRules &&
         (() => {
-          const metCount = rules.filter((r) => r.test(value)).length;
+          const v = value ?? "";
+          const metCount = rules.filter((r) => r.test(v)).length;
           const allMet = metCount === rules.length;
 
           const label =
-            value.length === 0
+            v.length === 0
               ? "Password must contain:"
               : metCount <= 1
                 ? "Weak password. Must contain:"
@@ -109,7 +112,7 @@ export function PasswordField({
                 )}
                 <div className="flex flex-col gap-[12px]">
                   {rules.map((rule) => {
-                    const met = rule.test(value);
+                    const met = rule.test(v);
                     return (
                       <div key={rule.label} className="flex items-center gap-2">
                         <div
@@ -150,6 +153,6 @@ export function PasswordField({
   );
 }
 
-export function allPasswordRulesMet(password: string) {
-  return rules.every((r) => r.test(password));
+export function allPasswordRulesMet(password: string | undefined) {
+  return rules.every((r) => r.test(password ?? ""));
 }
