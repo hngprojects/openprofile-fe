@@ -51,7 +51,7 @@ export function Navbar() {
               Pricing
             </Link>
             <Link
-              href="#faq"
+              href="/faq"
               className="text-[#050505] font-medium text-[16px] leading-[24px] hover:text-[#087583] transition-colors"
               style={{ fontFamily: "'Afacad', sans-serif" }}
             >
@@ -61,7 +61,11 @@ export function Navbar() {
 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-3">
-            <Link href="/login" className="flex items-center justify-center px-[16px] py-[12px] h-[44px] bg-[#FAFAFA] rounded-[8px] text-[#087583] font-semibold text-[15px] hover:bg-[#E5F4F6] transition-colors" style={{ fontFamily: "'Inter', sans-serif" }}>
+            <Link
+              href="/login"
+              className="flex items-center justify-center px-[16px] py-[12px] h-[44px] bg-[#FAFAFA] rounded-[8px] text-[#087583] font-semibold text-[15px] hover:bg-[#E5F4F6] transition-colors"
+              style={{ fontFamily: "'Inter', sans-serif" }}
+            >
               Login
             </Link>
             <Link
