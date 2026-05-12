@@ -51,7 +51,7 @@ export function Navbar() {
               Pricing
             </Link>
             <Link
-              href="#faq"
+              href="/faq"
               className="text-[#050505] font-medium text-[16px] leading-[24px] hover:text-[#087583] transition-colors"
               style={{ fontFamily: "'Afacad', sans-serif" }}
             >
