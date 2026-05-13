@@ -60,6 +60,7 @@ export function WaitlistCTA() {
           width={400}
           height={400}
           className="h-[400px] w-auto object-contain"
+          style={{ width: "auto" }}
         />
       </div>
       <div className="absolute right-0 top-0 h-auto w-auto select-none pointer-events-none hidden lg:block">
@@ -69,6 +70,7 @@ export function WaitlistCTA() {
           width={400}
           height={600}
           className="h-[400px] w-auto object-contain"
+          style={{ width: "auto" }}
         />
       </div>
 

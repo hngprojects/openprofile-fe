@@ -62,6 +62,7 @@ export function WaitlistHero() {
           height={600}
           priority
           className="w-auto h-[500px]"
+          style={{ width: "auto" }}
         />
       </div>
       <div className="absolute -right-0 -top-[5px] hidden lg:block select-none pointer-events-none">
@@ -72,17 +73,19 @@ export function WaitlistHero() {
           height={600}
           priority
           className="w-auto h-[500px]"
+          style={{ width: "auto" }}
         />
       </div>
 
       {/* Logo */}
       <motion.div {...fadeUp(0)} className="mb-16 md:mb-24 z-10 mt-10">
         <Image
-          src="/logo.png"
+          src="/logo.svg"
           alt="Open Profile"
           width={170}
           height={32}
           className="h-[32px] w-auto"
+          style={{ width: "auto" }}
         />
       </motion.div>
 
