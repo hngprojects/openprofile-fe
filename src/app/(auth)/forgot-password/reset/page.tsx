@@ -26,11 +26,12 @@ export default function ResetPasswordPage() {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setPending(true);
+
+    const formData = new FormData();
+    formData.append("resetToken", token);
+    formData.append("newPassword", password);
     try {
-      const result = await resetPassword(
-        undefined,
-        new FormData(e.currentTarget)
-      );
+      const result = await resetPassword(undefined, formData);
       if (result?.redirectTo) router.push(result.redirectTo);
       else if (result?.error) toast.error(result.error);
     } catch (err) {
@@ -43,7 +44,7 @@ export default function ResetPasswordPage() {
   return (
     <AuthLayout>
       <div className="text-center mb-2">
-        <h1 className="text-2xl font-bold text-[#050505]">Reset Password</h1>
+        <h1 className="text-2xl font-bold text-primary">Reset Password</h1>
         <p className="text-sm text-gray-500 mt-1">
           Choose a new password for your account
         </p>
@@ -88,7 +89,7 @@ export default function ResetPasswordPage() {
         <Button
           type="submit"
           disabled={!isValid || pending}
-          className="w-full h-11 font-semibold rounded-lg shadow-none transition-opacity bg-[#087583] hover:bg-[#065E69] text-white border-0 disabled:opacity-50"
+          className="w-full h-11 font-semibold rounded-lg shadow-none transition-opacity bg-brand hover:bg-[#065E69] text-white border-0 disabled:opacity-50"
         >
           {pending ? "Resetting…" : "Continue"}
         </Button>
